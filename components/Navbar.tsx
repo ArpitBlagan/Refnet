@@ -5,13 +5,14 @@ import {
   RiMenu4Line,
   RiNavigationLine,
 } from "@remixicon/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const midLinks = [
   { label: "About us", url: "/about" },
   { label: "Features", url: "/features" },
-  { label: "Pricing", url: "" },
+  { label: "Posts", url: "" },
 ];
 
 const Navbar = () => {
@@ -38,7 +39,10 @@ const Navbar = () => {
     };
   }, [lastScrollY]);
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, ease: "circIn" }}
       className={`flex items-center pt-7 mx-7  border-b border-zinc-800 overflow-hidden
         ${isVisible ? "translate-y-[0]" : "translate-y-[-100%]"}
          sticky  z-10 backdrop-blur-sm 
@@ -66,7 +70,7 @@ const Navbar = () => {
               <Link
                 href=""
                 key={index}
-                className="hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
+                className="hover:bg-gray-700 py-1 px-2 rounded-xl  ease-in-out duration-100"
               >
                 {ele.label}
               </Link>
@@ -98,7 +102,7 @@ const Navbar = () => {
       <div className="flex md:hidden items-center justify-end flex-1">
         <RiMenu4Line />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

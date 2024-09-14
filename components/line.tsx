@@ -4,7 +4,7 @@ const Line = () => {
   const finalPath = "M 10 150 Q 500 150 990 150";
   return (
     <div
-      className="h-[300px] w-[8/12] z-10 relative flex items-center justify-center"
+      className="h-[300px] w-[8/12] z-10 flex items-center justify-center pt-0"
       onMouseMove={(event) => {
         const div = event.currentTarget;
         // Calculate mouse position relative to the div
