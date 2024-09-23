@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id String @id @default(uuid())
+  name String?
+  email String @unique
+  password String?  
+  description String?
+  profileImage String?
+  githubLink String?
+  LinkedinLink String?
+  twitterLink String?
+  resumeLink  String?
+  githubId String?
+  accessTokem String?
+  joinedAt DateTime @default(now())
+  followers   Follower[] @relation("Followers")
+  following   Follower[] @relation("Following")
+  comments Comment[]
+  posts  Post[]
+  likes Like[]
+  notification Notification[]
+  otherNotification Notification[]@relation("Actor")
+  profileView Int @default(0)
+}
+
+model Follower {
+  id        String  @id @default(uuid())
+  follower  User    @relation("Following", fields: [followerId], references: [id])
+  followerId String
+  following User    @relation("Followers", fields: [followingId], references: [id])
+  followingId String
+  createdAt DateTime @default(now())
+}
+
+model Post{
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId],references: [id])
+  caption String
+  media String[] @default([])
+  postedAt DateTime @default(now())
+  comments Comment[]
+  likes Like[]
+  notifications Notification[]
+}
+
+model Notification{
+  id String @id @default(uuid())
+  type String
+  message String
+  userId String
+  user User @relation(fields: [userId],references: [id])
+  actor       User     @relation("Actor", fields: [actorId], references: [id])  
+  actorId     String                               
+  post        Post?    @relation(fields: [postId], references: [id]) 
+  postId      String?                              
+  isRead      Boolean  @default(false)             
+  createdAt   DateTime @default(now()) 
+}
+
+model Like{
+  id String @id @default(uuid())
+  userId String
+  postId String
+  user  User @relation(fields: [userId],references: [id])
+  post Post @relation(fields: [postId],references: [id])
+}
+
+model Comment{
+  id String @id @default(uuid())
+  userId String
+  postId String
+  user  User @relation(fields: [userId],references: [id])
+  post Post @relation(fields: [postId],references: [id])
+  comment String
+  parentId     String?
+  parent       Comment?    @relation("ParentComment", fields: [parentId], references: [id])
+  children     Comment[]   @relation("ParentComment")
+  createdAt    DateTime    @default(now())
+}
+
+
+model Newsletter{
+  id String @id @default(uuid())
+  email String
+  subscribedAt DateTime
+}
+
+enum PhotoType{
+  PHOTO
+  VIDEO
+}

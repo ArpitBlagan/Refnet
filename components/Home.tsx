@@ -13,7 +13,8 @@ const Home = () => {
           <div className="flex items-center flex-col font-mono uppercase relative">
             <div className="mb-10 md:mb-5">
               <Link
-                href="/"
+                href="https://github.com/ArpitBlagan/Refnet"
+                target="_blank"
                 className="flex md:text-sm hover:bg-gray-800  font-semibold items-center tracking-tighter gap-2 border border-zinc-700 py-2 px-4 rounded-xl"
               >
                 <RiGithubFill />
@@ -40,7 +41,7 @@ const Home = () => {
                 delay: 3 * 0.2,
                 ease: "easeInOut",
               }}
-              className="text-[5vw] tracking-tight"
+              className="text-[5vw] tracking-tight font-bold"
             >
               to showcase your Work.
             </motion.h1>

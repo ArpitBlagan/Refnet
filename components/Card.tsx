@@ -36,7 +36,7 @@ const Card = ({ ele, index }: any) => {
     <motion.div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className=" flex flex-col items-center justify-center bg-black px-5  py-10 rounded-t-2xl border border-zinc-800  gap-4"
+      className=" flex flex-col shadow-lg items-center justify-center  px-5  py-10 rounded-3xl border border-zinc-800  gap-4"
       key={index}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -62,17 +62,9 @@ const Card = ({ ele, index }: any) => {
           {ele.label}
         </h1>
 
-        <p className="font-normal text-base text-slate-500 mb-4 relative z-50">
+        <p className="font-normal text-base text-white/40 mb-4 relative z-50">
           {ele.description}
         </p>
-        <Link
-          href={ele.link}
-          className="flex px-4 py-2 gap-1
-                    hover:gap-3 duration-300 ease-in-out border border-zinc-700
-                    rounded-t-xl w-8/12 flex items-center justify-center text-md"
-        >
-          {ele.linkText} <RiArrowRightLine className="rotate-[-45deg]" />
-        </Link>
       </motion.div>
     </motion.div>
   );

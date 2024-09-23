@@ -22,6 +22,9 @@ const config: Config = {
           },
         },
       },
+      fontFamily: {
+        head: ["Luckiest Guy", "cursive"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

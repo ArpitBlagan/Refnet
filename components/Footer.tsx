@@ -22,9 +22,9 @@ const Footer = () => {
             </svg>
             <h1 className="text-2xl md:text-3xl">Refnet </h1>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-end py-10">
+          <div className="flex-1 flex flex-col items-center justify-end py-10 gap-4">
             <div className="md:w-1/2 flex items-center justify-start w-full">
-              <p className="md:text-xl font-semibold text-white/40">
+              <p className="md:text-xl font-semibold text-white/40 text-start">
                 Don't miss a beat
                 <br />
                 Subscribe to out newsletter
@@ -39,14 +39,14 @@ const Footer = () => {
                 onClick={(e) => {
                   e.preventDefault();
                 }}
-                className="py-2 px-4"
+                className="py-2 px-4 hover:bg-gray-700 duration-300 ease-in-out"
               >
                 Submit
               </Button>
             </div>
           </div>
         </div>
-        <p className="text-slate-400">
+        <p className="text-slate-400 text-center px-4 py-4">
           We build Refnet to help developers to showcase their proff of work
           effortlessly and stand out in the eye of recruiters.
         </p>

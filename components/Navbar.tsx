@@ -1,22 +1,34 @@
 "use client";
 import {
   RiArrowRightFill,
+  RiCloseLine,
   RiGithubFill,
   RiMenu4Line,
-  RiNavigationLine,
+  RiUserFill,
 } from "@remixicon/react";
 import { motion } from "framer-motion";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "./ui/button";
+import Image from "next/image";
 const midLinks = [
   { label: "About us", url: "/about" },
-  { label: "Features", url: "/features" },
-  { label: "Posts", url: "" },
+  { label: "Posts", url: "/posts" },
 ];
 
 const Navbar = () => {
+  const { data: session, status } = useSession();
   const [isVisible, setIsVisible] = useState(true);
+  const [menuBar, setMenuBar] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -43,10 +55,10 @@ const Navbar = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1, ease: "circIn" }}
-      className={`flex items-center pt-7 mx-7  border-b border-zinc-800 overflow-hidden
+      className={`flex items-center pt-7 mx-7  border-b border-zinc-800 overflow-hidden 
         ${isVisible ? "translate-y-[0]" : "translate-y-[-100%]"}
          sticky  z-10 backdrop-blur-sm 
-    md:backdrop-blur-lg absolute top-0 overflow-hidden`}
+    lg:backdrop-blur-lg absolute top-0`}
       style={{ transition: "transform 0.3s ease-in-out" }}
     >
       <Link href="/" className="flex items-center gap-2">
@@ -63,12 +75,12 @@ const Navbar = () => {
         </svg>
         <p>Refnet</p>
       </Link>
-      <div className="flex-grow items-center justify-center  gap-4 hidden md:flex">
+      <div className="flex-grow items-center justify-center  gap-4 hidden lg:flex">
         <div className="flex items-center justify-center gap-10">
           {midLinks.map((ele, index) => {
             return (
               <Link
-                href=""
+                href={ele.url}
                 key={index}
                 className="hover:bg-gray-700 py-1 px-2 rounded-xl  ease-in-out duration-100"
               >
@@ -85,22 +97,110 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      <div className="md:flex hidden gap-5 items-center   justify-end">
-        <Link
-          href="/signin"
-          className="hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
-        >
-          Signin
-        </Link>
-        <Link
-          href="/sigup"
-          className=" bg-gray-200 text-black hover:bg-gray-300 py-3 px-2 rounded-xl duration-1 ease-in-out duration-100"
-        >
-          Get started
-        </Link>
+      <div className="lg:flex hidden gap-5 items-center   justify-end">
+        {status == "authenticated" ? (
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="flex gap-2 items-center cursor-pointer hover:bg-gray-700 duration-300 ease-in-out py-2 px-4 rounded-xl">
+                  <RiUserFill />
+                  <p>Profile</p>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>
+                  <Link href="/profile" className="flex items-center gap-3">
+                    <Image
+                      src={session.user?.image || ""}
+                      alt="default"
+                      height={50}
+                      width={50}
+                      className="rounded-full"
+                    />
+                    <p>{session.user?.name}</p>
+                  </Link>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>{session.user?.email}</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      signOut();
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Link
+              href="/signin"
+              className="hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/signup"
+              className=" bg-gray-200 text-black hover:bg-gray-300 py-3 px-2 rounded-xl duration-1 ease-in-out duration-100"
+            >
+              Get started
+            </Link>
+          </div>
+        )}
       </div>
-      <div className="flex md:hidden items-center justify-end flex-1">
-        <RiMenu4Line />
+      <div className="flex lg:hidden items-center justify-end flex-1">
+        <RiMenu4Line
+          onClick={() => {
+            setMenuBar(true);
+          }}
+        />
+      </div>
+      <div
+        className={`bg-zinc-200 z-99 text-black flex flex-col justify-center gap-3 px-3 py-2 items-center w-[300px] absolute top-10 right-0
+        ${menuBar ? "translate-x-[0]" : "translate-x-[130%]"}
+      `}
+        style={{ transition: "transform .8s ease-in-out" }}
+      >
+        <div className="flex items-center justify-end w-full">
+          <RiCloseLine
+            onClick={() => {
+              setMenuBar(false);
+            }}
+          />
+        </div>
+        {midLinks.map((ele, index) => {
+          return (
+            <Link
+              href=""
+              key={index}
+              className="hover:bg-gray-300 py-1 px-2 rounded-xl w-full  ease-in-out duration-100"
+            >
+              {ele.label}
+            </Link>
+          );
+        })}
+        {status === "authenticated" ? (
+          <div>{status}</div>
+        ) : (
+          <div className="hidden">
+            <Link
+              href="/signin"
+              className="hover:bg-gray-300 py-1 px-2 rounded-xl w-full duration-1 ease-in-out duration-100"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/signup"
+              className=" text-black w-full hover:bg-gray-300 py-3 px-2 rounded-xl duration-1 ease-in-out duration-100"
+            >
+              Get started
+            </Link>
+          </div>
+        )}
       </div>
     </motion.div>
   );
