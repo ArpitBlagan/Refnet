@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TextHoverEffect } from "./ui/text-hover-effect";
 import Link from "next/link";
 import { RiGithubFill } from "@remixicon/react";
+import { HoverBorderGradient } from "./ui/hover-background";
 
 const Home = () => {
   return (
@@ -12,14 +13,21 @@ const Home = () => {
         <div className="flex flex-col gap-2 justify-center">
           <div className="flex items-center flex-col font-mono uppercase relative">
             <div className="mb-10 md:mb-5">
-              <Link
-                href="https://github.com/ArpitBlagan/Refnet"
-                target="_blank"
-                className="flex md:text-sm hover:bg-gray-800  font-semibold items-center tracking-tighter gap-2 border border-zinc-700 py-2 px-4 rounded-xl"
-              >
-                <RiGithubFill />
-                Give a ⭐️
-              </Link>
+              <div className=" flex justify-center text-center">
+                <HoverBorderGradient
+                  containerClassName="rounded-full"
+                  className="flex items-center space-x-2"
+                >
+                  <Link
+                    href="https://github.com/ArpitBlagan/Refnet"
+                    target="_blank"
+                    className="flex md:text-sm   font-semibold items-center tracking-tighter gap-2 "
+                  >
+                    <RiGithubFill />
+                    Give a ⭐️
+                  </Link>
+                </HoverBorderGradient>
+              </div>
             </div>
             <motion.div
               initial={{ opacity: 0, y: 50 }}

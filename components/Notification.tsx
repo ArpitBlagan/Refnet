@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 const Notification = () => {
+  const router = useRouter();
   const [notifications, setNotifications] = useState<any[]>([
     {
       title: "New follow request",
@@ -22,7 +23,10 @@ const Notification = () => {
               key={index}
               className="px-4 py-2 
               flex-flex-col gap-1 cursor-pointer
-              duration-300 ease-in-out hover:bg-gray-900"
+              duration-300 ease-in-out hover:bg-gray-900 border-t border-b border-zinc-900 rounded-md"
+              onClick={() => {
+                router.push("/notifications");
+              }}
             >
               <p className="text-bold text-green-600">{ele.title}</p>
               <p className="text-gray-600">

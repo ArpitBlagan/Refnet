@@ -16,6 +16,7 @@ import image from "@/app/images/github.webp";
 import Card from "@/components/Card";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import hero from "../images/Add a little bit of body text (1).png";
+import { HoverBorderGradient } from "@/components/ui/hover-background";
 const featuers = [
   {
     label: "Get Inspired",
@@ -166,7 +167,7 @@ export default function Landing() {
           className="flex-1 h-[300px] w-[400px] "
         />
       </div>
-      <div className=" w-full h-[470px] flex items-center mt-3 justify-center relative overflow-hidden">
+      <div className=" w-full h-[670px] flex items-center mt-3 justify-center relative overflow-hidden">
         <Image src={image} alt="default" className="object-center" />
         <div className="absolute bottom-10 md:bottom-20  flex flex-col items-center gap-3 px-4">
           <h1 className="text-3xl font-semibold uppercase tracking tight text-center">
@@ -177,14 +178,16 @@ export default function Landing() {
             Think you can improve Refnet? Create a pull request and let others
             enjoy the benefits!
           </p>
-          <Link
-            href="https://github.com/ArpitBlagan/Refnet"
-            target="_blank"
-            className="flex uppercase items-center justify-center gap-2 border border-slate-800 w-1/2 py-2 rounded-xl hover:gap-4 duration-300 hover:bg-gray-700 ease-in-out"
-          >
-            contribute
-            <RiArrowRightSLine />
-          </Link>
+          <HoverBorderGradient containerClassName="rounded-full" className="">
+            <Link
+              href="https://github.com/ArpitBlagan/Refnet"
+              target="_blank"
+              className="flex uppercase items-center justify-center gap-2     hover:gap-4 duration-300 ease-in-out"
+            >
+              <p>contribute</p>
+              <RiArrowRightSLine className="text-white" />
+            </Link>
+          </HoverBorderGradient>
         </div>
       </div>
     </div>

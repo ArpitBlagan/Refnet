@@ -17,6 +17,21 @@ getProfileInfo = async () => {
     });
     return { message: "fetched", ...details };
   } catch (err) {
+    console.log(err);
     return { error: "something went wrong while fetching user info 🥲." };
+  }
+};
+
+export const getRecentRegisteredUser = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        joinedAt: "desc",
+      },
+      take: 6,
+    });
+    return { message: "recent registered user", users };
+  } catch (err) {
+    return { error: "something went wrong." };
   }
 };
