@@ -21,7 +21,7 @@ import { Textarea } from "./ui/textarea";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { MediaFile } from "@/app/(playground)/upload/page";
-import { updateProfile } from "@/actions/upload";
+import { updateProfile } from "@/app/actions/upload";
 import { toast } from "sonner";
 
 const EditProfile = () => {

@@ -1,4 +1,4 @@
-import { getProfileInfo } from "@/actions/get-profile";
+import { getProfileInfo } from "@/app/actions/get-profile";
 import { isMissing, readableFormat } from "@/common";
 import EditProfile from "@/components/edit-profile";
 import PostCard from "@/components/post-card";
@@ -31,7 +31,7 @@ async function page() {
         className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
       flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
-        <div className="h-full flex flex-col gap-10 py-7 px-7 w-full">
+        <div className="mb-8 flex flex-col gap-10 py-7 px-7 w-full">
           <div className="flex items-center gap-4 py-7 border-b border-white ">
             <div>
               <h1 className="text-4xl font-bold">{res.name}</h1>
@@ -63,8 +63,18 @@ async function page() {
               </div>
               <p className="flex-1 text-start font-semibold text-md">
                 {res.description}
+                {res.resumeLink && (
+                  <Link
+                    href={res.resumeLink}
+                    className="flex items-center hover:underline duration-300 ease-in-out font-bold"
+                  >
+                    Resume
+                    <RiLinkM size={20} />
+                  </Link>
+                )}
               </p>
             </div>
+
             <div className="flex flex-col gap-4">
               <div>
                 <p className="flex items-center gap-1 text-gray-500 text-sm font-semibold">
@@ -84,15 +94,7 @@ async function page() {
                 </p>
               </div>
             </div>
-            {res.resumeLink && (
-              <Link
-                href={res.resumeLink}
-                className="flex items-center hover:underline duration-300 ease-in-out font-bold"
-              >
-                Resume
-                <RiLinkM size={20} />
-              </Link>
-            )}
+
             <div className="grid grid-cols-3 gap-3 ">
               {res.LinkedinLink && (
                 <Link
@@ -129,18 +131,18 @@ async function page() {
               )}
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-4 ">
-            {["Posts", "Likes"].map((ele, index) => {
-              return (
-                <div
-                  key={index}
-                  className="border-b-[3px] border-blue-400 h-full flex items-center justify-center"
-                >
-                  {ele}
-                </div>
-              );
-            })}
-          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-4 ">
+          {["Posts", "Likes"].map((ele, index) => {
+            return (
+              <div
+                key={index}
+                className="border-b-[3px] border-blue-400 h-full flex items-center justify-center"
+              >
+                {ele}
+              </div>
+            );
+          })}
         </div>
       </div>
     );

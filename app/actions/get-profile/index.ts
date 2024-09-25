@@ -35,3 +35,15 @@ export const getRecentRegisteredUser = async () => {
     return { error: "something went wrong." };
   }
 };
+
+export const getUserInfoById = async (id: string) => {
+  try {
+    const userInfo = await prisma.user.findFirst({
+      where: { id },
+      include: { posts: true, followers: true, following: true },
+    });
+    return userInfo;
+  } catch (err) {
+    return { error: "something went wrong." };
+  }
+};

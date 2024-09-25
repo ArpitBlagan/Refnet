@@ -1,4 +1,4 @@
-import { getRecentRegisteredUser } from "@/actions/get-profile";
+import { getRecentRegisteredUser } from "@/app/actions/get-profile";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

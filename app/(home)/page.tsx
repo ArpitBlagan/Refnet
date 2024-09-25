@@ -167,7 +167,7 @@ export default function Landing() {
           className="flex-1 h-[300px] w-[400px] "
         />
       </div>
-      <div className=" w-full h-[670px] flex items-center mt-3 justify-center relative overflow-hidden">
+      <div className=" w-full h-[470px] md:h-[670px] flex items-center mt-3 justify-center relative overflow-hidden">
         <Image src={image} alt="default" className="object-center" />
         <div className="absolute bottom-10 md:bottom-20  flex flex-col items-center gap-3 px-4">
           <h1 className="text-3xl font-semibold uppercase tracking tight text-center">

@@ -16,7 +16,7 @@ const signupSchema = z.object({
 type signup = z.infer<typeof signupSchema>;
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { registerUser } from "@/actions/auth";
+import { registerUser } from "@/app/actions/auth";
 import { useState } from "react";
 import { toast } from "sonner";
 const page = () => {

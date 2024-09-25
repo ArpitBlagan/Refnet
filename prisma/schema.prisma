@@ -76,21 +76,26 @@ model Notification{
 model Like{
   id String @id @default(uuid())
   userId String
-  postId String
+  postId String? 
+  commentId String?
   user  User @relation(fields: [userId],references: [id])
-  post Post @relation(fields: [postId],references: [id])
+  post Post? @relation(fields: [postId],references: [id])
+  comment Comment? @relation(fields: [commentId],references: [id])
+  @@unique([userId, postId])
+  @@unique([userId,commentId])
 }
 
 model Comment{
-  id String @id @default(uuid())
-  userId String
-  postId String
-  user  User @relation(fields: [userId],references: [id])
-  post Post @relation(fields: [postId],references: [id])
-  comment String
+  id           String @id @default(uuid())
+  userId       String
+  postId       String
+  user         User @relation(fields: [userId],references: [id])
+  post         Post @relation(fields: [postId],references: [id])
+  comment      String
   parentId     String?
   parent       Comment?    @relation("ParentComment", fields: [parentId], references: [id])
   children     Comment[]   @relation("ParentComment")
+  likes        Like[]
   createdAt    DateTime    @default(now())
 }
 
@@ -101,7 +106,3 @@ model Newsletter{
   subscribedAt DateTime
 }
 
-enum PhotoType{
-  PHOTO
-  VIDEO
-}

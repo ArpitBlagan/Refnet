@@ -1,12 +1,21 @@
 "use client";
-import { uploadFiles } from "@/actions/upload";
+import { uploadFiles } from "@/app/actions/upload";
 import { trimText } from "@/common";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { RiCloseLine, RiEmojiStickerLine, RiVideoLine } from "@remixicon/react";
-// import EmojiPicker from "emoji-picker-react";
+import { RiCloseLine, RiEmojiStickerLine } from "@remixicon/react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import EmojiPicker from "emoji-picker-react";
 import { useRef, useState } from "react";
 
 import { toast } from "sonner";
@@ -23,6 +32,7 @@ const page = () => {
   const [text, setText] = useState("");
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
   const [emojiVisi, setEmojiVisi] = useState(false);
+  const [type, setType] = useState("Normal");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -95,6 +105,18 @@ const page = () => {
         <h1 className="font-semibold text-3xl">Post about your project</h1>
       </div>
       <div className="max-w-2xl mx-auto p-4  rounded-lg shadow w-full relative">
+        <Select onValueChange={setType}>
+          <SelectTrigger className="w-full mb-4 bg-slate-900">
+            <SelectValue placeholder="Select a type" />
+          </SelectTrigger>
+          <SelectContent className="bg-slate-800 text-white">
+            <SelectGroup>
+              <SelectLabel>Types of post</SelectLabel>
+              <SelectItem value="apple">Normal</SelectItem>
+              <SelectItem value="banana">About my work</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <Textarea
           placeholder="What's happening?"
           value={text}
@@ -124,7 +146,7 @@ const page = () => {
             />
             {!emojiVisi && (
               <Button
-                className=""
+                className=" hidden md:flex"
                 variant={"outline"}
                 onClick={(e) => {
                   e.preventDefault();
@@ -137,6 +159,7 @@ const page = () => {
             {emojiVisi && (
               <Button
                 variant={"outline"}
+                className=" hidden md:flex"
                 onClick={(e) => {
                   e.preventDefault();
                   setEmojiVisi(false);
@@ -150,7 +173,9 @@ const page = () => {
             {text.length}/{MAX_CHARS}
           </div>
         </div>
-
+        <div className="absolute bottom-0 right-0 bg-black">
+          {emojiVisi && <EmojiPicker className="mt-10" />}
+        </div>
         <div className="grid grid-cols-2 gap-3 w-full my-4 overflow-y-scroll overflow-hidden ">
           {mediaFiles.length > 0 &&
             mediaFiles.map((media, index) => (
@@ -176,9 +201,6 @@ const page = () => {
                 </Button>
               </div>
             ))}
-          {/* <div className="absolute bottom-[-10]">
-            {emojiVisi && <EmojiPicker className="mt-10" />}
-          </div> */}
         </div>
         <Button
           onClick={handlePost}

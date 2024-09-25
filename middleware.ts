@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedPaths = ["/signin", "/signup"];
-const anotherPaths = ["/upload", "/profile"];
+const anotherPaths = ["/upload", "/profile", "notifications"];
 const isAuthenticated = (req: NextRequest) => {
   const sessionToken = req.cookies.get("next-auth.session-token"); // Adjust based on your auth mechanism
   return sessionToken !== undefined; // Return true if authenticated
@@ -22,5 +22,5 @@ export default function middlware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/signin", "/signup", "/upload"], // Apply only to these paths
+  matcher: ["/signin", "/signup", "/upload", "/notifications", "/profile"], // Apply only to these paths
 };

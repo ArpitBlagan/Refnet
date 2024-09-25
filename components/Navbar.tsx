@@ -21,7 +21,7 @@ import {
 import { Button } from "./ui/button";
 import Image from "next/image";
 const midLinks = [
-  { label: "About us", url: "/about" },
+  { label: "About", url: "/about" },
   { label: "Posts", url: "/posts" },
 ];
 
