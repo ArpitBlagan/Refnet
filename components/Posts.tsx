@@ -16,8 +16,8 @@ const Posts = () => {
     setLoading(true);
     ("use server");
     try {
-      const newPosts = await getPosts(POSTS_PER_PAGE, pageNumber);
-      console.log(newPosts);
+      const data = await getPosts(POSTS_PER_PAGE, pageNumber);
+      console.log(data);
       // setPosts((prev) => [
       //   ...prev,
       //   //@ts-ignore

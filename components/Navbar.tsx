@@ -20,6 +20,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { toast } from "sonner";
+import axios from "axios";
+import { formatNumber } from "@/common";
 const midLinks = [
   { label: "About", url: "/about" },
   { label: "Posts", url: "/posts" },
@@ -30,6 +33,21 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [menuBar, setMenuBar] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [stars, setStars] = useState(0);
+  useEffect(() => {
+    const getStars = async () => {
+      try {
+        const res = await axios.get(
+          "https://api.github.com/repos/arpitblagan/refnet/stargazers"
+        );
+        console.log(res.data);
+        setStars(res.data.length);
+      } catch (err) {
+        toast.error("Not able to fetch repo's stars");
+      }
+    };
+    getStars();
+  }, []);
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
@@ -92,7 +110,8 @@ const Navbar = () => {
             href=""
             className="flex items-center gap-1 hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
           >
-            <RiGithubFill />{" "}
+            <RiGithubFill />
+            <span className="text-gray-500">{formatNumber(stars)}</span>
             <RiArrowRightFill className="rotate-[-45deg] text-gray-600" />
           </Link>
         </div>

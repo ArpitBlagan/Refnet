@@ -66,7 +66,7 @@ const page = () => {
             }}
             className="flex flex-col gap-1"
           >
-            <p className="text-sm text-gray-600 font-bold">
+            <p className="text-sm  font-bold text-white">
               Developed by Arpit Blagan.
             </p>
             <div className="flex items-center justify-between">
@@ -85,7 +85,7 @@ const page = () => {
             </div>
             <Link
               href="mailto:arpitblagan27@example.com"
-              className="text-center text-gray-600 underline uppercase"
+              className="text-center text-gray-600 underline hover:text-white duration-300 ease-in-out"
               target="_blank"
             >
               Hire me.

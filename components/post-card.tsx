@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import RenderMedia from "./render-media";
 const PostCard = () => {
   const { data: session, status } = useSession();
   return (
@@ -51,17 +52,10 @@ const PostCard = () => {
       <div>
         <p className="font-semibold">caption</p>
       </div>
-      <div className="flex-1 px-7h-40">
-        related video or photos
-        <div className="h-[400px] flex items-center justify-center overflow-hidden">
-          <Image
-            src="https://d3e230op9b6du5.cloudfront.net/bg1 (1).jpg"
-            width={500}
-            height={400}
-            alt="Image"
-            className="object-cover rounded-xl"
-          />
-        </div>
+      <div className="flex-1 px-7h-40 w-full flex items-center justify-center">
+        <RenderMedia
+          media={["https://pirooo.s3.ap-southeast-2.amazonaws.com/back.mp4"]}
+        />
       </div>
       <div className="px-7 flex items-center gap-10">
         <RiHeart3Fill className="text-red-700" />
