@@ -50,6 +50,9 @@ const Footer = () => {
           We build Refnet to help developers to showcase their proof of work
           effortlessly and stand out in the eye of recruiters.
         </p>
+        <p className="text-slate-400 text-center">
+          Made by Arpit Blagan with ❤️.
+        </p>
         <div className="flex gap-4 items-center">
           <Link href="" className="text-sm underline text-slate-600">
             Github

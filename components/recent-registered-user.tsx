@@ -1,4 +1,5 @@
 import { getRecentRegisteredUser } from "@/app/actions/get-profile";
+import { readableFormat } from "@/common";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -31,8 +32,16 @@ const RecentRegisteredUser = async () => {
                   className="rounded-xl"
                 />
                 <h1 className="text-md font-semibold">{ele.name}</h1>
+                <p className="text-sm text-gray-700">
+                  Profile views: <span>{ele.profileView}</span>
+                </p>
               </div>
-              <p className="text-sm text-gray-700">{ele.email}</p>
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-700">{ele.email}</p>
+                <p className="text-sm text-gray-700">
+                  {readableFormat(new Date(ele.joinedAt))}
+                </p>
+              </div>
             </Link>
           );
         })}

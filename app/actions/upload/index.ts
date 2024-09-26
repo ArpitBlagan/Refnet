@@ -10,6 +10,7 @@ export const uploadFiles = async (formdata: FormData) => {
     return { error: "You are not logged in." };
   }
   const text = formdata.get("text");
+  const type = formdata.get("type");
   const files: any[] = formdata.getAll("files[]");
   if (!text) {
     return { error: "Invalid entry" };
@@ -36,6 +37,7 @@ export const uploadFiles = async (formdata: FormData) => {
     await prisma.post.create({
       data: {
         caption: text as string,
+        type: type == "WORK" ? "WORK" : "REFERAL",
         media: urls,
         userId: session.user.id as string,
       },

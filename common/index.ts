@@ -2,7 +2,7 @@ export function trimText(text: string) {
   return text.trim();
 }
 
-export function readableFormat(date: string) {
+export function readableFormat(date: Date) {
   return new Date(date).toLocaleDateString();
 }
 

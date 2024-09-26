@@ -12,7 +12,9 @@ const page = () => {
       </div>
       <SearchSection />
       <div className="my-10 flex flex-col gap-7">
-        <h1 className="text-2xl font-semibold">Recent registered users</h1>
+        <h1 className="text-2xl font-semibold text-center border-t border-zinc-800 pt-5">
+          Recent registered users
+        </h1>
         <RecentRegisteredUser />
       </div>
     </div>

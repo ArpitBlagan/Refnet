@@ -32,7 +32,7 @@ const page = () => {
   const [text, setText] = useState("");
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
   const [emojiVisi, setEmojiVisi] = useState(false);
-  const [type, setType] = useState("Normal");
+  const [type, setType] = useState("WORK");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -70,6 +70,7 @@ const page = () => {
     }
     const formdata = new FormData();
     formdata.append("text", text);
+    formdata.append("type", type);
     mediaFiles.forEach((ele) => {
       formdata.append("files[]", ele.file);
     });
@@ -102,18 +103,18 @@ const page = () => {
       flex flex-col justify-start min-h-full  mt-7 mb-10 w-full overflow-hidden"
     >
       <div className="mb-5">
-        <h1 className="font-semibold text-3xl">Post about your project</h1>
+        <h1 className="font-semibold text-3xl">Post about your project </h1>
       </div>
       <div className="max-w-2xl mx-auto p-4  rounded-lg shadow w-full relative">
-        <Select onValueChange={setType}>
+        <Select value={type} onValueChange={setType}>
           <SelectTrigger className="w-full mb-4 bg-slate-900">
-            <SelectValue placeholder="Select a type" />
+            <SelectValue placeholder="Select a type" className="text-bold" />
           </SelectTrigger>
           <SelectContent className="bg-slate-800 text-white">
             <SelectGroup>
               <SelectLabel>Types of post</SelectLabel>
-              <SelectItem value="apple">Normal</SelectItem>
-              <SelectItem value="banana">About my work</SelectItem>
+              <SelectItem value="WORK">About your Work</SelectItem>
+              <SelectItem value="REFERAL">About Referal</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

@@ -1,16 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-const Notification = () => {
+import axios from "axios";
+import {
+  RiChat3Fill,
+  RiThumbUpFill,
+  RiUserFollowFill,
+  RiUserUnfollowFill,
+} from "@remixicon/react";
+const Notification = ({ postPerPage }: { postPerPage: number }) => {
   const router = useRouter();
-  const [notifications, setNotifications] = useState<any[]>([
-    {
-      title: "New follow request",
-      description: "Arpit Blagan started following you.",
-      date: new Date(Date.now()),
-    },
-  ]);
+  const [notifications, setNotification] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const loadPosts = async (pageNumber: number) => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `/api/notification?pageNumber=${pageNumber}&postPerPage=${postPerPage}`
+      );
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadPosts(page);
+  }, [page]);
+
+  useEffect(() => {
+    const lastPostElement = document.querySelector("#last-post");
+    if (!lastPostElement) return;
+
+    const loadMore = (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting && !loading) {
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    observer.current = new IntersectionObserver(loadMore);
+    if (lastPostElement) {
+      observer.current.observe(lastPostElement);
+    }
+
+    return () => {
+      if (observer.current && lastPostElement) {
+        observer.current.unobserve(lastPostElement);
+      }
+    };
+  }, [loading]);
   return (
     <div className="px-3 py-7 border border-zinc-800 rounded-xl h-[540px] flex flex-col gap-2">
       <div>
@@ -29,10 +72,24 @@ const Notification = () => {
               }}
             >
               <p className="text-bold text-green-600">{ele.title}</p>
-              <p className="text-gray-600">
-                {ele.description.substr(0, 50)}...
+
+              {postPerPage == 5 ? (
+                <p className="text-gray-600">
+                  {ele.description.substr(0, 50)}...
+                </p>
+              ) : (
+                <p className="text-gray-600">{ele.description}</p>
+              )}
+
+              <p className="text-end">
+                {ele.type == "LIKE" && <RiThumbUpFill />}
+                {ele.type == "COMMENT" && <RiChat3Fill />}
+                {ele.type == "FOLLOW" && <RiUserFollowFill />}
+                {ele.type == "UNFOLLOW" && <RiUserUnfollowFill />}
               </p>
-              <p className="text-end"> </p>
+              {index == notifications.length - 1 && (
+                <div id="last-post" style={{ height: "20px" }} />
+              )}
             </div>
           );
         })}

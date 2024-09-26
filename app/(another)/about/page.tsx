@@ -6,6 +6,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 import { RiGithubFill, RiLinkedinFill, RiTwitterXFill } from "@remixicon/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { HoverBorderGradient } from "@/components/ui/hover-background";
 
 const page = () => {
   return (
@@ -26,7 +27,13 @@ const page = () => {
         className=" absolute top-[50%] left-[50%] flex flex-col w-full gap-2 items-center justify-center"
         style={{ transform: "translate(-50%,-50%)", zIndex: "1" }}
       >
-        <Image src={bg} alt="image" height={400} className="rounded-full" />
+        <Image
+          src={bg}
+          alt="image"
+          height={400}
+          className="rounded-full"
+          style={{ opacity: "0.5" }}
+        />
         <div className="flex flex-col items-center justify-center gap-2">
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
@@ -36,7 +43,7 @@ const page = () => {
               delay: 0.2,
               ease: "easeInOut",
             }}
-            className="font-bold text-4xl uppercase"
+            className="font-bold text-4xl uppercase text-gray-400"
           >
             Refnet
           </motion.h1>
@@ -66,7 +73,7 @@ const page = () => {
             }}
             className="flex flex-col gap-1"
           >
-            <p className="text-sm  font-bold text-white">
+            <p className="text-sm  font-bold text-gray-600">
               Developed by Arpit Blagan.
             </p>
             <div className="flex items-center justify-between">
@@ -83,13 +90,29 @@ const page = () => {
                 <RiTwitterXFill className="text-gray-600 hover:text-white duration-300 ease-in-out" />
               </Link>
             </div>
-            <Link
-              href="mailto:arpitblagan27@example.com"
-              className="text-center text-gray-600 underline hover:text-white duration-300 ease-in-out"
-              target="_blank"
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2 * 6,
+              ease: "easeInOut",
+            }}
+            className="flex items-center justify-center mt-3"
+          >
+            <HoverBorderGradient
+              containerClassName="rounded-md"
+              className="flex items-center space-x-2"
             >
-              Hire me.
-            </Link>
+              <Link
+                href="mailto:arpitblagan27@example.com"
+                className="text-center text-gray-600 hover:text-white duration-300 ease-in-out"
+                target="_blank"
+              >
+                Hire me.
+              </Link>
+            </HoverBorderGradient>
           </motion.div>
         </div>
       </div>

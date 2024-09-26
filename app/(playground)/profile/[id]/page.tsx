@@ -1,6 +1,6 @@
 import { getUserInfoById } from "@/app/actions/get-profile";
 import { isMissing, readableFormat } from "@/common";
-import EditProfile from "@/components/edit-profile";
+import Posts from "@/components/Posts";
 import {
   RiCalendarTodoFill,
   RiGithubFill,
@@ -140,22 +140,10 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold text-2xl">Projects</h1>
-          {res.posts.map((ele, index) => {
-            return (
-              <div
-                key={index}
-                className="border border-zinc-900 rounded-xl"
-                py-2
-                px-4
-              >
-                <div>
-                  <Image src="" />
-                </div>
-                <div>{ele.caption}</div>
-              </div>
-            );
-          })}
+          <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">
+            Projects
+          </h1>
+          <Posts id={id} />
         </div>
       </div>
     );

@@ -107,7 +107,8 @@ const Navbar = () => {
             );
           })}
           <Link
-            href=""
+            href="https://github.com/ArpitBlagan"
+            target="_blank"
             className="flex items-center gap-1 hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
           >
             <RiGithubFill />

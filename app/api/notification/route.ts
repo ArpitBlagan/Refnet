@@ -1,27 +1,22 @@
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+export const getNotifications = async (req: NextRequest) => {
   const pageNumber = req.nextUrl.searchParams.get("pageNumber");
   const postPerPage = req.nextUrl.searchParams.get("pagePerPage");
   const id = req.nextUrl.searchParams.get("id");
   const skip = (Number(pageNumber) - 1) * Number(postPerPage);
-  console.log("hehehe", postPerPage, skip, pageNumber);
   const whereClause = id ? { id } : {};
   try {
-    const posts = await prisma.post.findMany({
+    const notifications = await prisma.notification.findMany({
       where: whereClause,
       take: Number(postPerPage),
       skip,
-      orderBy: { postedAt: "desc" },
+      orderBy: { createdAt: "desc" },
     });
-    console.log("post", posts);
-    if (id) {
-      return { message: "successfully fetched posts", post: posts[0] };
-    }
-    return NextResponse.json({ posts });
+    console.log(notifications);
+    return NextResponse.json({ notifications });
   } catch (err) {
-    console.log("error", err);
     return NextResponse.json({
       error: "Not able to fetch posts try again later.",
       status: 500,

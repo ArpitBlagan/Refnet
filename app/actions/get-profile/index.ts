@@ -30,6 +30,7 @@ export const getRecentRegisteredUser = async () => {
       },
       take: 6,
     });
+    console.log(users);
     return { message: "recent registered user", users };
   } catch (err) {
     return { error: "something went wrong." };

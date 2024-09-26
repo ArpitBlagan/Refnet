@@ -1,7 +1,7 @@
 import { getProfileInfo } from "@/app/actions/get-profile";
 import { isMissing, readableFormat } from "@/common";
 import EditProfile from "@/components/edit-profile";
-import PostCard from "@/components/post-card";
+import SecondSection from "@/components/profile-second-section";
 
 import {
   RiCalendarTodoFill,
@@ -132,18 +132,7 @@ async function page() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4 ">
-          {["Posts", "Likes"].map((ele, index) => {
-            return (
-              <div
-                key={index}
-                className="border-b-[3px] border-blue-400 h-full flex items-center justify-center"
-              >
-                {ele}
-              </div>
-            );
-          })}
-        </div>
+        <SecondSection />
       </div>
     );
   }

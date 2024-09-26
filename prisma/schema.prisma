@@ -52,6 +52,7 @@ model Post{
   userId String
   user User @relation(fields: [userId],references: [id])
   caption String
+  type PostType 
   media String[] @default([])
   postedAt DateTime @default(now())
   comments Comment[]
@@ -61,7 +62,8 @@ model Post{
 
 model Notification{
   id String @id @default(uuid())
-  type String
+  type NotificationType 
+  title String
   message String
   userId String
   user User @relation(fields: [userId],references: [id])
@@ -106,3 +108,15 @@ model Newsletter{
   subscribedAt DateTime
 }
 
+
+enum PostType{
+  WORK
+  REFERAL
+}
+
+enum NotificationType{
+  LIKE
+  FOLLOW
+  UNFOLLOW
+  COMMENT
+}

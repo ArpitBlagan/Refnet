@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import PostCard from "./post-card";
-import { getPosts } from "@/app/actions/post";
 import { toast } from "sonner";
 import { Triangle } from "react-loader-spinner";
+import axios from "axios";
 const POSTS_PER_PAGE = 10;
-const Posts = () => {
+const Posts = ({ id }: { id?: string }) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -14,15 +14,10 @@ const Posts = () => {
 
   const loadPosts = async (pageNumber: number) => {
     setLoading(true);
-    ("use server");
     try {
-      const data = await getPosts(POSTS_PER_PAGE, pageNumber);
-      console.log(data);
-      // setPosts((prev) => [
-      //   ...prev,
-      //   //@ts-ignore
-      //   ...newPosts,
-      // ]);
+      const res = await axios.get(
+        `/api/posts?id=${id}&pageNumber=${pageNumber}&postPerPage=${POSTS_PER_PAGE}`
+      );
     } catch (error) {
       console.error("Error fetching posts:", error);
     } finally {
@@ -56,7 +51,13 @@ const Posts = () => {
     };
   }, [loading]);
   return (
-    <div>
+    <div className="my-10">
+      {posts.length == 0 && (
+        <p className="text-center text-gray-600 font-bold ">
+          No Posts avaliable 🥲.
+        </p>
+      )}
+
       {posts.map((ele, index) => {
         return <PostCard />;
       })}
