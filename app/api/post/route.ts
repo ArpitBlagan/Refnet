@@ -5,9 +5,13 @@ export const GET = async (req: NextRequest) => {
   const pageNumber = req.nextUrl.searchParams.get("pageNumber");
   const postPerPage = req.nextUrl.searchParams.get("pagePerPage");
   const id = req.nextUrl.searchParams.get("id");
+  const type = req.nextUrl.searchParams.get("type");
   const skip = (Number(pageNumber) - 1) * Number(postPerPage);
   console.log("hehehe", postPerPage, skip, pageNumber);
-  const whereClause = id ? { id } : {};
+  let whereClause: any = id ? { id } : {};
+  if (type && type != "All") {
+    whereClause.type = type;
+  }
   try {
     const posts = await prisma.post.findMany({
       where: whereClause,

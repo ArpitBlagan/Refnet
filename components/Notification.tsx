@@ -9,7 +9,30 @@ import {
   RiUserFollowFill,
   RiUserUnfollowFill,
 } from "@remixicon/react";
+import { useSocket } from "@/app/socket-context";
+import { isSame } from "@/common";
+import { Triangle } from "react-loader-spinner";
 const Notification = ({ postPerPage }: { postPerPage: number }) => {
+  const socket = useSocket();
+  useEffect(() => {
+    if (socket) {
+      socket.on("notification", (data) => {
+        console.log(data);
+        const firstEle = notifications[0];
+        if (!isSame(firstEle, data)) {
+          setNotification((prev) => {
+            return [
+              { title: "", createAd: "", message: "", type: "" },
+              ...prev,
+            ];
+          });
+        }
+      });
+    }
+    return () => {
+      socket?.off("message");
+    };
+  }, [socket]);
   const router = useRouter();
   const [notifications, setNotification] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -55,44 +78,50 @@ const Notification = ({ postPerPage }: { postPerPage: number }) => {
     };
   }, [loading]);
   return (
-    <div className="px-3 py-7 border border-zinc-800 rounded-xl h-[540px] flex flex-col gap-2">
+    <div className="px-3 py-7 border border-zinc-800 rounded-xl min-h-[540px] flex flex-col gap-2">
       <div>
         <h1 className="font-bold text-center">Notifications</h1>
       </div>
-      <div>
-        {notifications.map((ele, index) => {
-          return (
-            <div
-              key={index}
-              className="px-4 py-2 
+      <div className="h-full">
+        {loading && (
+          <div className="flex h-full items-center justify-center my-20">
+            <Triangle height={50} width={50} />
+          </div>
+        )}
+        {!loading &&
+          notifications.map((ele, index) => {
+            return (
+              <div
+                key={index}
+                className="px-4 py-2 
               flex-flex-col gap-1 cursor-pointer
               duration-300 ease-in-out hover:bg-gray-900 border-t border-b border-zinc-900 rounded-md"
-              onClick={() => {
-                router.push("/notifications");
-              }}
-            >
-              <p className="text-bold text-green-600">{ele.title}</p>
+                onClick={() => {
+                  router.push("/notifications");
+                }}
+              >
+                <p className="text-bold text-green-600">{ele.title}</p>
 
-              {postPerPage == 5 ? (
-                <p className="text-gray-600">
-                  {ele.description.substr(0, 50)}...
+                {postPerPage == 5 ? (
+                  <p className="text-gray-600">
+                    {ele.message.substr(0, 50)}...
+                  </p>
+                ) : (
+                  <p className="text-gray-600">{ele.message}</p>
+                )}
+
+                <p className="text-end">
+                  {ele.type == "LIKE" && <RiThumbUpFill />}
+                  {ele.type == "COMMENT" && <RiChat3Fill />}
+                  {ele.type == "FOLLOW" && <RiUserFollowFill />}
+                  {ele.type == "UNFOLLOW" && <RiUserUnfollowFill />}
                 </p>
-              ) : (
-                <p className="text-gray-600">{ele.description}</p>
-              )}
-
-              <p className="text-end">
-                {ele.type == "LIKE" && <RiThumbUpFill />}
-                {ele.type == "COMMENT" && <RiChat3Fill />}
-                {ele.type == "FOLLOW" && <RiUserFollowFill />}
-                {ele.type == "UNFOLLOW" && <RiUserUnfollowFill />}
-              </p>
-              {index == notifications.length - 1 && (
-                <div id="last-post" style={{ height: "20px" }} />
-              )}
-            </div>
-          );
-        })}
+                {postPerPage > 5 && index == notifications.length - 1 && (
+                  <div id="last-post" style={{ height: "20px" }} />
+                )}
+              </div>
+            );
+          })}
       </div>
     </div>
   );

@@ -27,7 +27,13 @@ const page = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<signin>({ resolver: zodResolver(signinSchema) });
+  } = useForm<signin>({
+    defaultValues: {
+      email: "blaganarpit@gmail.com",
+      password: "Ab@123456",
+    },
+    resolver: zodResolver(signinSchema),
+  });
   const onSubmit: SubmitHandler<signin> = (data) => {
     const res = toast.promise(
       async () => {
@@ -72,6 +78,10 @@ const page = () => {
             </svg>
           </Link>
           <p className="text-lg">Welcome back to Refnet</p>
+          <p className="text-md tracking-tight text-gray-300">
+            For testing purpose I have already put the credentials so you guys
+            don't have to 👀.
+          </p>
         </div>
         <form
           className="flex flex-col gap-4 w-full items-center justify-center"

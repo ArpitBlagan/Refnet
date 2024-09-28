@@ -107,14 +107,14 @@ const EditProfile = () => {
   return (
     <Dialog open={onOpen} onOpenChange={setOnOpen}>
       <DialogTrigger asChild>
-        <Button className="border border-white rounded-xl py-2 px-4 font-semibold hover:bg-green-600">
+        <Button className="border border-white  rounded-xl py-2 px-4 font-semibold hover:bg-green-600">
           Edit Profile
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-black h-[95vh] overflow-hidden overflow-y-scroll">
+      <DialogContent className="bg-black h-[95vh] border-zinc-800 overflow-hidden overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle className="flex flex-col gap-3 py-3 border-b border-white">
-            <div className="p-4 border rounded-full flex items-center gap-4">
+          <DialogTitle className="flex flex-col gap-3 py-3 border-b border-zinc-800">
+            <div className="p-4 border rounded-full border-zinc-800 flex items-center gap-4">
               <RiUserFill />
               <span>Edit profile</span>
             </div>
@@ -128,7 +128,7 @@ const EditProfile = () => {
                 {/* <div className="h-[25vh]"></div> */}
                 <Input
                   type="file"
-                  className="text-white bg-gray-800"
+                  className="text-white bg-gray-800 border-zinc-800"
                   ref={fileInputRef}
                   onChange={handleMediaUpload}
                   accept="image/*"
@@ -163,7 +163,7 @@ const EditProfile = () => {
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
-                  className="h-[100px] text-white py-2"
+                  className="h-[100px] text-white py-2 border-zinc-800"
                   placeholder="Hey, I am Arpit Blagan @23 CS undergraduate and I am into full stack development."
                 />
                 <p className="text-sm text-muted-foreground">
@@ -179,7 +179,7 @@ const EditProfile = () => {
                   onChange={(e) => {
                     setLinkedIn(e.target.value);
                   }}
-                  className="text-white py-2"
+                  className="text-white py-2 border-zinc-800"
                   placeholder="Your linkedin link"
                 />
               </div>
@@ -192,7 +192,7 @@ const EditProfile = () => {
                   onChange={(e) => {
                     setTwitter(e.target.value);
                   }}
-                  className="text-white py-2"
+                  className="text-white py-2 border-zinc-800"
                   placeholder="Your twitter link"
                 />
               </div>
@@ -205,8 +205,8 @@ const EditProfile = () => {
                   onChange={(e) => {
                     setGithub(e.target.value);
                   }}
-                  className="text-white py-2"
-                  placeholder="Your github link"
+                  className="text-white py-2 border-zinc-800"
+                  placeholder="Your github  link"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -218,11 +218,11 @@ const EditProfile = () => {
                   onChange={(e) => {
                     setResume(e.target.value);
                   }}
-                  className="text-white py-2"
+                  className="text-white py-2 border-zinc-800"
                   placeholder="Your resume link"
                 />
               </div>
-              <div className="flex items-center gap-3 justify-end pt-4 border-t boder-white">
+              <div className="flex items-center gap-3 justify-end pt-4 border-t border-zinc-800">
                 <Button className="font-bold hover:bg-white hover:text-black">
                   Cancle
                 </Button>

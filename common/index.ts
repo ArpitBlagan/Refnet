@@ -41,3 +41,15 @@ export function formatNumber(num: number) {
 
   return `${num.toFixed(1)}${units[unitIndex]}`;
 }
+
+export function isSame(firstNotification: any, inCommingNotifcation: any) {
+  if (
+    firstNotification.type == inCommingNotifcation.type &&
+    firstNotification.createdAt == inCommingNotifcation.createdAt &&
+    firstNotification.title == inCommingNotifcation.title &&
+    firstNotification.message == inCommingNotifcation.messate
+  ) {
+    return true;
+  }
+  return false;
+}

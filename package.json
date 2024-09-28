@@ -42,6 +42,7 @@
     "react-hook-form": "^7.53.0",
     "react-loader-spinner": "^6.1.6",
     "resend": "^4.0.0",
+    "socket.io-client": "^4.8.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",

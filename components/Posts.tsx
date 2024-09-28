@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Triangle } from "react-loader-spinner";
 import axios from "axios";
 const POSTS_PER_PAGE = 10;
-const Posts = ({ id }: { id?: string }) => {
+const Posts = ({ id, type }: { id?: string; type?: string }) => {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const Posts = ({ id }: { id?: string }) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `/api/posts?id=${id}&pageNumber=${pageNumber}&postPerPage=${POSTS_PER_PAGE}`
+        `/api/posts?id=${id}&pageNumber=${pageNumber}&postPerPage=${POSTS_PER_PAGE}&type=${type}`
       );
     } catch (error) {
       console.error("Error fetching posts:", error);
