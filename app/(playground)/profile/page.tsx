@@ -1,4 +1,5 @@
 import { getProfileInfo } from "@/app/actions/get-profile";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { isMissing, readableFormat } from "@/common";
 import EditProfile from "@/components/edit-profile";
 import SecondSection from "@/components/profile-second-section";
@@ -10,11 +11,14 @@ import {
   RiLinkM,
   RiTwitterXFill,
 } from "@remixicon/react";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 
 async function page() {
-  const res = await getProfileInfo();
+  const session = await getServerSession(authOptions);
+
+  const res = await getProfileInfo(session.user.id);
   console.log(res);
   if (res.error || !res) {
     return (
@@ -132,7 +136,7 @@ async function page() {
             </div>
           </div>
         </div>
-        <SecondSection />
+        <SecondSection id={session.user.id} />
       </div>
     );
   }

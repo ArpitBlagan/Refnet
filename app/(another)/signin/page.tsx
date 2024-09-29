@@ -35,7 +35,7 @@ const page = () => {
     resolver: zodResolver(signinSchema),
   });
   const onSubmit: SubmitHandler<signin> = (data) => {
-    const res = toast.promise(
+    toast.promise(
       async () => {
         setLoading(true);
         const res = await signIn("credentials", {

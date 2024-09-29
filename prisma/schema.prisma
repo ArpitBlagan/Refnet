@@ -45,6 +45,7 @@ model Follower {
   following User    @relation("Followers", fields: [followingId], references: [id])
   followingId String
   createdAt DateTime @default(now())
+  @@unique([followerId, followingId])
 }
 
 model Post{
@@ -112,6 +113,7 @@ model Newsletter{
 enum PostType{
   WORK
   REFERAL
+  OTHER
 }
 
 enum NotificationType{

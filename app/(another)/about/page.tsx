@@ -43,9 +43,9 @@ const page = () => {
               delay: 0.2,
               ease: "easeInOut",
             }}
-            className="font-bold text-4xl uppercase text-gray-400"
+            className="font-bold text-4xl uppercase text-gray-200"
           >
-            Refnet
+            <Link href="/">Refnet</Link>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 50 }}
@@ -55,7 +55,7 @@ const page = () => {
               delay: 0.2 * 2,
               ease: "easeInOut",
             }}
-            className="w-8/12 text-center text-lg font-semibold tracking-tigth text-gray-500 leading-none"
+            className="w-8/12 text-center text-lg font-semibold tracking-tigth text-gray-400 leading-none"
           >
             Refnet is all about help other developers to showcase their proof of
             work effortlessly and stand out in the eye of recruiters. As a
@@ -74,7 +74,7 @@ const page = () => {
             className="flex flex-col gap-1"
           >
             <p className="text-sm  font-bold text-gray-600">
-              Developed by Arpit Blagan.
+              Developed by Arpit Blagan with ❤️.
             </p>
             <div className="flex items-center justify-between">
               <Link href="https://github.com/ArpitBlagan" target="_blank">

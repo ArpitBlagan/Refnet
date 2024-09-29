@@ -1,12 +1,15 @@
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export const getNotifications = async (req: NextRequest) => {
+export const GET = async (req: NextRequest) => {
   const pageNumber = req.nextUrl.searchParams.get("pageNumber");
   const postPerPage = req.nextUrl.searchParams.get("pagePerPage");
   const id = req.nextUrl.searchParams.get("id");
   const skip = (Number(pageNumber) - 1) * Number(postPerPage);
-  const whereClause = id ? { id } : {};
+  const whereClause: any = {};
+  if (id && id != undefined) {
+    whereClause.id = id;
+  }
   try {
     const notifications = await prisma.notification.findMany({
       where: whereClause,

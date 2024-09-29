@@ -13,26 +13,26 @@ import { useSocket } from "@/app/socket-context";
 import { isSame } from "@/common";
 import { Triangle } from "react-loader-spinner";
 const Notification = ({ postPerPage }: { postPerPage: number }) => {
-  const socket = useSocket();
-  useEffect(() => {
-    if (socket) {
-      socket.on("notification", (data) => {
-        console.log(data);
-        const firstEle = notifications[0];
-        if (!isSame(firstEle, data)) {
-          setNotification((prev) => {
-            return [
-              { title: "", createAd: "", message: "", type: "" },
-              ...prev,
-            ];
-          });
-        }
-      });
-    }
-    return () => {
-      socket?.off("message");
-    };
-  }, [socket]);
+  // const socket = useSocket();
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.on("notification", (data) => {
+  //       console.log(data);
+  //       const firstEle = notifications[0];
+  //       if (!isSame(firstEle, data)) {
+  //         setNotification((prev) => {
+  //           return [
+  //             { title: "", createAd: "", message: "", type: "" },
+  //             ...prev,
+  //           ];
+  //         });
+  //       }
+  //     });
+  //   }
+  //   return () => {
+  //     socket?.off("message");
+  //   };
+  // }, [socket]);
   const router = useRouter();
   const [notifications, setNotification] = useState<any[]>([]);
   const [page, setPage] = useState(1);

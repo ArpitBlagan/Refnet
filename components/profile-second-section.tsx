@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
 import Posts from "./Posts";
-import Likes from "./likes";
+import LikedPosts from "./liked-posts-byme";
 
-const SecondSection = () => {
+const SecondSection = (info: any) => {
   const [sele, setSele] = useState("Posts");
+
   return (
     <div>
       <div className="grid grid-cols-4 gap-4 ">
@@ -24,7 +25,11 @@ const SecondSection = () => {
           );
         })}
       </div>
-      {sele == "Posts" ? <Posts /> : <Likes />}
+      {sele == "Posts" ? (
+        <Posts type="All" userId={info.id} />
+      ) : (
+        <LikedPosts userId={info.id} />
+      )}
     </div>
   );
 };

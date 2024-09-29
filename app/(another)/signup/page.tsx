@@ -76,11 +76,10 @@ const page = () => {
             </svg>
           </Link>
           <p className="text-lg">Welcome to Refnet</p>
-          <p className="text-md text-slate-400 text-center">
+          <p className="text-md text-slate-300 text-center">
             Get started with Refnet and unlock great opportunites waiting for
             you.
-          </p>
-          <p className="text-slate-400  text-sm">
+            <br />
             Please provide your active email address so in future you don't miss
             any notifications.
           </p>

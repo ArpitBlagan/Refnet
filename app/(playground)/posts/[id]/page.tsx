@@ -1,8 +1,12 @@
 import { getPostById } from "@/app/actions/post";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import CommentSection from "@/components/comment-section";
 import PostCard from "@/components/post-card";
+import { getServerSession } from "next-auth";
 
 const page = async ({ params }: { params: any }) => {
+  const session = await getServerSession(authOptions);
+
   const id = params.id;
   const res = await getPostById(id);
   if (res.error) {
@@ -15,9 +19,14 @@ const page = async ({ params }: { params: any }) => {
         <div>
           <h1 className="text-2xl font-semibold">Post</h1>
         </div>
-        <PostCard />
-        <CommentSection />
-        <div className="flex items-center justify-center">
+
+        <PostCard
+          postData={res.postData}
+          showToOther={false}
+          userId={session.user.id}
+        />
+        <CommentSection postId={id} userId={session.user.id} />
+        <div className="flex items-center justify-center mb-10">
           <p className="text-gray-600">No comments left</p>
         </div>
       </div>

@@ -1,15 +1,11 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/db";
 import { getServerSession } from "next-auth";
-export let getProfileInfo: () => any;
-getProfileInfo = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return { error: "user is not signed in." };
-  }
+export let getProfileInfo: (id: string) => any;
+getProfileInfo = async (id: string) => {
   try {
     const details = await prisma.user.findFirst({
-      where: { id: session?.user.id },
+      where: { id },
       include: {
         followers: true,
         following: true,
@@ -43,7 +39,7 @@ export const getUserInfoById = async (id: string) => {
       where: { id },
       include: { posts: true, followers: true, following: true },
     });
-    return userInfo;
+    return { userInfo };
   } catch (err) {
     return { error: "something went wrong." };
   }

@@ -10,33 +10,41 @@ import Image from "next/image";
 import VideoPlayer from "./video-player";
 
 const RenderMedia = ({ media }: any) => {
+  console.log(media);
   return (
-    <Carousel className="w-full max-w-xs flex items-center">
-      <CarouselContent className=" w-full">
-        {media.map((ele: string, index: number) => {
-          if (isVideo(ele)) {
-            return (
-              <CarouselItem
-                key={index}
-                className="border rounded-xl border-zinc-800"
-              >
-                <VideoPlayer src={ele} />
-              </CarouselItem>
-            );
-          } else {
-            return (
-              <CarouselItem
-                key={index}
-                className="border rounded-xl border-zinc-800"
-              >
-                <Image src={ele} alt="media image" />
-              </CarouselItem>
-            );
-          }
-        })}
+    <Carousel className="flex  items-center justify-center overflow-hidden border border-zinc-800 w-full relative p-2">
+      <CarouselContent>
+        {media.map((ele: string, index: number) => (
+          <CarouselItem
+            key={index}
+            className="flex items-center justify-center "
+          >
+            <div className="relative w-full h-full">
+              {isVideo(ele) ? (
+                <video
+                  controls
+                  className="object-cover w-full h-full rounded-lg"
+                  style={{ display: "block" }}
+                >
+                  <source src={ele} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <Image
+                  src={ele}
+                  alt="media image"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-lg"
+                />
+              )}
+            </div>
+          </CarouselItem>
+        ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="absolute left-[2rem] top-1/2 transform -translate-y-1/2 z-10 bg-black" />
+
+      <CarouselNext className="absolute right-[2rem] top-1/2 transform -translate-y-1/2 z-10 bg-black" />
     </Carousel>
   );
 };

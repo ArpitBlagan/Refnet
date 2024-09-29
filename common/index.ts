@@ -53,3 +53,36 @@ export function isSame(firstNotification: any, inCommingNotifcation: any) {
   }
   return false;
 }
+
+export function getTimeDiffOrDate(dateString: any) {
+  const inputDate = new Date(dateString);
+  const currentDate = new Date();
+
+  // @ts-ignore
+  const diffInMs = currentDate - inputDate;
+
+  const diffInSeconds = Math.floor(diffInMs / 1000);
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInDays > 0) {
+    return inputDate.toDateString();
+  } else if (diffInHours > 0) {
+    return `${diffInHours} hour ago`;
+  } else if (diffInMinutes > 0) {
+    return `${diffInMinutes} min ago`;
+  } else {
+    return `${diffInSeconds} sec ago`;
+  }
+}
+
+export function checkForUserId(userId: string, arr: any) {
+  const ele = arr.find((ele: any) => {
+    return ele.userId == userId;
+  });
+  if (ele) {
+    return true;
+  }
+  return false;
+}
