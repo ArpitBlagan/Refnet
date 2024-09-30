@@ -13,7 +13,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import RenderMedia from "./render-media";
@@ -34,15 +33,17 @@ const PostCard = ({
   showToOther: boolean;
   userId: string;
 }) => {
-  // const deletePost = async (postId: any) => {
-  //   "use server";
-  //   const res: any = await deletePost(postId);
-  //   if (res?.error) {
-  //     toast.error("Not able to delete the post please try again later.");
-  //   } else {
-  //     toast.success("Post deleted successfully.");
-  //   }
-  // };
+  const deletePost = async (postId: any) => {
+    setDeleteLoading(true);
+    try {
+      await axios.delete(`/api/post?postId=${postId}&userId=${userId}`);
+    } catch (err) {
+      toast.error("Not able to delete the post please try again later.");
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [likeStatus, setLikeStatus] = useState("notLiked");
   const [feedbackGiven, setFeedbackGiven] = useState(false);
@@ -133,18 +134,18 @@ const PostCard = ({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className=" font-semibold">
-                <DropdownMenuItem className="flex items-center gap-2 ">
-                  Share <RiShareFill />
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
                 {postData.userId == userId && (
-                  <DropdownMenuItem
-                    className="flex items-center gap-2"
-                    onClick={() => {
-                      // deletePost(postData.id);
-                    }}
-                  >
-                    Delete <RiDeleteBinLine />
+                  <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                    <Button
+                      disabled={deleteLoading}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deletePost(postData.id);
+                      }}
+                      className="flex items-center gap-3"
+                    >
+                      Delete <RiDeleteBinLine />
+                    </Button>
                   </DropdownMenuItem>
                 )}
               </DropdownMenuContent>

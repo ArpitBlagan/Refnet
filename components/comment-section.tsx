@@ -5,12 +5,19 @@ import { Input } from "./ui/input";
 import axios from "axios";
 import { toast } from "sonner";
 import { Triangle } from "react-loader-spinner";
-import { getTimeDiffOrDate, readableFormat, trimText } from "@/common";
+import { getTimeDiffOrDate, trimText } from "@/common";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   RiClipboardLine,
-  RiMore2Fill,
+  RiDeleteBinLine,
+  RiMore2Line,
   RiReplyLine,
   RiThumbUpLine,
 } from "@remixicon/react";
@@ -20,6 +27,17 @@ const CommentSection = ({ postId, userId }: any) => {
   const [initialLoading, setInitialLoading] = useState(false);
   const [otherLoading, setOtherLoading] = useState(false);
   const [comment, setComment] = useState("");
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const deleteComment = async (id: string) => {
+    setDeleteLoading(true);
+    try {
+      await axios.delete(`/api/comment/${id}`);
+    } catch (err) {
+      toast.error("Not able to delete the comment 👀.");
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
   const router = useRouter();
   useEffect(() => {
     const getComment = async () => {
@@ -100,7 +118,7 @@ const CommentSection = ({ postId, userId }: any) => {
           </form>
         )}
         <div className="">
-          <h1 className="text-2xl font-semibold pb-3 border-b border-zinc-800">
+          <h1 className="text-2xl font-semibold pb-3 border-b border-zinc-800 my-3">
             Comments
           </h1>
           {initialLoading ? (
@@ -108,7 +126,7 @@ const CommentSection = ({ postId, userId }: any) => {
               <Triangle />
             </div>
           ) : (
-            <div className="">
+            <div className="flex flex-col gap-2">
               {comments.map((ele, index) => {
                 return (
                   <div className="flex" key={index}>
@@ -143,7 +161,29 @@ const CommentSection = ({ postId, userId }: any) => {
                       </div>
                     </div>
                     <div>
-                      <RiMore2Fill />
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button className="bg-transparent">
+                            <RiMore2Line className="cursor-pointer" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className=" font-semibold">
+                          {ele.userId == userId && (
+                            <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
+                              <Button
+                                disabled={deleteLoading}
+                                className="flex items-center gap-3"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  deleteComment(ele.id);
+                                }}
+                              >
+                                Delete <RiDeleteBinLine />
+                              </Button>
+                            </DropdownMenuItem>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </div>
                 );

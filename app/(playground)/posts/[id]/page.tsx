@@ -13,7 +13,7 @@ const page = async ({ params }: { params: any }) => {
   } else {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
     flex flex-col justify-start min-h-full  my-7"
       >
         <div>
