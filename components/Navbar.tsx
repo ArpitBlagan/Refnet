@@ -30,6 +30,7 @@ const midLinks = [
 
 const Navbar = () => {
   const { data: session, status } = useSession();
+  console.log(session);
   const [isVisible, setIsVisible] = useState(true);
   const [menuBar, setMenuBar] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);

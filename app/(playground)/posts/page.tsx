@@ -9,7 +9,7 @@ const page = async () => {
 
   return (
     <div
-      className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+      className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
       flex flex-col justify-start min-h-full  my-7"
     >
       <div className="py-4 border-b border-zinc-800">

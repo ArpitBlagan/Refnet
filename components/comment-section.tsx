@@ -8,9 +8,7 @@ import { Triangle } from "react-loader-spinner";
 import { getTimeDiffOrDate, readableFormat, trimText } from "@/common";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { set } from "video.js/dist/types/tech/middleware";
 import {
-  RiClipboardFill,
   RiClipboardLine,
   RiMore2Fill,
   RiReplyLine,
@@ -86,7 +84,7 @@ const CommentSection = ({ postId, userId }: any) => {
               onChange={(e) => {
                 setComment(e.target.value);
               }}
-              className="flex-1 py-2 pl-3 h-[50px] font-semibold resize-none bg-slate-900 border-zinc-600"
+              className="flex-1 py-2 pl-3 h-[50px] font-semibold resize-none bg-slate-900 border border-zinc-900"
             />
             <Button
               type="submit"
@@ -101,8 +99,10 @@ const CommentSection = ({ postId, userId }: any) => {
             </Button>
           </form>
         )}
-        <div className="border border-zinc-800 rounded-lg p-2">
-          <h1 className="text-2xl font-semibold">Comments</h1>
+        <div className="">
+          <h1 className="text-2xl font-semibold pb-3 border-b border-zinc-800">
+            Comments
+          </h1>
           {initialLoading ? (
             <div className="flex items-center justify-center">
               <Triangle />

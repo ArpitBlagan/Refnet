@@ -93,6 +93,7 @@ export const authOptions = {
       if (user) {
         token.uid = user.id;
         token.jwtToken = user.token;
+        token.image = user.profileImage;
       }
       return token;
     },
@@ -100,6 +101,7 @@ export const authOptions = {
       if (session?.user) {
         session.user.id = token.uid;
         session.user.jwtToken = token.jwtToken;
+        session.user.image = token.image;
       }
 
       return session;

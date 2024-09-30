@@ -28,10 +28,8 @@ export const GET = async (req: NextRequest) => {
         ],
       },
     });
-    console.log("results", results);
     return NextResponse.json({ results });
   } catch (err) {
-    console.log(err);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

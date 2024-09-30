@@ -99,11 +99,13 @@ const page = () => {
   };
   return (
     <div
-      className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+      className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
       flex flex-col justify-start min-h-full  mt-7 mb-10 w-full overflow-hidden"
     >
       <div className="mb-5">
-        <h1 className="font-semibold text-3xl">Post about your project </h1>
+        <h1 className="font-semibold text-3xl text-center">
+          Post about your project{" "}
+        </h1>
       </div>
       <div className="max-w-2xl mx-auto p-4  rounded-lg shadow w-full relative">
         <Select value={type} onValueChange={setType}>

@@ -2,6 +2,8 @@ import { getProfileInfo } from "@/app/actions/get-profile";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { isMissing, readableFormat } from "@/common";
 import EditProfile from "@/components/edit-profile";
+import FollowersDialog from "@/components/followers-dialog";
+import FollowingDialog from "@/components/following-dialog";
 import SecondSection from "@/components/profile-second-section";
 
 import {
@@ -19,20 +21,19 @@ async function page() {
   const session = await getServerSession(authOptions);
 
   const res = await getProfileInfo(session.user.id);
-  console.log(res);
-  if (res.error || !res) {
+  if (!res || res.error) {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
     flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
-        Something went wrong 🥲.
+        Something went wrong 🥲 please try again later.
       </div>
     );
   } else {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
       flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
         <div className="mb-8 flex flex-col gap-10 py-7 px-7 w-full">
@@ -80,8 +81,8 @@ async function page() {
             </div>
 
             <div className="flex flex-col gap-4">
-              <div>
-                <p className="flex items-center gap-1 text-gray-500 text-sm font-semibold">
+              <div className="flex items-center justify-end">
+                <p className="flex  items-center gap-1 text-gray-500 text-sm font-semibold">
                   {" "}
                   <RiCalendarTodoFill /> Joined at{" "}
                   {readableFormat(res.joinedAt)}
@@ -90,11 +91,11 @@ async function page() {
               <div className="flex items-center gap-3">
                 <p className="text-sm font-semibold flex items-center gap-1">
                   <span>{res.following.length}</span>
-                  <span className="text-gray-500">Following</span>
+                  <FollowingDialog id={session.user.id} />
                 </p>
                 <p className="text-sm font-semibold flex items-center gap-1">
                   <span>{res.followers.length}</span>
-                  <span className="text-gray-500">Followers</span>
+                  <FollowersDialog id={session.user.id} />
                 </p>
               </div>
             </div>

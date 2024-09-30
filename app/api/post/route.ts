@@ -1,4 +1,7 @@
+import { readableFormat } from "@/common";
+import { sendNotificationToOtherBackend } from "@/common/notification";
 import prisma from "@/db";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
@@ -8,7 +11,6 @@ export const GET = async (req: NextRequest) => {
   const userId = req.nextUrl.searchParams.get("userId");
   const type = req.nextUrl.searchParams.get("type");
   const skip = (Number(pageNumber) - 1) * Number(postPerPage);
-  console.log("hehehe", postPerPage, skip, pageNumber, id);
   let whereClause: any = {};
 
   // Add the id to whereClause if it's defined and not "undefined"
@@ -35,11 +37,9 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
-    console.log("post", posts);
 
     return NextResponse.json(posts);
   } catch (err) {
-    console.log("error", err);
     return NextResponse.json({
       error: "Not able to fetch posts try again later.",
       status: 500,
@@ -47,8 +47,9 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
+//About
 export const POST = async (req: NextRequest) => {
-  const { postId, userId } = await req.json();
+  const { postId, userId, postUserId } = await req.json();
   try {
     await prisma.like.create({
       data: {
@@ -56,6 +57,30 @@ export const POST = async (req: NextRequest) => {
         userId,
       },
     });
+    const [userFrom, postInfo] = await prisma.$transaction([
+      prisma.user.findFirst({
+        where: { id: userId },
+      }),
+      prisma.post.findFirst({
+        where: { id: postId },
+      }),
+    ]);
+    if (userId != postUserId && userFrom && postInfo) {
+      const notification = await prisma.notification.create({
+        data: {
+          type: "LIKE",
+          message: `Your post about your ${
+            postInfo.type
+          } which is posted on ${readableFormat(
+            postInfo.postedAt
+          )} is liked by ${userFrom.name}.`,
+          title: `${userFrom.name} liked your post`,
+          userId: postUserId,
+          actorId: userId,
+        },
+      });
+      await sendNotificationToOtherBackend(notification);
+    }
     return NextResponse.json({ message: "like added successfully" });
   } catch (err) {
     return NextResponse.json({

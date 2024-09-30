@@ -1,3 +1,5 @@
+import { readableFormat } from "@/common";
+import { sendNotificationToOtherBackend } from "@/common/notification";
 import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -36,16 +38,35 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest) => {
   const { postId, comment, userId } = await req.json();
   try {
-    const res = await prisma.comment.create({
+    await prisma.comment.create({
       data: {
         postId,
         userId,
         comment,
       },
     });
+    const [postInfo, userFrom] = await prisma.$transaction([
+      prisma.post.findFirst({ where: { id: postId } }),
+      prisma.user.findFirst({ where: { id: userId } }),
+    ]);
+    if (postInfo && userFrom && postInfo.userId != userId) {
+      const notification = await prisma.notification.create({
+        data: {
+          type: "COMMENT",
+          title: `${userFrom.name} commented on you post.`,
+          message: `On you post which about ${
+            postInfo.type
+          } posted on ${readableFormat(postInfo.postedAt)} ${
+            userFrom.name
+          } add a comment`,
+          userId: postInfo.userId,
+          actorId: userId,
+        },
+      });
+      sendNotificationToOtherBackend(notification);
+    }
     return NextResponse.json({ message: "comment added successfully." });
   } catch (err) {
-    console.log(err);
     return NextResponse.json({
       error: "Not able to add comment",
       status: "500",

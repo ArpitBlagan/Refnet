@@ -1,3 +1,4 @@
+export const otherBackend = "http://localhost:8000/api/notifyUser";
 export function trimText(text: string) {
   return text.trim();
 }
@@ -85,4 +86,16 @@ export function checkForUserId(userId: string, arr: any) {
     return true;
   }
   return false;
+}
+
+export function highlightLinks(text: string) {
+  const urlRegex = /(?:https?:\/\/|www\.)[^\s]+/g;
+
+  return text.replace(urlRegex, (url) => {
+    let formattedUrl = url;
+    if (!/^https?:\/\//i.test(url)) {
+      formattedUrl = "http://" + url;
+    }
+    return `<a href="${formattedUrl}" className="bg-blue-600" target="_blank" style="text-decoration: underline;">${url}</a>`;
+  });
 }

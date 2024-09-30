@@ -17,9 +17,29 @@ export const PATCH = async (req: NextRequest, { params }: any) => {
       message: "Profile view count incremented by 1. ",
     });
   } catch (err) {
-    console.log(err);
     return NextResponse.json({
       error: "Not able to increment profile view",
+      status: 500,
+    });
+  }
+};
+export const GET = async (req: NextRequest, { params }: any) => {
+  const id = params.id;
+  const type = req.nextUrl.searchParams.get("type");
+  let whereClause: any = {};
+  if (type == "following") {
+    whereClause.followerId = id;
+  } else {
+    whereClause.followingId = id;
+  }
+  try {
+    const list = await prisma.follower.findMany({
+      where: whereClause,
+    });
+    return NextResponse.json({ message: "", status: 200, list });
+  } catch (err) {
+    return NextResponse.json({
+      error: "Not able to fetch the list",
       status: 500,
     });
   }

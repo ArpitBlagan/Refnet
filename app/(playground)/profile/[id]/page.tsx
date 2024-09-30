@@ -1,5 +1,7 @@
 import { getUserInfoById } from "@/app/actions/get-profile";
 import { isMissing, readableFormat } from "@/common";
+import FollowersDialog from "@/components/followers-dialog";
+import FollowingDialog from "@/components/following-dialog";
 import Posts from "@/components/Posts";
 import UpdateProfileCount from "@/components/update-profile-count";
 import {
@@ -17,7 +19,7 @@ const page = async ({ params }: { params: any }) => {
   if (!id) {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
 flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
         Something went wrong 🥲.
@@ -86,21 +88,21 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
             )}
 
             <div className="flex flex-col gap-4">
-              <div>
-                <p className="flex items-center gap-1 text-gray-500 text-sm font-semibold">
+              <div className="flex items-center justify-end">
+                <p className="flex  bg-red-400 items-center gap-1 text-gray-500 text-sm font-semibold">
                   {" "}
                   <RiCalendarTodoFill /> Joined at{" "}
                   {readableFormat(res.userInfo.joinedAt)}
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <p className="text-sm font-semibold flex items-center gap-1">
+                <p className=" font-semibold flex items-center gap-1">
                   <span>{res.userInfo.following.length}</span>
-                  <span className="text-gray-500">Following</span>
+                  <FollowingDialog id={id} />
                 </p>
-                <p className="text-sm font-semibold flex items-center gap-1">
+                <p className=" font-semibold flex items-center gap-1">
                   <span>{res.userInfo.followers.length}</span>
-                  <span className="text-gray-500">Followers</span>
+                  <FollowersDialog id={id} />
                 </p>
               </div>
             </div>
@@ -146,7 +148,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
           <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">
             Projects
           </h1>
-          <Posts userId={id} type="ALL" showToOther={true} />
+          <Posts userId={id} showToOther={true} />
         </div>
       </div>
     );

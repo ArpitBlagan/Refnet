@@ -1,6 +1,7 @@
 "use client";
 import {
   RiChat3Line,
+  RiCheckboxCircleLine,
   RiDeleteBinLine,
   RiHeart3Fill,
   RiHeart3Line,
@@ -8,7 +9,6 @@ import {
   RiShareFill,
   RiShareForwardLine,
 } from "@remixicon/react";
-import ReactMarkdown from "react-markdown";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import RenderMedia from "./render-media";
-import { checkForUserId, readableFormat } from "@/common";
+import { checkForUserId, highlightLinks, readableFormat } from "@/common";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -43,8 +43,36 @@ const PostCard = ({
   //     toast.success("Post deleted successfully.");
   //   }
   // };
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [likeStatus, setLikeStatus] = useState("notLiked");
+  const [feedbackGiven, setFeedbackGiven] = useState(false);
   const [loading, setLoading] = useState(false);
+  const submitFeedback = async (value: string) => {
+    //logic to submti feedback
+    setSubmitLoading(true);
+    try {
+      await axios.post("/api/opinion", {
+        postId: postData,
+        userId,
+        response: value,
+      });
+      setFeedbackGiven(true);
+    } catch (err) {
+      toast.error("something went wrong while storing you feedback 👀.");
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (postData.type !== "WORK") {
+      setFeedbackGiven(true);
+    } else {
+      //check weather is already given or not.
+      // if(postData.opinion.include(userId)){
+      //   setFeedbackGiven(true);
+      // }
+    }
+  }, [postData, userId]);
   useEffect(() => {
     if (checkForUserId(userId, postData.likes)) {
       setLikeStatus("liked");
@@ -63,7 +91,11 @@ const PostCard = ({
     try {
       if (likeStatus == "notLiked") {
         setLikeStatus("liked");
-        await axios.post("/api/post", { postId: postData.id, userId });
+        await axios.post("/api/post", {
+          postId: postData.id,
+          userId,
+          postUserId: postData.user.id,
+        });
       } else {
         setLikeStatus("notLiked");
         await axios.delete(`/api/post?postId=${postData.id}&userId=${userId}`);
@@ -74,7 +106,7 @@ const PostCard = ({
     }
   };
   return (
-    <div className="flex flex-col gap-4 border-b border-zinc-800 py-4 ">
+    <div className="flex flex-col gap-4 border p-2 rounded-xl border-zinc-800 py-4 ">
       {!showToOther && (
         <div className="flex items-center gap-3 border-b border-zinc-800 py-2">
           <Image
@@ -123,11 +155,11 @@ const PostCard = ({
       <div className="flex items-center justify-end">
         <p className="text-gray-600">{readableFormat(postData.postedAt)}</p>
       </div>
-      <div>
-        {/* <p className="font-semibold text-gray-300 text-md"> */}
-        <ReactMarkdown>{postData.caption}</ReactMarkdown>
-        {/* </p> */}
-      </div>
+      <div
+        className="text-gray-200 text-lg px-3"
+        dangerouslySetInnerHTML={{ __html: highlightLinks(postData.caption) }}
+      />
+
       <RenderMedia media={postData.media} />
 
       <div className="px-7 flex items-center gap-10">
@@ -156,6 +188,46 @@ const PostCard = ({
         </Link>
         <RiShareForwardLine className="cursor-pointer" />
       </div>
+      {postData.type == "WORK" && (
+        <div>
+          {feedbackGiven == false ? (
+            <div className="p-2 border border-zinc-800 rounded-xl">
+              <p className="text-lg text-center font-semibold">
+                Your impression about the project/work by considering everythink
+                like its ui, idea, implementation etc.
+              </p>
+              <div className="flex items-center justify-around my-4">
+                {["Normal", "Impressive", "Excellent"].map((ele, index) => {
+                  return (
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFeedbackGiven(true);
+                        submitFeedback(ele.toUpperCase());
+                      }}
+                      disabled={submitLoading}
+                      className="bg-green-600 hover:bg-green-700"
+                      key={index}
+                    >
+                      {ele}
+                    </Button>
+                  );
+                })}
+              </div>
+              <p className="text-gray-600 text-md text-center">
+                Your feedback will help use to rate the user profile.
+              </p>
+            </div>
+          ) : (
+            <div className="p-2 rounded-xl border border-zinc-800 flex items-center justify-center flex-col">
+              <RiCheckboxCircleLine className="text-green-600" />
+              <p className="text-gray-600 text-md">
+                Thank you for letting use know about your impression.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import Provider from "../Provider";
 import Sidebar from "@/components/Sidebar";
-import Rightbar from "@/components/Rightbar";
+// import Rightbar from "@/components/Rightbar";
 import { Toaster } from "sonner";
 import { SocketProvider } from "../socket-context";
 const geistSans = localFont({
@@ -36,16 +36,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SocketProvider>
-          <Provider session={session}>
+        <Provider session={session}>
+          <SocketProvider>
             <div className="flex h-screen px-7 mt-7 ">
               <Toaster richColors />
               <Sidebar />
               {children}
-              <Rightbar />
             </div>
-          </Provider>
-        </SocketProvider>
+          </SocketProvider>
+        </Provider>
       </body>
     </html>
   );

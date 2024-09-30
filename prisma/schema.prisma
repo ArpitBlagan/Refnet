@@ -33,6 +33,7 @@ model User{
   comments Comment[]
   posts  Post[]
   likes Like[]
+  opinions Opinion[]
   notification Notification[]
   otherNotification Notification[]@relation("Actor")
   profileView Int @default(0)
@@ -56,11 +57,25 @@ model Post{
   type PostType 
   media String[] @default([])
   postedAt DateTime @default(now())
+  opinions Opinion[]
   comments Comment[]
   likes Like[]
   notifications Notification[]
 }
 
+model Opinion{
+  id String @id @default(uuid())
+  postId String
+  userId String
+  user User @relation(fields: [userId],references: [id])
+  post Post @relation(fields: [postId],references: [id])
+  response ResponseType
+  createdAt DateTime @default(now())
+}
+
+
+//user the one for whom the notification is triggered
+//actor the one who trigger the notification
 model Notification{
   id String @id @default(uuid())
   type NotificationType 
@@ -121,4 +136,10 @@ enum NotificationType{
   FOLLOW
   UNFOLLOW
   COMMENT
+}
+
+enum ResponseType{
+  NORMAL
+  IMPRESSIVE
+  EXCELLENT
 }

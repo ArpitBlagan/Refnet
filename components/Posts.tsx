@@ -43,7 +43,7 @@ const Posts = ({
   }, [page, type]);
 
   return (
-    <div className="my-10 overflow-hidden min-h-screen">
+    <div className="my-10 overflow-hidden overflow-y-scroll min-h-screen">
       <div className="cursor-pointer flex item-center justify-between my-4">
         {["All", "Work", "Referal"].map((ele, index) => {
           return (
@@ -75,7 +75,7 @@ const Posts = ({
           );
         })}
       {loading && (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center h-screen justify-center">
           <Triangle />
         </div>
       )}

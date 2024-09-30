@@ -4,7 +4,7 @@ import SearchSection from "@/components/search-section";
 const page = () => {
   return (
     <div
-      className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+      className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
     flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
     >
       <div className="mb-5">

@@ -31,7 +31,6 @@ export const uploadFiles = async (formdata: FormData) => {
           return url;
         })
       );
-      console.log(response);
       urls = response;
     }
     await prisma.post.create({
@@ -44,7 +43,6 @@ export const uploadFiles = async (formdata: FormData) => {
     });
     return { message: "Posted successsfully 😁." };
   } catch (err) {
-    console.log(err);
     return {
       error:
         "something went wrong while posting your work, please try again later 🥲.",
@@ -106,7 +104,6 @@ export const updateProfile = async (formdata: FormData) => {
     }
     return { message: "successfully updated 😁." };
   } catch (err) {
-    console.log(err);
     return { error: "" };
   }
 };

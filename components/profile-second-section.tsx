@@ -26,7 +26,7 @@ const SecondSection = (info: any) => {
         })}
       </div>
       {sele == "Posts" ? (
-        <Posts type="All" userId={info.id} />
+        <Posts userId={info.id} />
       ) : (
         <LikedPosts userId={info.id} />
       )}
