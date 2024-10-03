@@ -1,3 +1,28 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended", // Start with recommended rules
+    "plugin:prettier/recommended", // Integrate Prettier with ESLint
+    "next/core-web-vitals" // Next.js specific rules (if applicable)
+  ],
+  "rules": {
+    "no-empty": "off",
+    "react/no-unescaped-entities": "off",
+    "no-console": "off", // Allow console statements
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }], // Warn on unused vars, ignore unused function arguments that start with an underscore
+    "react/react-in-jsx-scope": "off", // Allow JSX without React import in Next.js
+    "@typescript-eslint/no-explicit-any": "off", // Allow the use of 'any' type in TypeScript
+    "quotes": ["warn", "single"], // Use single quotes but warn if double quotes are used
+    "prettier/prettier": ["warn"], // Treat Prettier errors as warnings
+    "max-len": ["warn", { "code": 100 }] // Warn if lines exceed 100 characters
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Automatically detect the React version
+    }
+  }
 }

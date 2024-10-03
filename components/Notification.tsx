@@ -1,30 +1,19 @@
-"use client";
+'use client'
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import {
-  RiChat3Fill,
-  RiThumbUpFill,
-  RiUserFollowFill,
-  RiUserUnfollowFill,
-} from "@remixicon/react";
-import { useSocket } from "@/app/socket-context";
-import { getTimeDiffOrDate, isSame, readableFormat } from "@/common";
-import { Triangle } from "react-loader-spinner";
-const Notification = ({
-  postPerPage,
-  userId,
-}: {
-  postPerPage: number;
-  userId: string;
-}) => {
-  const socket = useSocket();
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { RiChat3Fill, RiThumbUpFill, RiUserFollowFill, RiUserUnfollowFill } from '@remixicon/react'
+import { useSocket } from '@/app/socket-context'
+import { getTimeDiffOrDate, isSame } from '@/common'
+import { Triangle } from 'react-loader-spinner'
+const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: string }) => {
+  const socket = useSocket()
   useEffect(() => {
     if (socket) {
-      socket.on("notification", (data) => {
-        console.log(data);
-        const firstEle = notifications[0];
+      socket.on('notification', (data) => {
+        console.log(data)
+        const firstEle = notifications[0]
         if (!isSame(firstEle, data)) {
           setNotification((prev) => {
             return [
@@ -32,42 +21,42 @@ const Notification = ({
                 title: data.title,
                 createAt: data.createdAt,
                 message: data.message,
-                type: data.type,
+                type: data.type
               },
-              ...prev,
-            ];
-          });
+              ...prev
+            ]
+          })
         }
-      });
+      })
     }
     return () => {
-      socket?.off("message");
-    };
-  }, [socket]);
-  const router = useRouter();
-  const [notifications, setNotification] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const observer = useRef<IntersectionObserver | null>(null);
+      socket?.off('message')
+    }
+  }, [socket])
+  const router = useRouter()
+  const [notifications, setNotification] = useState<any[]>([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const observer = useRef<IntersectionObserver | null>(null)
 
   const loadPosts = async (pageNumber: number) => {
-    setLoading(true);
+    setLoading(true)
     try {
       const res = await axios.get(
         `/api/notification?pageNumber=${pageNumber}&postPerPage=${postPerPage}&userId=${userId}`
-      );
-      console.log(res.data);
-      setNotification(res.data);
+      )
+      console.log(res.data)
+      setNotification(res.data)
     } catch (error) {
-      console.error("Error fetching posts:", error);
+      console.error('Error fetching posts:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    loadPosts(page);
-  }, [page]);
+    loadPosts(page)
+  }, [page])
 
   // useEffect(() => {
   //   const lastPostElement = document.querySelector("#last-post");
@@ -93,7 +82,7 @@ const Notification = ({
   return (
     <div
       className={`px-3 py-7 border border-zinc-800 rounded-xl  flex flex-col gap-2 ${
-        postPerPage == 5 ? "min-h-[540px]" : "h-full"
+        postPerPage == 5 ? 'min-h-[540px]' : 'h-full'
       }`}
     >
       <div>
@@ -115,23 +104,21 @@ const Notification = ({
               duration-300 ease-in-out hover:bg-gray-900 border-t border-b border-zinc-900 rounded-md"
                 onClick={() => {
                   if (postPerPage == 5) {
-                    router.push("/notifications");
+                    router.push('/notifications')
                   }
                 }}
               >
                 <div className="flex items-center gap-2">
                   <p className="text-end">
-                    {ele.type == "LIKE" && <RiThumbUpFill />}
-                    {ele.type == "COMMENT" && <RiChat3Fill />}
-                    {ele.type == "FOLLOW" && <RiUserFollowFill />}
-                    {ele.type == "UNFOLLOW" && <RiUserUnfollowFill />}
+                    {ele.type == 'LIKE' && <RiThumbUpFill />}
+                    {ele.type == 'COMMENT' && <RiChat3Fill />}
+                    {ele.type == 'FOLLOW' && <RiUserFollowFill />}
+                    {ele.type == 'UNFOLLOW' && <RiUserUnfollowFill />}
                   </p>
                   <p className="text-bold text-green-600">{ele.title}</p>
                 </div>
                 {postPerPage == 5 ? (
-                  <p className="text-gray-600">
-                    {ele.message.substr(0, 50)}...
-                  </p>
+                  <p className="text-gray-600">{ele.message.substr(0, 50)}...</p>
                 ) : (
                   <p className="text-gray-600">{ele.message}</p>
                 )}
@@ -142,11 +129,11 @@ const Notification = ({
                   <div id="last-post" style={{ height: "20px" }} />
                 )} */}
               </div>
-            );
+            )
           })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Notification;
+export default Notification

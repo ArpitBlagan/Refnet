@@ -1,21 +1,21 @@
-import { getUserInfoById } from "@/app/actions/get-profile";
-import { isMissing, readableFormat } from "@/common";
-import FollowersDialog from "@/components/followers-dialog";
-import FollowingDialog from "@/components/following-dialog";
-import Posts from "@/components/Posts";
-import UpdateProfileCount from "@/components/update-profile-count";
+import { getUserInfoById } from '@/app/actions/get-profile'
+import { isMissing, readableFormat } from '@/common'
+import FollowersDialog from '@/components/followers-dialog'
+import FollowingDialog from '@/components/following-dialog'
+import Posts from '@/components/Posts'
+import UpdateProfileCount from '@/components/update-profile-count'
 import {
   RiCalendarTodoFill,
   RiGithubFill,
   RiLinkedinBoxFill,
   RiLinkM,
-  RiTwitterXFill,
-} from "@remixicon/react";
-import Image from "next/image";
-import Link from "next/link";
+  RiTwitterXFill
+} from '@remixicon/react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const page = async ({ params }: { params: any }) => {
-  const id = params.id;
+  const id = params.id
   if (!id) {
     return (
       <div
@@ -24,10 +24,10 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
         Something went wrong 🥲.
       </div>
-    );
+    )
   }
-  const res = await getUserInfoById(id);
-  console.log(res);
+  const res = await getUserInfoById(id)
+  console.log(res)
   if (!res && res?.error) {
     return (
       <div
@@ -36,11 +36,11 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
         Something went wrong 🥲.
       </div>
-    );
+    )
   } else {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] lg:mr-[400px] overflow-y-scroll 
+        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
   flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
       >
         <UpdateProfileCount userId={id} />
@@ -55,26 +55,23 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
             <div className="">
               {isMissing(res.userInfo) && (
                 <p className="py-2 bg-red-500 px-4 rounded-md text-md font-semibold">
-                  Your Profile is complete 🥲 click on Edit profile and complete
-                  it.
+                  Your Profile is complete 🥲 click on Edit profile and complete it.
                 </p>
               )}
             </div>
           </div>
           <div className="flex flex-col gap-5">
             <div className="flex md:flex-row flex-col items-center gap-3 ">
-              <div className="border rounded-full">
+              <div className="w-32 h-32 rounded-full overflow-hidden relative">
                 <Image
-                  src={res.userInfo.profileImage || ""}
-                  alt="image"
-                  width={100}
-                  height={100}
-                  className="rounded-full"
+                  src={res.userInfo.profileImage || ''} // Replace with your image path
+                  alt="Circular Image"
+                  layout="fill" // Fills the container
+                  objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container
+                  className="absolute inset-0"
                 />
               </div>
-              <p className="flex-1 text-start font-semibold text-md">
-                {res.userInfo.description}
-              </p>
+              <p className="flex-1 text-start font-semibold text-md">{res.userInfo.description}</p>
             </div>
 
             {res.userInfo.resumeLink && (
@@ -89,10 +86,9 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
 
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-end">
-                <p className="flex  bg-red-400 items-center gap-1 text-gray-500 text-sm font-semibold">
-                  {" "}
-                  <RiCalendarTodoFill /> Joined at{" "}
-                  {readableFormat(res.userInfo.joinedAt)}
+                <p className="flex   items-center gap-1 text-gray-500 text-sm font-semibold">
+                  {' '}
+                  <RiCalendarTodoFill /> Joined at {readableFormat(res.userInfo.joinedAt)}
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -109,50 +105,30 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
 
             <div className="grid grid-cols-3 gap-3 ">
               {res.userInfo.LinkedinLink && (
-                <Link
-                  href={res.userInfo.LinkedinLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiLinkedinBoxFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.userInfo.LinkedinLink} className="flex items-center justify-center">
+                  <RiLinkedinBoxFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
               {res.userInfo.twitterLink && (
-                <Link
-                  href={res.userInfo.twitterLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiTwitterXFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.userInfo.twitterLink} className="flex items-center justify-center">
+                  <RiTwitterXFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
               {res.userInfo.githubLink && (
-                <Link
-                  href={res.userInfo.githubLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiGithubFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.userInfo.githubLink} className="flex items-center justify-center">
+                  <RiGithubFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">
-            Projects
-          </h1>
+          <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">Projects</h1>
           <Posts userId={id} showToOther={true} />
         </div>
       </div>
-    );
+    )
   }
-};
+}
 
-export default page;
+export default page

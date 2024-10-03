@@ -1,12 +1,10 @@
-"use client";
-import Link from "next/link";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+'use client'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
     <footer className="flex flex-col gap-2  py-6 w-full  px-4 md:px-6 border-t">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <div className="flex md:flex-row flex-col items-center gap-10">
           <div className="flex md:flex-row flex-col items-center">
             <svg
@@ -46,20 +44,32 @@ const Footer = () => {
             </div> */}
           </div>
         </div>
-        <p className="text-slate-400 text-center px-4 py-4">
-          We build Refnet to help developers to showcase their proof of work
-          effortlessly and stand out in the eye of recruiters.
+        <p className="text-slate-600 text-center text-lg px-4 py-2">
+          We build Refnet to help developers to showcase their proof of work effortlessly and stand
+          out in the eye of recruiters.
         </p>
-        <p className="text-slate-400 text-center">
-          Made by Arpit Blagan with ❤️.
-        </p>
-        <div className="flex gap-4 items-center">
-          <Link href="" className="text-sm underline text-slate-600">
-            Github
-          </Link>
-          <Link href="" className="text-sm underline text-slate-600">
-            Signin/Signup
-          </Link>
+        <p className="text-slate-500 text-center">Made by Arpit Blagan with ❤️.</p>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-4 items-center">
+            <Link
+              href="https://github.com/ArpitBlagan/Refnet"
+              target="_blank"
+              className="text-sm underline text-slate-600"
+            >
+              Github
+            </Link>
+            <Link href="/signup" className="text-sm underline text-slate-600">
+              Signin/Signup
+            </Link>
+          </div>
+          <div className="flex gap-4 items-center">
+            <Link href="/posts" className="text-sm underline text-slate-600">
+              Posts
+            </Link>
+            <Link href="/about" className="text-sm underline text-slate-600">
+              About
+            </Link>
+          </div>
         </div>
       </div>
       <hr className="border border-zinc-900" />
@@ -77,7 +87,7 @@ const Footer = () => {
         </nav>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

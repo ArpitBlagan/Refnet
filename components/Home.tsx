@@ -1,9 +1,9 @@
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import { motion } from "framer-motion";
-import { TextHoverEffect } from "./ui/text-hover-effect";
-import Link from "next/link";
-import { RiGithubFill } from "@remixicon/react";
-import { HoverBorderGradient } from "./ui/hover-background";
+import { BackgroundBeams } from '@/components/ui/background-beams'
+import { motion } from 'framer-motion'
+import { TextHoverEffect } from './ui/text-hover-effect'
+import Link from 'next/link'
+import { RiGithubFill } from '@remixicon/react'
+import { HoverBorderGradient } from './ui/hover-background'
 
 const Home = () => {
   return (
@@ -35,7 +35,7 @@ const Home = () => {
               transition={{
                 duration: 0.7,
                 delay: 0.1,
-                ease: "easeInOut",
+                ease: 'easeInOut'
               }}
               className="w-full h-[10vw] md:h-[10.5vw]"
             >
@@ -47,17 +47,17 @@ const Home = () => {
               transition={{
                 duration: 0.7,
                 delay: 3 * 0.2,
-                ease: "easeInOut",
+                ease: 'easeInOut'
               }}
               className="text-[5vw] tracking-tight font-bold"
             >
-              to showcase your Work.
+              to show-case your Work
             </motion.h1>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

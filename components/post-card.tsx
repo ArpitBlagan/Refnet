@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   RiChat3Line,
   RiCheckboxCircleLine,
@@ -6,117 +6,118 @@ import {
   RiHeart3Fill,
   RiHeart3Line,
   RiMore2Line,
-  RiShareFill,
-  RiShareForwardLine,
-} from "@remixicon/react";
+  RiShareForwardLine
+} from '@remixicon/react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import RenderMedia from "./render-media";
-import { checkForUserId, highlightLinks, readableFormat } from "@/common";
-import Image from "next/image";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import FollowUnFollow from "./follow-unfollow";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import axios from "axios";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import RenderMedia from './render-media'
+import { checkForUserId, highlightLinks, readableFormat } from '@/common'
+import Image from 'next/image'
+import { Button } from './ui/button'
+import Link from 'next/link'
+import FollowUnFollow from './follow-unfollow'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import axios from 'axios'
 const PostCard = ({
   postData,
   showToOther,
-  userId,
+  userId
 }: {
-  postData: any;
-  showToOther: boolean;
-  userId: string;
+  postData: any
+  showToOther: boolean
+  userId: string
 }) => {
   const deletePost = async (postId: any) => {
-    setDeleteLoading(true);
+    setDeleteLoading(true)
     try {
-      await axios.delete(`/api/post?postId=${postId}&userId=${userId}`);
+      await axios.delete(`/api/post?postId=${postId}&userId=${userId}`)
     } catch (err) {
-      toast.error("Not able to delete the post please try again later.");
+      toast.error('Not able to delete the post please try again later.')
     } finally {
-      setDeleteLoading(false);
+      setDeleteLoading(false)
     }
-  };
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [likeStatus, setLikeStatus] = useState("notLiked");
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
-  const [loading, setLoading] = useState(false);
+  }
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
+  const [likeStatus, setLikeStatus] = useState('notLiked')
+  const [feedbackGiven, setFeedbackGiven] = useState(false)
+  const [loading, setLoading] = useState(false)
   const submitFeedback = async (value: string) => {
     //logic to submti feedback
-    setSubmitLoading(true);
+    setSubmitLoading(true)
     try {
-      await axios.post("/api/opinion", {
+      await axios.post('/api/opinion', {
         postId: postData,
         userId,
-        response: value,
-      });
-      setFeedbackGiven(true);
+        response: value
+      })
+      setFeedbackGiven(true)
     } catch (err) {
-      toast.error("something went wrong while storing you feedback 👀.");
+      toast.error('something went wrong while storing you feedback 👀.')
     } finally {
-      setSubmitLoading(false);
+      setSubmitLoading(false)
     }
-  };
+  }
   useEffect(() => {
-    if (postData.type !== "WORK") {
-      setFeedbackGiven(true);
+    if (postData.type !== 'WORK') {
+      setFeedbackGiven(true)
     } else {
       //check weather is already given or not.
       // if(postData.opinion.include(userId)){
       //   setFeedbackGiven(true);
       // }
     }
-  }, [postData, userId]);
+  }, [postData, userId])
   useEffect(() => {
     if (checkForUserId(userId, postData.likes)) {
-      setLikeStatus("liked");
+      setLikeStatus('liked')
     } else {
-      setLikeStatus("notLiked");
+      setLikeStatus('notLiked')
     }
-  }, [postData, userId]);
+  }, [postData, userId])
   const handleLike = async () => {
     if (loading) {
-      return;
+      return
     }
     if (userId.length == 0 || !userId) {
-      return toast.error("You need sign in to like/unlike any post.");
+      return toast.error('You need sign in to like/unlike any post.')
     }
-    setLoading(true);
+    setLoading(true)
     try {
-      if (likeStatus == "notLiked") {
-        setLikeStatus("liked");
-        await axios.post("/api/post", {
+      if (likeStatus == 'notLiked') {
+        setLikeStatus('liked')
+        await axios.post('/api/post', {
           postId: postData.id,
           userId,
-          postUserId: postData.user.id,
-        });
+          postUserId: postData.user.id
+        })
       } else {
-        setLikeStatus("notLiked");
-        await axios.delete(`/api/post?postId=${postData.id}&userId=${userId}`);
+        setLikeStatus('notLiked')
+        await axios.delete(`/api/post?postId=${postData.id}&userId=${userId}`)
       }
     } catch (err) {
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
   return (
     <div className="flex flex-col gap-4 border p-2 rounded-xl border-zinc-800 py-4 ">
       {!showToOther && (
         <div className="flex items-center gap-3 border-b border-zinc-800 py-2">
-          <Image
-            src={postData.user.profileImage || ""}
-            alt="image"
-            width={70}
-            height={70}
-            className="rounded-full"
-          />
+          <div className="w-12 h-12 rounded-full overflow-hidden relative">
+            <Image
+              src={postData.user.profileImage} // Replace with your image path
+              alt="Circular Image"
+              layout="fill" // Fills the container
+              objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container
+              className="absolute inset-0"
+            />
+          </div>
           <div>
             <p className="font-bold">{postData.user.name}</p>
             <p className="text-gray-600">{postData.user.email}</p>
@@ -139,8 +140,8 @@ const PostCard = ({
                     <Button
                       disabled={deleteLoading}
                       onClick={(e) => {
-                        e.preventDefault();
-                        deletePost(postData.id);
+                        e.preventDefault()
+                        deletePost(postData.id)
                       }}
                       className="flex items-center gap-3"
                     >
@@ -165,19 +166,19 @@ const PostCard = ({
 
       <div className="px-7 flex items-center gap-10">
         <div className="flex items-center gap-1">
-          {likeStatus == "liked" ? (
+          {likeStatus == 'liked' ? (
             <RiHeart3Fill
               onClick={(e) => {
-                e.preventDefault();
-                handleLike();
+                e.preventDefault()
+                handleLike()
               }}
-              className={`text-red-700 cursor-pointer`}
+              className={'text-red-700 cursor-pointer'}
             />
           ) : (
             <RiHeart3Line
               onClick={(e) => {
-                e.preventDefault();
-                handleLike();
+                e.preventDefault()
+                handleLike()
               }}
               className="cursor-pointer"
             />
@@ -189,22 +190,22 @@ const PostCard = ({
         </Link>
         <RiShareForwardLine className="cursor-pointer" />
       </div>
-      {postData.type == "WORK" && (
+      {postData.type == 'WORK' && (
         <div>
           {feedbackGiven == false ? (
             <div className="p-2 border border-zinc-800 rounded-xl">
               <p className="text-lg text-center font-semibold">
-                Your impression about the project/work by considering everythink
-                like its ui, idea, implementation etc.
+                Your impression about the project/work by considering everythink like its ui, idea,
+                implementation etc.
               </p>
               <div className="flex items-center justify-around my-4">
-                {["Normal", "Impressive", "Excellent"].map((ele, index) => {
+                {['Normal', 'Impressive', 'Excellent'].map((ele, index) => {
                   return (
                     <Button
                       onClick={(e) => {
-                        e.preventDefault();
-                        setFeedbackGiven(true);
-                        submitFeedback(ele.toUpperCase());
+                        e.preventDefault()
+                        setFeedbackGiven(true)
+                        submitFeedback(ele.toUpperCase())
                       }}
                       disabled={submitLoading}
                       className="bg-green-600 hover:bg-green-700"
@@ -212,7 +213,7 @@ const PostCard = ({
                     >
                       {ele}
                     </Button>
-                  );
+                  )
                 })}
               </div>
               <p className="text-gray-600 text-md text-center">
@@ -230,7 +231,7 @@ const PostCard = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PostCard;
+export default PostCard

@@ -1,26 +1,26 @@
-import { getProfileInfo } from "@/app/actions/get-profile";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { isMissing, readableFormat } from "@/common";
-import EditProfile from "@/components/edit-profile";
-import FollowersDialog from "@/components/followers-dialog";
-import FollowingDialog from "@/components/following-dialog";
-import SecondSection from "@/components/profile-second-section";
+import { getProfileInfo } from '@/app/actions/get-profile'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { isMissing, readableFormat } from '@/common'
+import EditProfile from '@/components/edit-profile'
+import FollowersDialog from '@/components/followers-dialog'
+import FollowingDialog from '@/components/following-dialog'
+import SecondSection from '@/components/profile-second-section'
 
 import {
   RiCalendarTodoFill,
   RiGithubFill,
   RiLinkedinBoxFill,
   RiLinkM,
-  RiTwitterXFill,
-} from "@remixicon/react";
-import { getServerSession } from "next-auth";
-import Image from "next/image";
-import Link from "next/link";
+  RiTwitterXFill
+} from '@remixicon/react'
+import { getServerSession } from 'next-auth'
+import Image from 'next/image'
+import Link from 'next/link'
 
 async function page() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
-  const res = await getProfileInfo(session.user.id);
+  const res = await getProfileInfo(session.user.id)
   if (!res || res.error) {
     return (
       <div
@@ -29,7 +29,7 @@ async function page() {
       >
         Something went wrong 🥲 please try again later.
       </div>
-    );
+    )
   } else {
     return (
       <div
@@ -47,8 +47,7 @@ async function page() {
             <div className="">
               {isMissing(res) && (
                 <p className="py-2 bg-red-500 px-4 rounded-md text-md font-semibold">
-                  Your Profile is complete 🥲 click on Edit profile and complete
-                  it.
+                  Your Profile is complete 🥲 click on Edit profile and complete it.
                 </p>
               )}
             </div>
@@ -57,13 +56,13 @@ async function page() {
           </div>
           <div className="flex flex-col gap-5">
             <div className="flex md:flex-row flex-col items-center gap-3 ">
-              <div className="border rounded-full">
+              <div className="w-32 h-32 rounded-full overflow-hidden relative">
                 <Image
-                  src={res.profileImage || ""}
-                  alt="image"
-                  width={100}
-                  height={100}
-                  className="rounded-full"
+                  src={res.profileImage || ''} // Replace with your image path
+                  alt="Circular Image"
+                  layout="fill" // Fills the container
+                  objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container
+                  className="absolute inset-0"
                 />
               </div>
               <p className="flex-1 text-start font-semibold text-md">
@@ -83,9 +82,8 @@ async function page() {
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-end">
                 <p className="flex  items-center gap-1 text-gray-500 text-sm font-semibold">
-                  {" "}
-                  <RiCalendarTodoFill /> Joined at{" "}
-                  {readableFormat(res.joinedAt)}
+                  {' '}
+                  <RiCalendarTodoFill /> Joined at {readableFormat(res.joinedAt)}
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -102,36 +100,18 @@ async function page() {
 
             <div className="grid grid-cols-3 gap-3 ">
               {res.LinkedinLink && (
-                <Link
-                  href={res.LinkedinLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiLinkedinBoxFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.LinkedinLink} className="flex items-center justify-center">
+                  <RiLinkedinBoxFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
               {res.twitterLink && (
-                <Link
-                  href={res.twitterLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiTwitterXFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.twitterLink} className="flex items-center justify-center">
+                  <RiTwitterXFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
               {res.githubLink && (
-                <Link
-                  href={res.githubLink}
-                  className="flex items-center justify-center"
-                >
-                  <RiGithubFill
-                    size={30}
-                    className="hover:text-white text-gray-500"
-                  />
+                <Link href={res.githubLink} className="flex items-center justify-center">
+                  <RiGithubFill size={30} className="hover:text-white text-gray-500" />
                 </Link>
               )}
             </div>
@@ -139,8 +119,8 @@ async function page() {
         </div>
         <SecondSection id={session.user.id} />
       </div>
-    );
+    )
   }
 }
 
-export default page;
+export default page

@@ -1,62 +1,57 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import { RotatingLines } from "react-loader-spinner";
-import { toast } from "sonner";
-import axios from "axios";
+'use client'
+import { useEffect, useState } from 'react'
+import { Button } from './ui/button'
+import { toast } from 'sonner'
+import axios from 'axios'
 
 const FollowUnFollow = ({
   userId,
   following,
-  userPostId,
+  userPostId
 }: {
-  userId: string;
-  following: string[];
-  userPostId: string;
+  userId: string
+  following: string[]
+  userPostId: string
 }) => {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('')
   useEffect(() => {
-    console.log(userId, userPostId);
+    console.log(userId, userPostId)
     if (following.includes(userId)) {
-      setStatus("Unfollow");
+      setStatus('Unfollow')
     } else {
-      setStatus("Follow");
+      setStatus('Follow')
     }
-  }, [userId, following, userPostId]);
-  const [loading, setLoading] = useState(false);
+  }, [userId, following, userPostId])
+  const [loading, setLoading] = useState(false)
   const handleClick = async () => {
     if (!userId) {
-      return toast.error("You need to Sign in first.");
+      return toast.error('You need to Sign in first.')
     }
-    setLoading(true);
+    setLoading(true)
     try {
-      if (status == "Unfollow") {
-        setStatus("Follow");
-        await axios.delete(
-          `/api/follow?followerId=${userId}&followingId=${userPostId}`
-        );
+      if (status == 'Unfollow') {
+        setStatus('Follow')
+        await axios.delete(`/api/follow?followerId=${userId}&followingId=${userPostId}`)
       } else {
-        setStatus("Unfollow");
-        await axios.post("/api/follow", {
+        setStatus('Unfollow')
+        await axios.post('/api/follow', {
           followerId: userId,
-          followingId: userPostId,
-        });
+          followingId: userPostId
+        })
       }
     } catch (err) {
-      toast.error(
-        "Not able to perform the specific operation please try again later 🥲."
-      );
+      toast.error('Not able to perform the specific operation please try again later 🥲.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
   return (
     <div>
       {userId != userPostId && (
         <Button
           onClick={(e) => {
-            e.preventDefault();
-            handleClick();
+            e.preventDefault()
+            handleClick()
           }}
           disabled={loading}
           className="border text-semibold p-1 px-3 border-blue-800 text-blue-400 hover:bg-blue-100 duration-300 ease-in-out"
@@ -65,6 +60,6 @@ const FollowUnFollow = ({
         </Button>
       )}
     </div>
-  );
-};
-export default FollowUnFollow;
+  )
+}
+export default FollowUnFollow
