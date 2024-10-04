@@ -47,6 +47,9 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async (req: NextRequest) => {
   const postId = req.nextUrl.searchParams.get('postId')
+  if (!postId) {
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
+  }
   try {
     const data = await prisma.opinion.groupBy({
       by: ['response'],

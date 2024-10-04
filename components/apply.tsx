@@ -8,7 +8,7 @@ const Apply = ({ postData, userId }: { postData: any; userId: string }) => {
   const [applied, setApplied] = useState(false)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (postData.applicant.includes(userId)) {
+    if (postData.applications.includes(userId)) {
       setApplied(true)
     }
   }, [postData, userId])
@@ -35,6 +35,7 @@ const Apply = ({ postData, userId }: { postData: any; userId: string }) => {
               e.preventDefault()
               handleApply()
             }}
+            className="bg-green-600 hover:bg-green-700"
             disabled={loading}
           >
             {loading ? 'Applying...' : 'Apply'}

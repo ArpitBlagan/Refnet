@@ -109,7 +109,10 @@ const PostCard = ({
             {postData.type == 'WORK' ? (
               <Analytics postId={postData.id} />
             ) : (
-              <Link href={`/table/${postData.postId}`} className="bg-green-600 hover:bg-green-700">
+              <Link
+                href={`/table/${postData.id}`}
+                className="bg-green-600 hover:bg-green-700 py-2 rounded-xl px-4"
+              >
                 Applicants
               </Link>
             )}

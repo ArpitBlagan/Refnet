@@ -19,8 +19,9 @@ import Link from 'next/link'
 
 async function page() {
   const session = await getServerSession(authOptions)
-
+  console.log(session)
   const res = await getProfileInfo(session.user.id)
+  console.log(res)
   if (!res || res.error) {
     return (
       <div
@@ -88,11 +89,11 @@ async function page() {
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-sm font-semibold flex items-center gap-1">
-                  <span>{res.following.length}</span>
+                  <span>{res.following && res.following.length}</span>
                   <FollowingDialog id={session.user.id} />
                 </p>
                 <p className="text-sm font-semibold flex items-center gap-1">
-                  <span>{res.followers.length}</span>
+                  <span>{res.follower && res.followers.length}</span>
                   <FollowersDialog id={session.user.id} />
                 </p>
               </div>

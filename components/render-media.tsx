@@ -11,7 +11,7 @@ import Image from 'next/image'
 const RenderMedia = ({ media }: any) => {
   console.log(media)
   return (
-    <Carousel className="flex  items-center justify-center overflow-hidden border border-zinc-800 w-full relative p-2">
+    <Carousel className="flex min-h-[300px] items-center justify-center overflow-hidden border border-zinc-800 w-full relative p-2">
       <CarouselContent>
         {media.map((ele: string, index: number) => (
           <CarouselItem key={index} className="flex items-center justify-center ">

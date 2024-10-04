@@ -30,6 +30,7 @@ model User{
   joinedAt DateTime @default(now())
   followers   Follower[] @relation("Followers")
   following   Follower[] @relation("Following")
+  applied  Application[]
   comments Comment[]
   posts  Post[]
   likes Like[]
@@ -58,6 +59,7 @@ model Post{
   closed Boolean?
   media String[] @default([])
   postedAt DateTime @default(now())
+  applications Application[]
   opinions Opinion[]
   comments Comment[]
   likes Like[]
@@ -69,8 +71,8 @@ model Application{
   postId String
   userId String
   appliedAt DateTime @default(now())
-  // user User @relation(fields: [userId],references: [id])
-  // post Post @relation(fields: [postId],references: [id])
+  user User @relation(fields: [userId],references: [id])
+  post Post @relation(fields: [postId],references: [id])
 }
 
 model Opinion{

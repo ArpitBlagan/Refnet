@@ -32,12 +32,13 @@ export const GET = async (req: NextRequest) => {
       orderBy: { postedAt: 'desc' },
       include: {
         likes: true,
+        applications: true,
         user: {
           include: { followers: true, following: true }
         }
       }
     })
-
+    console.log(posts)
     return NextResponse.json(posts)
   } catch (err) {
     console.log(err)
