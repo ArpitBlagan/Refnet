@@ -105,7 +105,7 @@ const Navbar = () => {
             className="flex items-center gap-1 hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
           >
             <RiGithubFill />
-            <span className="text-gray-500">{formatNumber(stars)}</span>
+            <span className="text-gray-500">{formatNumber(stars)} ⭐️</span>
             <RiArrowRightFill className="rotate-[-45deg] text-gray-600" />
           </Link>
         </div>

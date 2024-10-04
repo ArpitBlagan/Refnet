@@ -1,4 +1,4 @@
-import prisma from "@/db";
+import prisma from '@/db'
 
 export const getPostById = async (id: string) => {
   try {
@@ -9,29 +9,37 @@ export const getPostById = async (id: string) => {
         user: {
           include: {
             followers: true,
-            following: true,
-          },
-        },
-      },
-    });
-    return { message: "", postData };
+            following: true
+          }
+        }
+      }
+    })
+    return { message: '', postData }
   } catch (err) {
-    return { error: "not able to fetch post data" };
+    return { error: 'not able to fetch post data' }
   }
-};
+}
 
 export const deletePost = async (postId: string) => {
   try {
     await prisma.post.delete({
-      where: { id: postId },
-    });
-    return { message: "post deleted successfully" };
+      where: { id: postId }
+    })
+    return { message: 'post deleted successfully' }
   } catch (err) {
-    return { error: "not able to delete the post" };
+    return { error: 'not able to delete the post' }
   }
-};
+}
 
-// Todo == >
-// handle where to create notification and create ex like on user register some like and follow
-// create some pool feature about the pooling for project levels simple medium brilliant
-// infinite scrolling
+export const getReferalPostInfo = async (postId: string) => {
+  try {
+    const data = await prisma.application.findMany({
+      where: {
+        postId
+      }
+    })
+    return { message: 'info fetched successffully', data }
+  } catch (err) {
+    return { error: 'not able to get post info.' }
+  }
+}

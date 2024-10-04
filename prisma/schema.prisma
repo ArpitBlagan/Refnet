@@ -55,12 +55,22 @@ model Post{
   user User @relation(fields: [userId],references: [id])
   caption String
   type PostType 
+  closed Boolean?
   media String[] @default([])
   postedAt DateTime @default(now())
   opinions Opinion[]
   comments Comment[]
   likes Like[]
   notifications Notification[]
+}
+
+model Application{
+  id String @id @default(uuid())
+  postId String
+  userId String
+  appliedAt DateTime @default(now())
+  // user User @relation(fields: [userId],references: [id])
+  // post Post @relation(fields: [postId],references: [id])
 }
 
 model Opinion{
@@ -136,6 +146,8 @@ enum NotificationType{
   FOLLOW
   UNFOLLOW
   COMMENT
+  FEEDBACK
+  APPLIED
 }
 
 enum ResponseType{

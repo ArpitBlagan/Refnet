@@ -4,13 +4,12 @@ import prisma from '@/db'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = async (req: NextRequest) => {
-  const { postId, userId, response } = await req.json()
+  const { postId, userId } = await req.json()
   try {
-    await prisma.opinion.create({
+    await prisma.application.create({
       data: {
         postId,
-        userId,
-        response
+        userId
       }
     })
     const [postInfo, userFrom] = await prisma.$transaction([
@@ -20,48 +19,35 @@ export const POST = async (req: NextRequest) => {
     if (postInfo && userFrom && postInfo.userId != userId) {
       const notification = await prisma.notification.create({
         data: {
-          type: 'FEEDBACK',
-          title: `${userFrom.name} gave feedback about work post.`,
-          message: `On your post which about ${
-            postInfo.type
-          } posted on ${readableFormat(postInfo.postedAt)} ${userFrom.name} give their feedback`,
+          type: 'APPLIED',
+          title: `${userFrom.name} applied on your referal post.`,
+          message: `On your post about referal posted on 
+                ${readableFormat(postInfo.postedAt)} ${userFrom.name} applied for it`,
           userId: postInfo.userId,
           actorId: userId
         }
       })
       sendNotificationToOtherBackend(notification)
     }
-    return NextResponse.json({
-      status: '202',
-      message: 'Successfully added you opinion'
-    })
+    return NextResponse.json({ message: 'Successfully applied .' }, { status: 200 })
   } catch (err) {
-    return NextResponse.json(
-      {
-        error: 'Not able to add your opinion'
-      },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }
 
 export const GET = async (req: NextRequest) => {
   const postId = req.nextUrl.searchParams.get('postId')
   try {
-    const data = await prisma.opinion.groupBy({
-      by: ['response'],
-      where: { postId },
-      _count: {
-        response: true
+    const data = await prisma.application.findMany({
+      where: {
+        postId
+      },
+      inclued: {
+        user: true
       }
     })
     return NextResponse.json({ data }, { status: 200 })
   } catch (err) {
-    return NextResponse.json(
-      {
-        error: 'Not able to add your opinion'
-      },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }

@@ -16,6 +16,7 @@ import image from '@/app/images/github.webp'
 import Card from '@/components/Card'
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 import { HoverBorderGradient } from '@/components/ui/hover-background'
+import PieChartComponent from '@/components/pie-chart'
 const featuers = [
   {
     label: 'Get Inspired',

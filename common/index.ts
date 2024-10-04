@@ -1,10 +1,10 @@
-export const otherBackend = "http://localhost:8000/api/notifyUser";
+export const otherBackend = 'http://localhost:8000/api/notifyUser'
 export function trimText(text: string) {
-  return text.trim();
+  return text.trim()
 }
 
 export function readableFormat(date: Date) {
-  return new Date(date).toLocaleDateString();
+  return new Date(date).toLocaleDateString()
 }
 
 export function isMissing(res: any) {
@@ -16,31 +16,31 @@ export function isMissing(res: any) {
     !res.twitterLink ||
     !res.profileImage
   ) {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 
 export function isImage(url: string) {
-  return /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
+  return /\.(jpg|jpeg|png|gif|webp)$/i.test(url)
 }
 
 export function isVideo(url: string) {
-  return /\.(mp4|avi|mov|webm|mkv)$/i.test(url);
+  return /\.(mp4|avi|mov|webm|mkv)$/i.test(url)
 }
 
 export function formatNumber(num: number) {
-  if (num < 1000) return num.toString();
+  if (num < 1000) return num.toString()
 
-  const units = ["K", "M", "B", "T"];
-  let unitIndex = -1;
+  const units = ['K', 'M', 'B', 'T']
+  let unitIndex = -1
 
   while (num >= 1000 && unitIndex < units.length - 1) {
-    num /= 1000;
-    unitIndex++;
+    num /= 1000
+    unitIndex++
   }
 
-  return `${num.toFixed(1)}${units[unitIndex]}`;
+  return `${num.toFixed(1)}${units[unitIndex]}`
 }
 
 export function isSame(firstNotification: any, inCommingNotifcation: any) {
@@ -50,52 +50,75 @@ export function isSame(firstNotification: any, inCommingNotifcation: any) {
     firstNotification.title == inCommingNotifcation.title &&
     firstNotification.message == inCommingNotifcation.messate
   ) {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 
 export function getTimeDiffOrDate(dateString: any) {
-  const inputDate = new Date(dateString);
-  const currentDate = new Date();
+  const inputDate = new Date(dateString)
+  const currentDate = new Date()
 
   // @ts-ignore
-  const diffInMs = currentDate - inputDate;
+  const diffInMs = currentDate - inputDate
 
-  const diffInSeconds = Math.floor(diffInMs / 1000);
-  const diffInMinutes = Math.floor(diffInSeconds / 60);
-  const diffInHours = Math.floor(diffInMinutes / 60);
-  const diffInDays = Math.floor(diffInHours / 24);
+  const diffInSeconds = Math.floor(diffInMs / 1000)
+  const diffInMinutes = Math.floor(diffInSeconds / 60)
+  const diffInHours = Math.floor(diffInMinutes / 60)
+  const diffInDays = Math.floor(diffInHours / 24)
 
   if (diffInDays > 0) {
-    return inputDate.toDateString();
+    return inputDate.toDateString()
   } else if (diffInHours > 0) {
-    return `${diffInHours} hour ago`;
+    return `${diffInHours} hour ago`
   } else if (diffInMinutes > 0) {
-    return `${diffInMinutes} min ago`;
+    return `${diffInMinutes} min ago`
   } else {
-    return `${diffInSeconds} sec ago`;
+    return `${diffInSeconds} sec ago`
   }
 }
 
 export function checkForUserId(userId: string, arr: any) {
   const ele = arr.find((ele: any) => {
-    return ele.userId == userId;
-  });
+    return ele.userId == userId
+  })
   if (ele) {
-    return true;
+    return true
   }
-  return false;
+  return false
 }
 
 export function highlightLinks(text: string) {
-  const urlRegex = /(?:https?:\/\/|www\.)[^\s]+/g;
+  const urlRegex = /(?:https?:\/\/|www\.)[^\s]+/g
 
   return text.replace(urlRegex, (url) => {
-    let formattedUrl = url;
+    let formattedUrl = url
     if (!/^https?:\/\//i.test(url)) {
-      formattedUrl = "http://" + url;
+      formattedUrl = 'http://' + url
     }
-    return `<a href="${formattedUrl}" className="bg-blue-600" target="_blank" style="text-decoration: underline;">${url}</a>`;
-  });
+    return `<a href="${formattedUrl}"  target="_blank"  style="text-decoration: underline; color:"";rgb(173, 216, 230)">${url}</a>`
+  })
+}
+
+const SCORES = {
+  normal: 2,
+  impressive: 3,
+  excellent: 5
+}
+
+export const calculatePostRating = (responses: any) => {
+  const totalResponses = responses.normal + responses.impressive + responses.excellent
+
+  if (totalResponses === 0) return 0 // Avoid division by zero
+
+  const weightedScore =
+    responses.normal * SCORES.normal +
+    responses.impressive * SCORES.impressive +
+    responses.excellent * SCORES.excellent
+
+  // Calculate the average score
+  const averageScore = weightedScore / totalResponses
+
+  // Since the scoring is already within a 1-5 range, we can return the rounded value
+  return averageScore.toFixed(1) // Return rating with 1 decimal place
 }

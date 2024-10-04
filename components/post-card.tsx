@@ -23,6 +23,9 @@ import FollowUnFollow from './follow-unfollow'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import axios from 'axios'
+import Feedback from './feedback'
+import Apply from './apply'
+import Analytics from './analytics'
 const PostCard = ({
   postData,
   showToOther,
@@ -43,36 +46,11 @@ const PostCard = ({
     }
   }
   const [deleteLoading, setDeleteLoading] = useState(false)
-  const [submitLoading, setSubmitLoading] = useState(false)
+
   const [likeStatus, setLikeStatus] = useState('notLiked')
-  const [feedbackGiven, setFeedbackGiven] = useState(false)
+
   const [loading, setLoading] = useState(false)
-  const submitFeedback = async (value: string) => {
-    //logic to submti feedback
-    setSubmitLoading(true)
-    try {
-      await axios.post('/api/opinion', {
-        postId: postData,
-        userId,
-        response: value
-      })
-      setFeedbackGiven(true)
-    } catch (err) {
-      toast.error('something went wrong while storing you feedback 👀.')
-    } finally {
-      setSubmitLoading(false)
-    }
-  }
-  useEffect(() => {
-    if (postData.type !== 'WORK') {
-      setFeedbackGiven(true)
-    } else {
-      //check weather is already given or not.
-      // if(postData.opinion.include(userId)){
-      //   setFeedbackGiven(true);
-      // }
-    }
-  }, [postData, userId])
+
   useEffect(() => {
     if (checkForUserId(userId, postData.likes)) {
       setLikeStatus('liked')
@@ -128,6 +106,13 @@ const PostCard = ({
             following={postData.user.following}
           />
           <div className="flex-1 flex items-center justify-end">
+            {postData.type == 'WORK' ? (
+              <Analytics postId={postData.id} />
+            ) : (
+              <Link href={`/table/${postData.postId}`} className="bg-green-600 hover:bg-green-700">
+                Applicants
+              </Link>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="bg-transparent">
@@ -158,7 +143,7 @@ const PostCard = ({
         <p className="text-gray-600">{readableFormat(postData.postedAt)}</p>
       </div>
       <div
-        className="text-gray-200 text-lg px-3"
+        className="text-gray-300 text-lg px-3"
         dangerouslySetInnerHTML={{ __html: highlightLinks(postData.caption) }}
       />
 
@@ -190,45 +175,10 @@ const PostCard = ({
         </Link>
         <RiShareForwardLine className="cursor-pointer" />
       </div>
-      {postData.type == 'WORK' && (
-        <div>
-          {feedbackGiven == false ? (
-            <div className="p-2 border border-zinc-800 rounded-xl">
-              <p className="text-lg text-center font-semibold">
-                Your impression about the project/work by considering everythink like its ui, idea,
-                implementation etc.
-              </p>
-              <div className="flex items-center justify-around my-4">
-                {['Normal', 'Impressive', 'Excellent'].map((ele, index) => {
-                  return (
-                    <Button
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setFeedbackGiven(true)
-                        submitFeedback(ele.toUpperCase())
-                      }}
-                      disabled={submitLoading}
-                      className="bg-green-600 hover:bg-green-700"
-                      key={index}
-                    >
-                      {ele}
-                    </Button>
-                  )
-                })}
-              </div>
-              <p className="text-gray-600 text-md text-center">
-                Your feedback will help use to rate the user profile.
-              </p>
-            </div>
-          ) : (
-            <div className="p-2 rounded-xl border border-zinc-800 flex items-center justify-center flex-col">
-              <RiCheckboxCircleLine className="text-green-600" />
-              <p className="text-gray-600 text-md">
-                Thank you for letting use know about your impression.
-              </p>
-            </div>
-          )}
-        </div>
+      {postData.type == 'WORK' ? (
+        <Feedback postData={postData} userId={userId} />
+      ) : (
+        <Apply postData={postData} userId={userId} />
       )}
     </div>
   )

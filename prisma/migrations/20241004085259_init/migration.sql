@@ -1,5 +1,11 @@
 -- CreateEnum
-CREATE TYPE "PhotoType" AS ENUM ('PHOTO', 'VIDEO');
+CREATE TYPE "PostType" AS ENUM ('WORK', 'REFERAL', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "NotificationType" AS ENUM ('LIKE', 'FOLLOW', 'UNFOLLOW', 'COMMENT', 'FEEDBACK', 'APPLIED');
+
+-- CreateEnum
+CREATE TYPE "ResponseType" AS ENUM ('NORMAL', 'IMPRESSIVE', 'EXCELLENT');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -36,18 +42,40 @@ CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "caption" TEXT NOT NULL,
-    "type" "PhotoType" NOT NULL,
-    "photos" TEXT[] DEFAULT ARRAY[]::TEXT[],
-    "video" TEXT,
-    "postedAt" TIMESTAMP(3) NOT NULL,
+    "type" "PostType" NOT NULL,
+    "closed" BOOLEAN,
+    "media" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "postedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
+CREATE TABLE "Application" (
+    "id" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "appliedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Application_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Opinion" (
+    "id" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "response" "ResponseType" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Opinion_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Notification" (
     "id" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
+    "type" "NotificationType" NOT NULL,
+    "title" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "actorId" TEXT NOT NULL,
@@ -62,7 +90,8 @@ CREATE TABLE "Notification" (
 CREATE TABLE "Like" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "postId" TEXT NOT NULL,
+    "postId" TEXT,
+    "commentId" TEXT,
 
     CONSTRAINT "Like_pkey" PRIMARY KEY ("id")
 );
@@ -91,6 +120,15 @@ CREATE TABLE "Newsletter" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Follower_followerId_followingId_key" ON "Follower"("followerId", "followingId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Like_userId_postId_key" ON "Like"("userId", "postId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Like_userId_commentId_key" ON "Like"("userId", "commentId");
+
 -- AddForeignKey
 ALTER TABLE "Follower" ADD CONSTRAINT "Follower_followerId_fkey" FOREIGN KEY ("followerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -99,6 +137,12 @@ ALTER TABLE "Follower" ADD CONSTRAINT "Follower_followingId_fkey" FOREIGN KEY ("
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Opinion" ADD CONSTRAINT "Opinion_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Opinion" ADD CONSTRAINT "Opinion_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Notification" ADD CONSTRAINT "Notification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -113,7 +157,10 @@ ALTER TABLE "Notification" ADD CONSTRAINT "Notification_postId_fkey" FOREIGN KEY
 ALTER TABLE "Like" ADD CONSTRAINT "Like_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Like" ADD CONSTRAINT "Like_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Like" ADD CONSTRAINT "Like_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Like" ADD CONSTRAINT "Like_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Comment" ADD CONSTRAINT "Comment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

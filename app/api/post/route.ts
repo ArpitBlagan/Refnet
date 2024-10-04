@@ -41,10 +41,7 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json(posts)
   } catch (err) {
     console.log(err)
-    return NextResponse.json({
-      error: 'Not able to fetch posts try again later.',
-      status: 500
-    })
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }
 
@@ -82,10 +79,7 @@ export const POST = async (req: NextRequest) => {
     }
     return NextResponse.json({ message: 'like added successfully' })
   } catch (err) {
-    return NextResponse.json({
-      error: 'not able to add like to the post',
-      stataus: 500
-    })
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }
 
@@ -93,10 +87,7 @@ export const DELETE = async (req: NextRequest) => {
   const postId = req.nextUrl.searchParams.get('postId')
   const userId = req.nextUrl.searchParams.get('userId')
   if (!postId || !userId) {
-    return NextResponse.json({
-      error: 'not able to unlike to the post',
-      stataus: 500
-    })
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
   try {
     await prisma.like.delete({
@@ -106,9 +97,6 @@ export const DELETE = async (req: NextRequest) => {
     })
     return NextResponse.json({ message: 'like deleted successfully' })
   } catch (err) {
-    return NextResponse.json({
-      error: 'not able to unlike to the post',
-      stataus: 500
-    })
+    return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }
