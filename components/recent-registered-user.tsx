@@ -1,17 +1,17 @@
-import { getRecentRegisteredUser } from "@/app/actions/get-profile";
-import { readableFormat } from "@/common";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { getRecentRegisteredUser } from '@/app/actions/get-profile'
+import { readableFormat } from '@/common'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
 
 const RecentRegisteredUser = async () => {
-  const data = await getRecentRegisteredUser();
+  const data = await getRecentRegisteredUser()
   if (data.error) {
     return (
       <div className="h-[40vh] flex items-center justify-center">
         <p>something went wrong.</p>
       </div>
-    );
+    )
   }
   return (
     <div className="grid md:grid-cols-2 gap-2">
@@ -25,7 +25,7 @@ const RecentRegisteredUser = async () => {
             >
               <div className="flex items-center gap-3">
                 <Image
-                  src={ele.profileImage || ""}
+                  src={ele.profileImage || ''}
                   alt="image"
                   width={80}
                   height={80}
@@ -33,20 +33,18 @@ const RecentRegisteredUser = async () => {
                 />
                 <h1 className="text-md font-semibold">{ele.name}</h1>
                 <p className="text-sm text-gray-700">
-                  Profile views: <span>{ele.profileView}</span>
+                  Profile views: <span>{ele.profileView / 2}</span>
                 </p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-sm text-gray-700">{ele.email}</p>
-                <p className="text-sm text-gray-700">
-                  {readableFormat(new Date(ele.joinedAt))}
-                </p>
+                <p className="text-sm text-gray-700">{readableFormat(new Date(ele.joinedAt))}</p>
               </div>
             </Link>
-          );
+          )
         })}
     </div>
-  );
-};
+  )
+}
 
-export default RecentRegisteredUser;
+export default RecentRegisteredUser

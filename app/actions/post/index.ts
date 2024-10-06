@@ -5,6 +5,7 @@ export const getPostById = async (id: string) => {
     const postData = await prisma.post.findFirst({
       where: { id },
       include: {
+        applications: true,
         likes: true,
         user: {
           include: {
@@ -36,6 +37,9 @@ export const getReferalPostInfo = async (postId: string) => {
     const data = await prisma.application.findMany({
       where: {
         postId
+      },
+      include: {
+        user: true
       }
     })
     return { message: 'info fetched successffully', data }

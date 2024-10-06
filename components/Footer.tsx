@@ -3,9 +3,9 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col gap-2  py-6 w-full  px-4 md:px-6 border-t">
+    <footer className="flex flex-col gap-2  py-6 w-full  px-4 md:px-6 border-t border-zinc-800">
       <div className="flex flex-col gap-2">
-        <div className="flex md:flex-row flex-col items-center gap-10">
+        <div className="flex md:flex-row flex-col items-center gap-5">
           <div className="flex md:flex-row flex-col items-center">
             <svg
               viewBox="0 0 200 200"
@@ -20,8 +20,8 @@ const Footer = () => {
             </svg>
             <h1 className="text-2xl md:text-3xl">Refnet </h1>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-end py-10 gap-4">
-            {/* <div className="md:w-1/2 flex items-center justify-start w-full">
+          {/* <div className="flex-1 flex flex-col items-center justify-end py-10 gap-4"> */}
+          {/* <div className="md:w-1/2 flex items-center justify-start w-full">
               <p className="md:text-xl font-semibold text-white/40 text-start">
                 Don't miss a beat
                 <br />
@@ -42,13 +42,12 @@ const Footer = () => {
                 Submit
               </Button>
             </div> */}
-          </div>
+          {/* </div> */}
         </div>
-        <p className="text-slate-600 text-center text-lg px-4 py-2">
+        <p className="text-slate-600 text-center text-lg px-4 tracking-tight mb-4 text-sm">
           We build Refnet to help developers to showcase their proof of work effortlessly and stand
           out in the eye of recruiters.
         </p>
-        <p className="text-slate-500 text-center">Made by Arpit Blagan with ❤️.</p>
         <div className="flex items-center justify-between">
           <div className="flex gap-4 items-center">
             <Link

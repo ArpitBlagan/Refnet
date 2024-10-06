@@ -36,40 +36,44 @@ const Feedback = ({ postData, userId }: { postData: any; userId: string }) => {
   }, [postData, userId])
   return (
     <div>
-      {feedbackGiven == false ? (
-        <div className="p-2 border border-zinc-800 rounded-xl">
-          <p className="text-lg text-center text-gray-400">
-            Your impression about the project/work by considering everythink like its ui, idea,
-            implementation etc.
-          </p>
-          <div className="flex items-center justify-around my-10">
-            {['Normal', 'Impressive', 'Excellent'].map((ele, index) => {
-              return (
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setFeedbackGiven(true)
-                    submitFeedback(ele.toUpperCase())
-                  }}
-                  disabled={submitLoading}
-                  className="bg-green-600 hover:bg-green-700"
-                  key={index}
-                >
-                  {ele}
-                </Button>
-              )
-            })}
-          </div>
-          <p className="text-gray-600 text-md text-center">
-            Your feedback will help use to rate the user profile.
-          </p>
-        </div>
-      ) : (
-        <div className="p-2 rounded-xl border border-zinc-800 flex items-center justify-center flex-col">
-          <RiCheckboxCircleLine className="text-green-600" />
-          <p className="text-gray-600 text-md">
-            Thank you for letting use know about your impression.
-          </p>
+      {userId != postData.user.id && (
+        <div>
+          {feedbackGiven == false ? (
+            <div className="p-2 border border-zinc-800 rounded-xl">
+              <p className="text-lg text-center text-gray-400">
+                Your impression about the project/work by considering everythink like its ui, idea,
+                implementation etc.
+              </p>
+              <div className="flex items-center justify-around my-10">
+                {['Normal', 'Impressive', 'Excellent'].map((ele, index) => {
+                  return (
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setFeedbackGiven(true)
+                        submitFeedback(ele.toUpperCase())
+                      }}
+                      disabled={submitLoading}
+                      className="bg-green-600 hover:bg-green-700"
+                      key={index}
+                    >
+                      {ele}
+                    </Button>
+                  )
+                })}
+              </div>
+              <p className="text-gray-600 text-md text-center">
+                Your feedback will help use to rate the user profile.
+              </p>
+            </div>
+          ) : (
+            <div className="p-2 rounded-xl border border-zinc-800 flex items-center justify-center flex-col">
+              <RiCheckboxCircleLine className="text-green-600" />
+              <p className="text-gray-600 text-md">
+                Thank you for letting use know about your impression.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>

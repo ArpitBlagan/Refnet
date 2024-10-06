@@ -2,6 +2,7 @@
 import {
   RiChat3Line,
   RiCheckboxCircleLine,
+  RiCloseCircleFill,
   RiDeleteBinLine,
   RiHeart3Fill,
   RiHeart3Line,
@@ -45,6 +46,7 @@ const PostCard = ({
       setDeleteLoading(false)
     }
   }
+  const [totalLikes, setTotalLikes] = useState(0)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   const [likeStatus, setLikeStatus] = useState('notLiked')
@@ -57,6 +59,7 @@ const PostCard = ({
     } else {
       setLikeStatus('notLiked')
     }
+    setTotalLikes(postData.likes.length)
   }, [postData, userId])
   const handleLike = async () => {
     if (loading) {
@@ -69,6 +72,9 @@ const PostCard = ({
     try {
       if (likeStatus == 'notLiked') {
         setLikeStatus('liked')
+        setTotalLikes((prev) => {
+          return prev + 1
+        })
         await axios.post('/api/post', {
           postId: postData.id,
           userId,
@@ -76,6 +82,9 @@ const PostCard = ({
         })
       } else {
         setLikeStatus('notLiked')
+        setTotalLikes((prev) => {
+          return prev - 1
+        })
         await axios.delete(`/api/post?postId=${postData.id}&userId=${userId}`)
       }
     } catch (err) {
@@ -103,18 +112,23 @@ const PostCard = ({
           <FollowUnFollow
             userId={userId}
             userPostId={postData.user.id}
+            followers={postData.user.followers}
             following={postData.user.following}
           />
           <div className="flex-1 flex items-center justify-end">
-            {postData.type == 'WORK' ? (
-              <Analytics postId={postData.id} />
-            ) : (
-              <Link
-                href={`/table/${postData.id}`}
-                className="bg-green-600 hover:bg-green-700 py-2 rounded-xl px-4"
-              >
-                Applicants
-              </Link>
+            {userId == postData.user.id && (
+              <div>
+                {postData.type == 'WORK' ? (
+                  <Analytics postId={postData.id} />
+                ) : (
+                  <Link
+                    href={`/table/${postData.id}`}
+                    className="bg-green-600 hover:bg-green-700 py-2 rounded-xl px-4"
+                  >
+                    Applicants
+                  </Link>
+                )}
+              </div>
             )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -131,9 +145,23 @@ const PostCard = ({
                         e.preventDefault()
                         deletePost(postData.id)
                       }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-3 bg-transparent text-black hover:bg-transparent w-full"
                     >
                       Delete <RiDeleteBinLine />
+                    </Button>
+                  </DropdownMenuItem>
+                )}
+                {postData.type == 'REFERAL' && postData.user.id == userId && (
+                  <DropdownMenuItem className="flex items-center gap-2 cursor-pointer ">
+                    <Button
+                      disabled={deleteLoading}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        deletePost(postData.id)
+                      }}
+                      className="flex items-center gap-3 bg-transparent text-black hover:bg-transparent w-full"
+                    >
+                      Close for applications <RiCloseCircleFill />
                     </Button>
                   </DropdownMenuItem>
                 )}
@@ -171,12 +199,11 @@ const PostCard = ({
               className="cursor-pointer"
             />
           )}
-          {/* {postData.likes.length} */}
+          <p className="text-gray-400 font-semibold">{totalLikes}</p>
         </div>
         <Link href={`/posts/${postData.id}`}>
           <RiChat3Line className="cursor-pointer" />
         </Link>
-        <RiShareForwardLine className="cursor-pointer" />
       </div>
       {postData.type == 'WORK' ? (
         <Feedback postData={postData} userId={userId} />

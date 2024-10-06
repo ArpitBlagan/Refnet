@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 const page = async ({ params }: { params: any }) => {
   const id = params.id
   const res = await getReferalPostInfo(id)
+  console.log(res)
   if (res.error) {
     return (
       <div className="min-h-screen">

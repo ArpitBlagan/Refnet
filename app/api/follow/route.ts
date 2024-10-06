@@ -33,6 +33,7 @@ export const POST = async (req: NextRequest) => {
     }
     return NextResponse.json({ message: 'Operation performed' })
   } catch (err) {
+    console.log(err)
     return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }
 }

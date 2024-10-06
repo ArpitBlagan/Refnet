@@ -1,65 +1,65 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { RiGithubFill } from "@remixicon/react";
-import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+'use client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { RiGithubFill } from '@remixicon/react'
+import { Eye, EyeOff } from 'lucide-react'
+import { signIn } from 'next-auth/react'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 const signinSchema = z.object({
-  email: z.string().email("Please provide valid email address."),
-  password: z.string().min(6, "Password should be atleast 6 characters long."),
-});
-import { useRouter } from "next/navigation";
-type signin = z.infer<typeof signinSchema>;
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
-import { toast } from "sonner";
-import Link from "next/link";
-const page = () => {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  email: z.string().email('Please provide valid email address.'),
+  password: z.string().min(6, 'Password should be atleast 6 characters long.')
+})
+import { useRouter } from 'next/navigation'
+type signin = z.infer<typeof signinSchema>
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import Link from 'next/link'
+function page() {
+  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<signin>({
-    defaultValues: {
-      email: "blaganarpit@gmail.com",
-      password: "Ab@123456",
-    },
-    resolver: zodResolver(signinSchema),
-  });
+    // defaultValues: {
+    //   email: "blaganarpit@gmail.com",
+    //   password: "Ab@123456",
+    // },
+    resolver: zodResolver(signinSchema)
+  })
   const onSubmit: SubmitHandler<signin> = (data) => {
     toast.promise(
       async () => {
-        setLoading(true);
-        const res = await signIn("credentials", {
+        setLoading(true)
+        const res = await signIn('credentials', {
           email: data.email,
           password: data.password,
-          redirect: false,
-        });
+          redirect: false
+        })
 
-        return res;
+        return res
       },
       {
-        loading: "Loading...",
+        loading: 'Loading...',
         success: () => {
-          setLoading(false);
-          router.push("/profile");
-          return "Signin successfully 😁.";
+          setLoading(false)
+          router.push('/profile')
+          return 'Signin successfully 😁.'
         },
         error: () => {
-          setLoading(false);
-          return "Signin falied pleaes check your email & password combination and try again later ❌.";
-        },
+          setLoading(false)
+          return 'Signin falied pleaes check your email & password combination and try again later ❌.'
+        }
       }
-    );
-  };
+    )
+  }
   return (
     <div className="flex flex-col items-center justify-center h-[100vh] mx-2 gap-4 ">
       <div className="w-full md:w-1/2 min:h-1/2 flex flex-col items-center justify-center gap-4 bg-zinc-800 rounded-xl py-5 px-7">
@@ -78,28 +78,25 @@ const page = () => {
             </svg>
           </Link>
           <p className="text-lg">Welcome back to Refnet</p>
-          <p className="text-md tracking-tight text-gray-300">
-            For testing purpose I have already put the credentials so you guys
-            don't have to 👀.
-          </p>
+          {/* <p className="text-md tracking-tight text-gray-300">
+          For testing purpose I have already put the credentials so you guys don't have to 👀.
+          </p>  */}
         </div>
         <form
           className="flex flex-col gap-4 w-full items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            {...register("email")}
+            {...register('email')}
             className="w-full lg:w-1/2 border-zinc-800 bg-black  h-[40px]"
             placeholder="arpitblagan27@gmail.com"
           />
-          {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
-          )}
+          {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
           <div className="relative w-full lg:w-1/2 flex items-center justify-center bg-black rounded-md">
             <Input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              {...register("password")}
+              {...register('password')}
               className=" w-full py-3  h-[40px] border-zinc-800"
             />
             <Button
@@ -108,19 +105,13 @@ const page = () => {
               size="icon"
               className="absolute hover-bg-none right-0 top-0 h-full px-3 py-2  text-gray-400 hover:text-gray-600"
               onClick={togglePasswordVisibility}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {showPassword ? (
-                <EyeOff className="h-5 w-5" />
-              ) : (
-                <Eye className="h-5 w-5" />
-              )}
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </Button>
           </div>
           {errors.password && (
-            <span className="text-red-500 text-sm">
-              {errors.password.message}
-            </span>
+            <span className="text-red-500 text-sm">{errors.password.message}</span>
           )}
           <Button
             type="submit"
@@ -133,15 +124,15 @@ const page = () => {
         <hr className="border border-zinc-700 w-full" />
         <Button
           onClick={async (e) => {
-            e.preventDefault();
-            await signIn("github", { callbackUrl: "/profile" });
+            e.preventDefault()
+            await signIn('github', { callbackUrl: '/profile' })
           }}
           className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
         >
           Sign with Github <RiGithubFill />
         </Button>
         <p>
-          Don't have an Account?{"  "}
+          Don't have an Account?{'  '}
           <a href="/signup" className="text-slate-600 underline">
             Sign up
           </a>
@@ -153,7 +144,7 @@ const page = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

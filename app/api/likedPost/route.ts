@@ -9,7 +9,6 @@ export const GET = async (req: NextRequest) => {
   try {
     const posts = await prisma.post.findMany({
       where: {
-        userId,
         likes: {
           some: { userId }
         }
@@ -17,7 +16,10 @@ export const GET = async (req: NextRequest) => {
       orderBy: { postedAt: 'desc' },
       include: {
         likes: true,
-        user: true
+        applications: true,
+        user: {
+          include: { followers: true, following: true }
+        }
       }
     })
     return NextResponse.json(posts)

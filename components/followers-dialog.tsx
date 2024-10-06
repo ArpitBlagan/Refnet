@@ -23,6 +23,7 @@ const FollowersDialog = ({ id }: { id: string }) => {
       try {
         const res = await axios.get(`/api/user/${id}?type=follower`)
         if (res.data.list.length >= 0) {
+          console.log(res.data)
           setFollowers(res.data.list)
         }
       } catch (err) {
@@ -36,7 +37,7 @@ const FollowersDialog = ({ id }: { id: string }) => {
   return (
     <Dialog>
       <DialogTrigger>Followers</DialogTrigger>
-      <DialogContent className="bg-black">
+      <DialogContent className="bg-black h-[60vh] overflow-hidden overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>People who follow you.</DialogTitle>
           <DialogDescription>
@@ -45,21 +46,26 @@ const FollowersDialog = ({ id }: { id: string }) => {
                 <Triangle />
               </div>
             ) : (
-              <div>
+              <div className="mt-3 flex flex-col items-center justify-center h-full ">
                 {followers.map((ele, index) => {
                   return (
-                    <Link href="/" key={index}>
+                    <Link
+                      href={`/profile/${ele.follower.id}`}
+                      key={index}
+                      className="w-full border py-2 px-3 rounded-xl border-zinc-800 hover:bg-gray-800"
+                    >
                       <div className="flex items-center gap-3">
-                        <Image src="" alt="" width={60} height={60} className="rounded-full" />
+                        <Image
+                          src={ele.follower.profileImage}
+                          alt=""
+                          width={60}
+                          height={60}
+                          className="rounded-full"
+                        />
                         <div>
-                          <p>{ele.name}</p>
-                          <p className="text-md text-gray-600">{ele.email}</p>
+                          <p>{ele.follower.name}</p>
+                          <p className="text-md text-gray-600">{ele.follower.email}</p>
                         </div>
-                      </div>
-                      <div>
-                        <Button variant="outline" className="bg-green-600">
-                          Follow
-                        </Button>
                       </div>
                     </Link>
                   )

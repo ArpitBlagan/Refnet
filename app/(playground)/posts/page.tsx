@@ -1,11 +1,11 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Posts from "@/components/Posts";
-import { getServerSession } from "next-auth";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import Posts from '@/components/Posts'
+import { getServerSession } from 'next-auth'
 
-import React from "react";
+import React from 'react'
 
 const page = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
   return (
     <div
@@ -16,9 +16,9 @@ const page = async () => {
         <h1 className="font-semibold text-3xl">Feed</h1>
       </div>
 
-      <Posts userId={session.user.id} />
+      <Posts userId={session.user.id} header={true} />
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

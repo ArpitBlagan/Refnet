@@ -1,3 +1,5 @@
+'use client'
+import { isApplied } from '@/common'
 import { Button } from '@/components/ui/button'
 import { RiCheckboxCircleLine } from '@remixicon/react'
 import axios from 'axios'
@@ -8,7 +10,7 @@ const Apply = ({ postData, userId }: { postData: any; userId: string }) => {
   const [applied, setApplied] = useState(false)
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (postData.applications.includes(userId)) {
+    if (isApplied(postData.applications, userId)) {
       setApplied(true)
     }
   }, [postData, userId])
@@ -28,30 +30,34 @@ const Apply = ({ postData, userId }: { postData: any; userId: string }) => {
   }
   return (
     <div>
-      {applied == false ? (
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <Button
-            onClick={(e) => {
-              e.preventDefault()
-              handleApply()
-            }}
-            className="bg-green-600 hover:bg-green-700"
-            disabled={loading}
-          >
-            {loading ? 'Applying...' : 'Apply'}
-          </Button>
-          <p className="text-gray-600 text-md text-center">
-            Make sure your profile is complete because we will share your info to recrutier based on
-            that.
-          </p>
-        </div>
-      ) : (
-        <div
-          className="flex flex-col gap-2 items-center justify-center
+      {userId != postData.user.id && (
+        <div>
+          {applied == false ? (
+            <div className="flex flex-col gap-2 items-center justify-center">
+              <Button
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleApply()
+                }}
+                className="bg-green-600 hover:bg-green-700"
+                disabled={loading}
+              >
+                {loading ? 'Applying...' : 'Apply'}
+              </Button>
+              <p className="text-gray-600 text-md text-center">
+                Make sure your profile is complete because we will share your info to recrutier
+                based on that.
+              </p>
+            </div>
+          ) : (
+            <div
+              className="flex flex-col gap-2 items-center justify-center
     "
-        >
-          <RiCheckboxCircleLine className="text-green-600" />
-          <p>You have applied Thank you.</p>
+            >
+              <RiCheckboxCircleLine className="text-green-600" />
+              <p>You have applied Thank you.</p>
+            </div>
+          )}
         </div>
       )}
     </div>

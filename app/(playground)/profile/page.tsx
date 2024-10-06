@@ -66,18 +66,7 @@ async function page() {
                   className="absolute inset-0"
                 />
               </div>
-              <p className="flex-1 text-start font-semibold text-md">
-                {res.description}
-                {res.resumeLink && (
-                  <Link
-                    href={res.resumeLink}
-                    className="flex items-center hover:underline duration-300 ease-in-out font-bold"
-                  >
-                    Resume
-                    <RiLinkM size={20} />
-                  </Link>
-                )}
-              </p>
+              <p className="flex-1 text-start font-semibold text-md">{res.description}</p>
             </div>
 
             <div className="flex flex-col gap-4">
@@ -89,13 +78,22 @@ async function page() {
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-sm font-semibold flex items-center gap-1">
-                  <span>{res.following && res.following.length}</span>
+                  <span>{res.following.length}</span>
                   <FollowingDialog id={session.user.id} />
                 </p>
                 <p className="text-sm font-semibold flex items-center gap-1">
-                  <span>{res.follower && res.followers.length}</span>
+                  <span>{res.followers.length}</span>
                   <FollowersDialog id={session.user.id} />
                 </p>
+                {res.resumeLink && (
+                  <Link
+                    href={res.resumeLink}
+                    className="text-sm font-semibold flex items-center gap-1"
+                  >
+                    <p className="">Resume</p>
+                    <RiLinkM size={20} />
+                  </Link>
+                )}
               </div>
             </div>
 

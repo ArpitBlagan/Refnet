@@ -11,11 +11,15 @@ const POSTS_PER_PAGE = 10
 const Posts = ({
   id,
   userId,
-  showToOther
+  showToOther,
+  myPosts,
+  header
 }: {
   id?: string
-  userId?: string
+  userId: string
   showToOther?: boolean
+  myPosts?: boolean
+  header?: boolean
 }) => {
   const [type, setType] = useState('ALL')
   const [posts, setPosts] = useState<any[]>([])
@@ -26,7 +30,7 @@ const Posts = ({
     setLoading(true)
     try {
       const res = await axios.get(
-        `/api/post?id=${id}&pageNumber=${pageNumber}&postPerPage=${POSTS_PER_PAGE}&type=${type}&userId=${userId}`
+        `/api/post?id=${id}&pageNumber=${pageNumber}&postPerPage=${POSTS_PER_PAGE}&type=${type}&userId=${myPosts && userId}`
       )
       console.log(res.data)
       if (res.data.length >= 0) {
@@ -46,25 +50,27 @@ const Posts = ({
 
   return (
     <div className="my-10 overflow-hidden overflow-y-scroll min-h-screen">
-      <div className="cursor-pointer flex item-center justify-between my-4">
-        {['All', 'Work', 'Referal'].map((ele, index) => {
-          return (
-            <p
-              key={index}
-              onClick={() => {
-                setType(ele.toUpperCase())
-              }}
-              className={`text-center w-full ${
-                type == ele.toUpperCase()
-                  ? 'font-bold text-blue-500 border-b-[2px] border-blue-600'
-                  : ''
-              }`}
-            >
-              {ele}
-            </p>
-          )
-        })}
-      </div>
+      {header && (
+        <div className="cursor-pointer flex item-center justify-between my-4">
+          {['All', 'Work', 'Referal'].map((ele, index) => {
+            return (
+              <p
+                key={index}
+                onClick={() => {
+                  setType(ele.toUpperCase())
+                }}
+                className={`text-center w-full ${
+                  type == ele.toUpperCase()
+                    ? 'font-bold text-blue-500 border-b-[2px] border-blue-600'
+                    : ''
+                }`}
+              >
+                {ele}
+              </p>
+            )
+          })}
+        </div>
+      )}
       {!loading &&
         posts.map((postData, index) => {
           return (
@@ -72,7 +78,7 @@ const Posts = ({
               postData={postData}
               key={index}
               showToOther={showToOther || false}
-              userId={userId || ''}
+              userId={userId}
             />
           )
         })}

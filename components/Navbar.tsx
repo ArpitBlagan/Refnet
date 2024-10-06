@@ -1,5 +1,5 @@
 'use client'
-import { RiArrowRightFill, RiGithubFill, RiUserFill } from '@remixicon/react'
+import { RiArrowRightFill, RiBardFill, RiGithubFill, RiUserFill } from '@remixicon/react'
 import { motion } from 'framer-motion'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
@@ -105,7 +105,8 @@ const Navbar = () => {
             className="flex items-center gap-1 hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
           >
             <RiGithubFill />
-            <span className="text-gray-500">{formatNumber(stars)} ⭐️</span>
+            <span className="text-gray-500">{formatNumber(stars)}</span>
+            <RiBardFill className="text-yellow-500" />
             <RiArrowRightFill className="rotate-[-45deg] text-gray-600" />
           </Link>
         </div>
@@ -214,9 +215,16 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <div>
-            <Link href="/posts">Posts</Link>
-            <Link href="/signin">SignIn/SignUp</Link>
+          <div className="flex items-center gap-2">
+            <Link href="/posts" className="underline">
+              Posts
+            </Link>
+            <Link href="/signin" className="underline">
+              Signin
+            </Link>
+            <Link href="/signup" className="underline">
+              Get started
+            </Link>
           </div>
         )}
       </div>

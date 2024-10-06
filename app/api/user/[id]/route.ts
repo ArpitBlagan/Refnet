@@ -31,7 +31,11 @@ export const GET = async (req: NextRequest, { params }: any) => {
   }
   try {
     const list = await prisma.follower.findMany({
-      where: whereClause
+      where: whereClause,
+      include: {
+        follower: true,
+        following: true
+      }
     })
     return NextResponse.json({ message: '', status: 200, list })
   } catch (err) {

@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
-import { RiChat3Fill, RiThumbUpFill, RiUserFollowFill, RiUserUnfollowFill } from '@remixicon/react'
+import {
+  RiChat3Fill,
+  RiHandbagFill,
+  RiThumbUpFill,
+  RiUserFollowFill,
+  RiUserUnfollowFill
+} from '@remixicon/react'
 import { useSocket } from '@/app/socket-context'
 import { getTimeDiffOrDate, isSame } from '@/common'
 import { Triangle } from 'react-loader-spinner'
@@ -100,7 +106,7 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
               <div
                 key={index}
                 className="px-4 py-2 
-              flex-flex-col gap-1 cursor-pointer
+              flex flex-col gap-4 cursor-pointer
               duration-300 ease-in-out hover:bg-gray-900 border-t border-b border-zinc-900 rounded-md"
                 onClick={() => {
                   if (postPerPage == 5) {
@@ -114,6 +120,7 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
                     {ele.type == 'COMMENT' && <RiChat3Fill />}
                     {ele.type == 'FOLLOW' && <RiUserFollowFill />}
                     {ele.type == 'UNFOLLOW' && <RiUserUnfollowFill />}
+                    {ele.type == 'APPLIED' && <RiHandbagFill />}
                   </p>
                   <p className="text-bold text-green-600">{ele.title}</p>
                 </div>

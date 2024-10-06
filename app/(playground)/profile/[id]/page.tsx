@@ -1,8 +1,11 @@
 import { getUserInfoById } from '@/app/actions/get-profile'
 import { isMissing, readableFormat } from '@/common'
+import FollowUnFollow from '@/components/follow-unfollow'
 import FollowersDialog from '@/components/followers-dialog'
 import FollowingDialog from '@/components/following-dialog'
+import FollowOrUnfollow from '@/components/FollowOrUnfollow'
 import Posts from '@/components/Posts'
+import { Button } from '@/components/ui/button'
 import UpdateProfileCount from '@/components/update-profile-count'
 import {
   RiCalendarTodoFill,
@@ -73,7 +76,12 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
               </div>
               <p className="flex-1 text-start font-semibold text-md">{res.userInfo.description}</p>
             </div>
-
+            <FollowUnFollow
+              userId={''}
+              userPostId={id}
+              following={res.userInfo.following}
+              followers={res.userInfo?.followers}
+            />
             {res.userInfo.resumeLink && (
               <Link
                 href={res.userInfo.resumeLink}
@@ -124,7 +132,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
         </div>
         <div className="flex flex-col gap-4">
           <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">Projects</h1>
-          <Posts userId={id} showToOther={true} />
+          <Posts userId={id} showToOther={true} myPosts={true} />
         </div>
       </div>
     )

@@ -1,36 +1,36 @@
-"use client";
-import { useState } from "react";
-import Posts from "./Posts";
-import LikedPosts from "./liked-posts-byme";
+'use client'
+import { useState } from 'react'
+import Posts from './Posts'
+import LikedPosts from './liked-posts-byme'
 
 const SecondSection = (info: any) => {
-  const [sele, setSele] = useState("Posts");
+  const [sele, setSele] = useState('Posts')
 
   return (
-    <div>
-      <div className="grid grid-cols-4 gap-4 ">
-        {["Posts", "Likes"].map((ele, index) => {
+    <div className="w-full">
+      <div className="grid grid-cols-2 gap-4 w-full">
+        {['Posts', 'Likes'].map((ele, index) => {
           return (
             <div
               key={index}
               onClick={() => {
-                setSele(ele);
+                setSele(ele)
               }}
               className={` h-full flex items-center justify-center cursor-pointer ${
-                ele == sele ? "border-b-[3px] border-blue-400" : ""
+                ele == sele ? 'border-b-[3px] border-blue-400' : ''
               }`}
             >
               {ele}
             </div>
-          );
+          )
         })}
       </div>
-      {sele == "Posts" ? (
-        <Posts userId={info.id} />
+      {sele == 'Posts' ? (
+        <Posts userId={info.id} myPosts={true} />
       ) : (
         <LikedPosts userId={info.id} />
       )}
     </div>
-  );
-};
-export default SecondSection;
+  )
+}
+export default SecondSection

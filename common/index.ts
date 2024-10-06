@@ -122,3 +122,13 @@ export const calculatePostRating = (responses: any) => {
   // Since the scoring is already within a 1-5 range, we can return the rounded value
   return averageScore.toFixed(1) // Return rating with 1 decimal place
 }
+
+export function isApplied(applications: any[], userId: string) {
+  let val = applications.find((ele) => {
+    return ele.userId == userId
+  })
+  if (val) {
+    return true
+  }
+  return false
+}

@@ -25,12 +25,12 @@ const TableInfo = ({ data }: { data: any }) => {
               router.back()
             }}
           />
-          Applications for your Post
+          Applications for you Referal Post
         </p>
       </div>
       <div className="py-2 px-4 border border-zinc-800 rounded-md">
         <Table className="">
-          <TableCaption>A list of your recent invoices.</TableCaption>
+          <TableCaption>A list of users that are interested.</TableCaption>
           <TableHeader>
             <TableRow className="bg-transparent hover:bg-transparent">
               <TableHead>Name and Email</TableHead>
@@ -42,31 +42,41 @@ const TableInfo = ({ data }: { data: any }) => {
               <TableHead>Refnet</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="my-4 border-transparent">
             {data.map((ele: any, index: number) => {
               return (
-                <TableRow key={index} className="bg-black hover:bg-gray-900 rounded-xl">
+                <TableRow
+                  key={index}
+                  className="bg-black hover:bg-gray-900 rounded-xl  font-semibold"
+                >
                   <TableCell className="font-medium">
-                    <p>
-                      {ele.name} <span>{ele.email}</span>
+                    <p className="font-semibold">
+                      {ele.user.name}{' '}
+                      <span className="text-gray-600 font-lg">({ele.user.email})</span>
                     </p>
                   </TableCell>
                   <TableCell>
-                    <Link href={ele.user.resumeLink}>link</Link>
+                    <Link href={ele.user.resumeLink} target="_blank">
+                      link
+                    </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={ele.user.githubLink}>link</Link>
+                    <Link href={ele.user.githubLink} target="_blank">
+                      link
+                    </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={`/profile/${ele.user.id}`}>link</Link>
+                    <Link href={`/profile/${ele.user.id}`} target="_blank">
+                      link
+                    </Link>
                   </TableCell>
                 </TableRow>
               )
             })}
           </TableBody>
           <TableFooter className="mt-5">
-            <TableRow className="bg-black hover:bg-gray-900 rounded-xl">
-              <TableCell className="font-semibold" colSpan={3}>
+            <TableRow className="bg-black hover:bg-gray-900 rounded-xl text-gray-500">
+              <TableCell className="" colSpan={3}>
                 Total applications
               </TableCell>
               <TableCell className="text-right font-semibold">{data.length}</TableCell>

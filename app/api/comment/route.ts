@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
   }
   try {
     const comments = await prisma.comment.findMany({
-      where: { postId: id },
+      where: { postId: id, parentId: null },
       include: {
         user: true,
         children: {
