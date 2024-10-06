@@ -1,8 +1,8 @@
-name: create the docker image push to dockerhub and the on ec2 pull the updated image and restart again
+name: create the docker image then push to dockerhub then on ec2 pull the updated image and re-run it.
 on:
   push:
     branches:
-      - "main"
+      - 'main'
 
 jobs:
   BuildAndDeployment:
@@ -39,4 +39,4 @@ jobs:
             sudo docker pull arpitblagan27/refnet:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
-            sudo docker run -d --name web-app -p 5173:5173 arpitblagan27/refnet:latest
+            sudo docker run -d --name web-app --env-file .env -p 5173:5173 arpitblagan27/refnet:latest
