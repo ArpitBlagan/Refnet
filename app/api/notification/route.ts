@@ -13,6 +13,7 @@ export const GET = async (req: NextRequest) => {
   }
   try {
     const notifications = await prisma.notification.findMany({
+      where: whereClause,
       take: Number(postPerPage),
       skip,
       orderBy: { createdAt: 'desc' }

@@ -80,10 +80,10 @@ const ReplyToComment = ({
         <DialogContent className="h-[90vh] bg-black overflow-hidden overflow-y-scroll ">
           <DialogHeader>
             <DialogTitle className="mb-5">
-              <div className="flex flex-col gap-3">
-                <p>
+              <div className="flex flex-col gap-3 pb-5 border-b border-zinc-800">
+                <p className="text-gray-400">
                   Reply to Comment:{' '}
-                  <span className="text-gray-400">{ele.comment.substr(0, 50)}</span>
+                  <span className="text-gray-200">{ele.comment.substr(0, 50)}</span>
                 </p>
                 <p className="text-gray-600 font-md text-sm text-end">By {ele.user.name}</p>
               </div>
@@ -146,6 +146,9 @@ const ReplyToComment = ({
                         </div>
                       )
                     })}
+                    <p className="text-center my-3">
+                      {comments.length == 0 ? 'No reply on this comment.' : "That's it."}
+                    </p>
                   </div>
                 )}
               </div>

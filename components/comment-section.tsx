@@ -91,7 +91,7 @@ const CommentSection = ({ postId, userId }: any) => {
     <div>
       <div className="flex flex-col gap-3 border-t border-zinc-700 py-4">
         {userId && (
-          <form className="flex items-center gap-2">
+          <form className="flex items-center gap-2 pb-4 ">
             <Input
               placeholder="comment your thoughts..."
               value={comment}
