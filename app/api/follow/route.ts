@@ -24,7 +24,7 @@ export const POST = async (req: NextRequest) => {
           message: `${userFrom.name} who registered on Refnet on ${readableFormat(
             userFrom.joinedAt
           )} started following you 👀.`,
-          title: `${userFrom.name} started follow you`,
+          title: `${userFrom.name} started following you`,
           userId: followingId,
           actorId: followerId
         }

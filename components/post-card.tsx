@@ -93,9 +93,9 @@ const PostCard = ({
     }
   }
   return (
-    <div className="flex flex-col gap-4 border p-2 rounded-xl border-zinc-800 py-4 ">
+    <div className="flex flex-col gap-4 border-t border-b p-2 rounded-xl border-zinc-800 py-4 ">
       {!showToOther && (
-        <div className="flex items-center gap-3 border-b border-zinc-800 py-2">
+        <div className="flex flex-wrap items-center gap-3 border-b border-zinc-800 py-2">
           <div className="w-12 h-12 rounded-full overflow-hidden relative">
             <Image
               src={postData.user.profileImage} // Replace with your image path
@@ -178,7 +178,7 @@ const PostCard = ({
         dangerouslySetInnerHTML={{ __html: highlightLinks(postData.caption) }}
       />
 
-      <RenderMedia media={postData.media} />
+      {postData.media.length && <RenderMedia media={postData.media} />}
 
       <div className="px-7 flex items-center gap-10">
         <div className="flex items-center gap-1">

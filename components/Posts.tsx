@@ -16,7 +16,7 @@ const Posts = ({
   header
 }: {
   id?: string
-  userId: string
+  userId?: string
   showToOther?: boolean
   myPosts?: boolean
   header?: boolean
@@ -49,7 +49,7 @@ const Posts = ({
   }, [page, type])
 
   return (
-    <div className="my-10 overflow-hidden overflow-y-scroll min-h-screen">
+    <div className="my-10">
       {header && (
         <div className="cursor-pointer flex item-center justify-between my-4">
           {['All', 'Work', 'Referal'].map((ele, index) => {
@@ -78,7 +78,7 @@ const Posts = ({
               postData={postData}
               key={index}
               showToOther={showToOther || false}
-              userId={userId}
+              userId={userId || ''}
             />
           )
         })}

@@ -1,11 +1,11 @@
-"use client";
-import { uploadFiles } from "@/app/actions/upload";
-import { trimText } from "@/common";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon } from "@radix-ui/react-icons";
-import { useRouter } from "next/navigation";
-import { RiCloseLine, RiEmojiStickerLine } from "@remixicon/react";
+'use client'
+import { uploadFiles } from '@/app/actions/upload'
+import { trimText } from '@/common'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { ImageIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
+import { RiCloseLine, RiEmojiStickerLine } from '@remixicon/react'
 import {
   Select,
   SelectContent,
@@ -13,99 +13,94 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import EmojiPicker from "emoji-picker-react";
-import { useRef, useState } from "react";
+  SelectValue
+} from '@/components/ui/select'
+import EmojiPicker from 'emoji-picker-react'
+import { useRef, useState } from 'react'
 
-import { toast } from "sonner";
-const MAX_CHARS = 350;
-const MAX_MEDIA = 4;
+import { toast } from 'sonner'
+const MAX_CHARS = 350
+const MAX_MEDIA = 4
 export type MediaFile = {
-  file: File;
-  preview: string;
-  type: "image" | "video";
-};
+  file: File
+  preview: string
+  type: 'image' | 'video'
+}
 const page = () => {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [text, setText] = useState("");
-  const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
-  const [emojiVisi, setEmojiVisi] = useState(false);
-  const [type, setType] = useState("WORK");
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [text, setText] = useState('')
+  const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([])
+  const [emojiVisi, setEmojiVisi] = useState(false)
+  const [type, setType] = useState('WORK')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value.slice(0, MAX_CHARS));
-  };
+    setText(e.target.value.slice(0, MAX_CHARS))
+  }
 
   const handleMediaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newFiles = Array.from(e.target.files).slice(
-        0,
-        MAX_MEDIA - mediaFiles.length
-      );
+      const newFiles = Array.from(e.target.files).slice(0, MAX_MEDIA - mediaFiles.length)
       const newMediaFiles = newFiles.map((file) => ({
         file,
         preview: URL.createObjectURL(file),
-        type: file.type.startsWith("image/") ? "image" : "video",
-      }));
+        type: file.type.startsWith('image/') ? 'image' : 'video'
+      }))
       //@ts-ignore
       setMediaFiles((prevFiles) =>
         //@ts-ignore
         [...prevFiles, ...newMediaFiles].slice(0, MAX_MEDIA)
-      );
+      )
     }
-  };
+  }
 
   const handleRemoveMedia = (index: number) => {
-    setMediaFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
-  };
+    setMediaFiles((prevFiles) => prevFiles.filter((_, i) => i !== index))
+  }
 
   const handlePost = async () => {
-    const tt = trimText(text);
+    const tt = trimText(text)
     if (!tt.length) {
-      toast.error("Please provide a description about you work 🥲.");
-      return;
+      toast.error('Please provide a description about you work 🥲.')
+      return
     }
-    const formdata = new FormData();
-    formdata.append("text", text);
-    formdata.append("type", type);
+    const formdata = new FormData()
+    formdata.append('text', text)
+    formdata.append('type', type)
     mediaFiles.forEach((ele) => {
-      formdata.append("files[]", ele.file);
-    });
+      formdata.append('files[]', ele.file)
+    })
     toast.promise(
       async () => {
-        setLoading(true);
-        const res = await uploadFiles(formdata);
+        setLoading(true)
+        const res = await uploadFiles(formdata)
         if (res.message) {
-          return res;
+          return res
         }
-        throw new Error(res.error);
+        throw new Error(res.error)
       },
       {
-        loading: "Loading...",
+        loading: 'Loading...',
         success: (res) => {
-          setLoading(false);
-          router.push("/posts");
-          return `${res.message}`;
+          setLoading(false)
+          router.push('/posts')
+          return `${res.message}`
         },
         error: (error) => {
-          setLoading(false);
-          return `${error}`;
-        },
+          setLoading(false)
+          return `${error}`
+        }
       }
-    );
-  };
+    )
+  }
   return (
     <div
-      className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
-      flex flex-col justify-start min-h-full  mt-7 mb-10 w-full overflow-hidden"
+      className="flex-1 mx-7 overflow-y-scroll 
+      flex flex-col justify-start min-h-full  mt-7 mb-10 "
     >
       <div className="mb-5">
-        <h1 className="font-semibold text-3xl text-center">
-          Post about your project{" "}
-        </h1>
+        <h1 className="font-semibold text-3xl text-center">Post about your project </h1>
       </div>
       <div className="max-w-2xl mx-auto p-4  rounded-lg shadow w-full relative">
         <Select value={type} onValueChange={setType}>
@@ -127,17 +122,12 @@ const page = () => {
           className="w-full border-zinc-800 mb-2 resize-none bg-slate-900 py-4 font-semibold px-4 h-[150px]"
         />
         <p className="text-gray-700 my-4 text-sm font-semibold">
-          Try to provide proper information about you work like proper
-          description, deployed link, code link etc and try to upload
-          images/videos related to it.
+          Try to provide proper information about you work like proper description, deployed link,
+          code link etc and try to upload images/videos related to it.
         </p>
         <div className="flex justify-between items-center mb-2 relative">
           <div className="flex space-x-2 ">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => fileInputRef.current?.click()}
-            >
+            <Button variant="outline" size="icon" onClick={() => fileInputRef.current?.click()}>
               <ImageIcon className="h-4 w-4" />
             </Button>
             <input
@@ -150,10 +140,10 @@ const page = () => {
             {!emojiVisi && (
               <Button
                 className=" hidden md:flex"
-                variant={"outline"}
+                variant={'outline'}
                 onClick={(e) => {
-                  e.preventDefault();
-                  setEmojiVisi(true);
+                  e.preventDefault()
+                  setEmojiVisi(true)
                 }}
               >
                 <RiEmojiStickerLine className="h-4 w-4" />
@@ -161,11 +151,11 @@ const page = () => {
             )}
             {emojiVisi && (
               <Button
-                variant={"outline"}
+                variant={'outline'}
                 className=" hidden md:flex"
                 onClick={(e) => {
-                  e.preventDefault();
-                  setEmojiVisi(false);
+                  e.preventDefault()
+                  setEmojiVisi(false)
                 }}
               >
                 <RiCloseLine />
@@ -183,7 +173,7 @@ const page = () => {
           {mediaFiles.length > 0 &&
             mediaFiles.map((media, index) => (
               <div key={index} className="relative">
-                {media.type === "image" ? (
+                {media.type === 'image' ? (
                   <img
                     src={media.preview}
                     alt={`Uploaded media ${index + 1}`}
@@ -214,7 +204,7 @@ const page = () => {
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

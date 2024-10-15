@@ -9,13 +9,12 @@ import {
 import Image from 'next/image'
 
 const RenderMedia = ({ media }: any) => {
-  console.log(media)
   return (
-    <Carousel className="flex min-h-[300px] items-center justify-center overflow-hidden border border-zinc-800 w-full relative p-2">
+    <Carousel className="flex h-[400px] items-center justify-center overflow-hidden border border-zinc-800 rounded-xl w-full relative p-2">
       <CarouselContent>
         {media.map((ele: string, index: number) => (
           <CarouselItem key={index} className="flex items-center justify-center ">
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full ">
               {isVideo(ele) ? (
                 <video
                   controls
@@ -38,9 +37,9 @@ const RenderMedia = ({ media }: any) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-[2rem] top-1/2 transform -translate-y-1/2 z-10 bg-black" />
+      <CarouselPrevious className="absolute left-[2rem] top-1/2 transform -translate-y-1/2 z-10 " />
 
-      <CarouselNext className="absolute right-[2rem] top-1/2 transform -translate-y-1/2 z-10 bg-black" />
+      <CarouselNext className="absolute right-[2rem] top-1/2 transform -translate-y-1/2 z-10 " />
     </Carousel>
   )
 }

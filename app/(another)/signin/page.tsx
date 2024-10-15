@@ -89,7 +89,7 @@ function page() {
           <Input
             {...register('email')}
             className="w-full lg:w-1/2 border-zinc-800 bg-black  h-[40px]"
-            placeholder="arpitblagan27@gmail.com"
+            placeholder="Enter your email address"
           />
           {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
           <div className="relative w-full lg:w-1/2 flex items-center justify-center bg-black rounded-md">

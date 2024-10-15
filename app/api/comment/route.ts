@@ -35,7 +35,7 @@ export const GET = async (req: NextRequest) => {
 export const POST = async (req: NextRequest) => {
   const { postId, comment, userId } = await req.json()
   try {
-    await prisma.comment.create({
+    const res = await prisma.comment.create({
       data: {
         postId,
         userId,
@@ -60,7 +60,7 @@ export const POST = async (req: NextRequest) => {
       })
       sendNotificationToOtherBackend(notification)
     }
-    return NextResponse.json({ message: 'comment added successfully.' })
+    return NextResponse.json({ res }, { status: 200 })
   } catch (err) {
     return NextResponse.json({ error: 'something went wrong' }, { status: 500 })
   }

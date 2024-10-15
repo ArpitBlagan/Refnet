@@ -29,7 +29,7 @@ jobs:
       - name: check it is pushed or not
         run: docker pull arpitblagan27/refnet:latest
 
-      - name: deploy on ec2
+      - name: ssh into ec2, stop the previous image running then pull the latest image and run it
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -39,4 +39,4 @@ jobs:
             sudo docker pull arpitblagan27/refnet:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
-            sudo docker run -d --name web-app --env-file .env -p 5173:5173 arpitblagan27/refnet:latest
+            sudo docker run -d --name web-app --env-file .env -p 3000:3000 arpitblagan27/refnet:latest

@@ -1,5 +1,5 @@
 'use client'
-import { RiArrowRightFill, RiBardFill, RiGithubFill, RiUserFill } from '@remixicon/react'
+import { RiGithubFill, RiUserFill } from '@remixicon/react'
 import { motion } from 'framer-motion'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
@@ -100,14 +100,13 @@ const Navbar = () => {
             )
           })}
           <Link
-            href="https://github.com/ArpitBlagan"
+            href="https://github.com/ArpitBlagan/refnet"
             target="_blank"
             className="flex items-center gap-1 hover:bg-gray-700 py-1 px-2 rounded-xl duration-1 ease-in-out duration-100"
           >
             <RiGithubFill />
-            <span className="text-gray-500">{formatNumber(stars)}</span>
-            <RiBardFill className="text-yellow-500" />
-            <RiArrowRightFill className="rotate-[-45deg] text-gray-600" />
+            <span className="text-gray-300 font-bold">{formatNumber(stars)}</span>
+            ⭐️
           </Link>
         </div>
       </div>

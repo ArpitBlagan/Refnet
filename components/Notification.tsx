@@ -88,13 +88,13 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
   return (
     <div
       className={`px-3 py-7 border border-zinc-800 rounded-xl  flex flex-col gap-2 ${
-        postPerPage == 5 ? 'min-h-[540px]' : 'h-full'
+        postPerPage == 5 ? 'h-[640px] w-[300px]' : ''
       }`}
     >
       <div>
         <h1 className="font-bold text-center mb-5">Notifications</h1>
       </div>
-      <div className="h-full">
+      <div className="h-full overflow-hidden overflow-y-scroll">
         {loading && (
           <div className="flex h-full items-center justify-center my-20">
             <Triangle height={50} width={50} />

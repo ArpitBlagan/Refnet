@@ -1,62 +1,62 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { RiGithubFill } from "@remixicon/react";
-import { signIn } from "next-auth/react";
-import { Eye, EyeOff } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import * as z from "zod";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
+'use client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { RiGithubFill } from '@remixicon/react'
+import { signIn } from 'next-auth/react'
+import { Eye, EyeOff } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import * as z from 'zod'
+import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
 const signupSchema = z.object({
-  name: z.string().min(5, "Name should atleast have 5 character"),
-  email: z.string().email("Please provide valid and active email address."),
-  password: z.string().min(6, "Password should be atleast 6 characters long."),
-});
-type signup = z.infer<typeof signupSchema>;
-import { SubmitHandler, useForm } from "react-hook-form";
+  name: z.string().min(5, 'Name should atleast have 5 character'),
+  email: z.string().email('Please provide valid and active email address.'),
+  password: z.string().min(6, 'Password should be atleast 6 characters long.')
+})
+type signup = z.infer<typeof signupSchema>
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { registerUser } from "@/app/actions/auth";
-import { useState } from "react";
-import { toast } from "sonner";
-import Link from "next/link";
+import { registerUser } from '@/app/actions/auth'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import Link from 'next/link'
 const page = () => {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  const callbackurl = useSearchParams() || "/";
+    setShowPassword(!showPassword)
+  }
+  const callbackurl = useSearchParams() || '/'
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<signup>({ resolver: zodResolver(signupSchema) });
+    formState: { errors }
+  } = useForm<signup>({ resolver: zodResolver(signupSchema) })
   const onSubmit: SubmitHandler<signup> = (data) => {
     toast.promise(
       async () => {
-        setLoading(true);
-        const res = await registerUser(data.name, data.email, data.password);
+        setLoading(true)
+        const res = await registerUser(data.name, data.email, data.password)
         if (res.message) {
-          return res;
+          return res
         }
-        throw new Error(res.error);
+        throw new Error(res.error)
       },
       {
-        loading: "Loading...",
+        loading: 'Loading...',
         success: (res) => {
-          setLoading(false);
-          router.push("/signin");
-          return `${res.message}`;
+          setLoading(false)
+          router.push('/signin')
+          return `${res.message}`
         },
         error: (error) => {
-          setLoading(false);
-          return `${error}`;
-        },
+          setLoading(false)
+          return `${error}`
+        }
       }
-    );
-  };
+    )
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-[100vh] mx-2 gap-4 ">
@@ -77,11 +77,9 @@ const page = () => {
           </Link>
           <p className="text-lg">Welcome to Refnet</p>
           <p className="text-md text-slate-300 text-center">
-            Get started with Refnet and unlock great opportunites waiting for
-            you.
+            Get started with Refnet and unlock great opportunites waiting for you.
             <br />
-            Please provide your active email address so in future you don't miss
-            any notifications.
+            Please provide your active email address so in future you don't miss any notifications.
           </p>
         </div>
         <form
@@ -90,26 +88,24 @@ const page = () => {
         >
           <Input
             className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800"
-            placeholder="Arpit Blagan"
-            {...register("name")}
+            placeholder="Enter your name"
+            {...register('name')}
           />
-          {errors.name && (
-            <span className="text-red-500 text-sm">{errors.name.message}</span>
-          )}
+          {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+
           <Input
             className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800"
-            placeholder="arpitblagan27@gmail.com"
-            {...register("email")}
+            placeholder="Enter your email address"
+            {...register('email')}
           />
 
-          {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
-          )}
+          {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+
           <div className="relative w-full lg:w-1/2 flex items-center justify-center bg-black rounded-md">
             <Input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
-              {...register("password")}
+              {...register('password')}
               className=" w-full py-3  h-[40px] border-zinc-800"
             />
             <Button
@@ -118,19 +114,13 @@ const page = () => {
               size="icon"
               className="absolute hover-bg-none right-0 top-0 h-full px-3 py-2  text-gray-400 hover:text-gray-600"
               onClick={togglePasswordVisibility}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {showPassword ? (
-                <EyeOff className="h-5 w-5" />
-              ) : (
-                <Eye className="h-5 w-5" />
-              )}
+              {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </Button>
           </div>
           {errors.password && (
-            <span className="text-red-500 text-sm">
-              {errors.password.message}
-            </span>
+            <span className="text-red-500 text-sm">{errors.password.message}</span>
           )}
           <Button
             type="submit"
@@ -143,15 +133,15 @@ const page = () => {
         <hr className="border border-zinc-700 w-full" />
         <Button
           onClick={async (e) => {
-            e.preventDefault();
+            e.preventDefault()
             try {
-              await signIn("github", {
+              await signIn('github', {
                 redirect: false,
-                callbackUrl: "/profile",
-              });
-              console.log("successfull :)");
+                callbackUrl: '/profile'
+              })
+              console.log('successfull :)')
             } catch (err) {
-              console.log(err);
+              console.log(err)
             }
           }}
           className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
@@ -159,7 +149,7 @@ const page = () => {
           With Github <RiGithubFill />
         </Button>
         <p>
-          Already have an Account?{"  "}
+          Already have an Account?{'  '}
           <a href="/signin" className="text-slate-600 underline">
             Sign in
           </a>
@@ -171,7 +161,7 @@ const page = () => {
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

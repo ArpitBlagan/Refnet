@@ -68,6 +68,22 @@ const CommentSection = ({ postId, userId }: any) => {
           comment: trimComment
         })
         console.log(res)
+        setComments((prev) => {
+          return [
+            {
+              user: {
+                //@ts-ignore
+                profileImage: session?.user.image,
+                //@ts-ignore
+                name: session?.user.name
+              },
+              comment: trimComment,
+              createdAt: Date.now(),
+              children: []
+            },
+            ...prev
+          ]
+        })
         if (res.data.error) {
           throw new Error('something went wron')
         }
