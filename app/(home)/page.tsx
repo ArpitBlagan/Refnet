@@ -16,7 +16,7 @@ import image from '@/app/images/github.webp'
 import Card from '@/components/Card'
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 import { HoverBorderGradient } from '@/components/ui/hover-background'
-import PieChartComponent from '@/components/pie-chart'
+
 const featuers = [
   {
     label: 'Get Inspired',
@@ -58,9 +58,10 @@ export default function Landing() {
       ref={refScrollContainer}
       className="bg-gradient-to-b rounded-xl from-[#0a0a0a] via-slate-900 to-[[#0a0a0a]"
     >
-      <div className="h-[60vh] md:h-[89vh] relative px-7">
+      <div className="relative h-[60vh] md:h-[89vh]  px-7">
         <Home />
         <Second />
+        {/* <Ripple /> */}
       </div>
       <div className="min-h-screen flex flex-col overflow-hidden">
         <ContainerScroll

@@ -1,14 +1,16 @@
-import { BackgroundBeams } from '@/components/ui/background-beams'
+// import { BackgroundBeams } from '@/components/ui/background-beams'
 import { motion } from 'framer-motion'
 import { TextHoverEffect } from './ui/text-hover-effect'
 import Link from 'next/link'
 import { RiGithubFill } from '@remixicon/react'
 import { HoverBorderGradient } from './ui/hover-background'
+import { Spotlight } from './ui/spotlight'
 
 const Home = () => {
   return (
-    <div className=" h-[40vh] md:h-[50vh] flex items-center justify-center bg-opcaity-10">
-      <BackgroundBeams />
+    <div className="h-[40vh] relative md:h-[50vh] flex items-center justify-center bg-opcaity-10">
+      <Spotlight />
+      {/* <BackgroundBeams /> */}
       <div className=" flex flex-col gap-4">
         <div className="flex flex-col gap-2 justify-center">
           <div className="flex items-center flex-col font-mono uppercase relative">
@@ -49,7 +51,7 @@ const Home = () => {
                 delay: 3 * 0.2,
                 ease: 'easeInOut'
               }}
-              className="text-[5vw] tracking-tight font-bold"
+              className="text-[5vw] tracking-tight font-medium"
             >
               to show-case your Work
             </motion.h1>

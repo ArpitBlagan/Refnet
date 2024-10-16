@@ -1,11 +1,21 @@
 import { RiArrowRightLine, RiInfinityLine } from '@remixicon/react'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 const Second = () => {
   return (
-    <div className="h-[30vh] relative flex flex-col gap-3">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.7,
+        delay: 4 * 0.2,
+        ease: 'easeInOut'
+      }}
+      className="h-[30vh] relative flex flex-col gap-3"
+    >
       <div className="text-gray-300 flex flex-col items-center">
-        <h1 className="md:text-3xl text-center leading-[1] text-semibold">
+        <h1 className="md:text-xl text-center leading-[1] text-medium">
           Showcase Your Skills, Unlock Referrals
         </h1>
         <p className="text-center text-slate-600">
@@ -27,7 +37,7 @@ const Second = () => {
           Get Started <RiInfinityLine className="rotate-[-45deg]" />
         </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
