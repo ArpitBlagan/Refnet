@@ -84,7 +84,7 @@ const Navbar = () => {
             transform="translate(100 100)"
           />
         </svg>
-        <p>Refnet</p>
+        <p className="font-semibold">Refnet</p>
       </Link>
       <div className="flex-grow items-center justify-center  gap-4 hidden lg:flex">
         <div className="flex items-center justify-center gap-10">
