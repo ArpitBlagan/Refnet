@@ -133,6 +133,7 @@ const page = () => {
             <input
               type="file"
               hidden
+              multiple
               ref={fileInputRef}
               onChange={handleMediaUpload}
               accept="image/*,video/mp4"

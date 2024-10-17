@@ -23,7 +23,7 @@ const RecentRegisteredUser = async () => {
               key={index}
               className="flex flex-col gap-1 border py-2 px-4 rounded-xl border-zinc-800"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center flex-wrap gap-3">
                 <Image
                   src={ele.profileImage || ''}
                   alt="image"
@@ -36,7 +36,7 @@ const RecentRegisteredUser = async () => {
                   Profile views: <span>{ele.profileView / 2}</span>
                 </p>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center flex-wrap justify-between">
                 <p className="text-sm text-gray-700">{ele.email}</p>
                 <p className="text-sm text-gray-700">{readableFormat(new Date(ele.joinedAt))}</p>
               </div>
