@@ -61,7 +61,7 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
   }
 
   useEffect(() => {
-    if (userId) {
+    if (userId && userId.length) {
       loadPosts(page)
     }
   }, [page])

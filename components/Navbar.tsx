@@ -215,10 +215,10 @@ const Navbar = () => {
           </DropdownMenu>
         ) : (
           <div className="flex items-center gap-2">
-            <Link href="/posts" className="underline text-md font-semibold">
-              Posts
+            <Link href="/signin" className="">
+              Sign in
             </Link>
-            <Link href="/signup" className="underline text-md font-semibold">
+            <Link href="/signup" className="">
               Get started
             </Link>
           </div>
