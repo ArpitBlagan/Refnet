@@ -94,7 +94,7 @@ async function page() {
   } else {
     return (
       <div
-        className="flex-1 mx-7 overflow-y-scroll 
+        className="flex-1  overflow-y-scroll 
       flex flex-col justify-start min-h-full  mt-7 mb-10 "
       >
         <div className="mb-8 flex flex-col gap-10 py-7 px-7 w-full">
