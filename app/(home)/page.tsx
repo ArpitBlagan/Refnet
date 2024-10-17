@@ -63,7 +63,7 @@ export default function Landing() {
         <Second />
         {/* <Ripple /> */}
       </div>
-      <div className="min-h-screen flex flex-col overflow-hidden">
+      <div className="hidden md:block min-h-screen flex flex-col overflow-hidden">
         <ContainerScroll
           titleComponent={
             <>
