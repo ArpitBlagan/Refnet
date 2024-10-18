@@ -36,7 +36,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker pull arpitblagan27/refnet:latest
             sudo docker stop web-app || true
             sudo docker rm web-app || true
+            sudo docker image prune -f || true
+            sudo docker pull arpitblagan27/refnet:latest
             sudo docker run -d --name web-app --env-file .env -p 3000:3000 arpitblagan27/refnet:latest
