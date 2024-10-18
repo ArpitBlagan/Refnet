@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { BorderBeam } from '@/components/ui/border-beam'
 function page() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
@@ -62,7 +63,8 @@ function page() {
   }
   return (
     <div className="flex flex-col items-center justify-center h-[100vh] mx-2 gap-4 ">
-      <div className="w-full md:w-1/2 min:h-1/2 flex flex-col items-center justify-center gap-4 bg-zinc-800 rounded-xl py-5 px-7">
+      <div className="relative w-full md:w-1/2 min:h-1/2 flex flex-col items-center justify-center gap-4 bg-zinc-800 rounded-xl py-5 px-7">
+        <BorderBeam className="hidden md:block" size={250} duration={32} delay={9} />
         <div className="flex flex-col items-center justify-center gap-3">
           <Link href="/">
             <svg

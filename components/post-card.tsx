@@ -1,7 +1,6 @@
 'use client'
 import {
   RiChat3Line,
-  RiCheckboxCircleLine,
   RiCloseCircleFill,
   RiDeleteBinLine,
   RiHeart3Fill,
@@ -174,7 +173,7 @@ const PostCard = ({
         <p className="text-gray-600">{readableFormat(postData.postedAt)}</p>
       </div>
       <div
-        className="text-gray-300 text-lg px-3"
+        className="text-gray-300 md:text-lg text-center px-3"
         dangerouslySetInnerHTML={{ __html: highlightLinks(postData.caption) }}
       />
 

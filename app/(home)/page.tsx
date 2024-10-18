@@ -16,6 +16,7 @@ import image from '@/app/images/github.webp'
 import Card from '@/components/Card'
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 import { HoverBorderGradient } from '@/components/ui/hover-background'
+import { BorderBeam } from '@/components/ui/border-beam'
 
 const featuers = [
   {
@@ -104,7 +105,7 @@ export default function Landing() {
               What we offer
             </h1>
             <p className="text-2xl tracking-tighter sm:text-3xl md:text-3xl text-white/40">
-              Enter in world of Refent, explore out of box features and show case you work
+              Enter in the world of Refent, explore out of box features and show case you work
               effortlessly.
             </p>
           </div>
@@ -132,7 +133,8 @@ export default function Landing() {
           </Link>
         </div>
       </div> */}
-      <div className="flex md:flex-row flex-col items-center justify-between px-7 bg-[#f8f8fa] min-h-[500px] rounded-2xl xl:rounded-full mb-5">
+      <div className="relative flex md:flex-row flex-col border items-center justify-between px-7 bg-[#f8f8fa] min-h-[500px] rounded-2xl xl:rounded-full mb-5">
+        <BorderBeam size={450} duration={32} delay={9} />
         <div className="flex flex-col gap-10 md:items-center pt-10 h-full pl-4">
           <h1 className="text-3xl md:text-[3vw] font-semibold text-black/70 uppercase">
             Why you should

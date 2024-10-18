@@ -103,8 +103,8 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
   } else {
     return (
       <div
-        className="flex-1 ml-5 w-full overflow-y-scroll 
-  flex flex-col justify-start min-h-full  mt-7 mb-10 w-full"
+        className="flex-1 w-full overflow-y-scroll 
+  flex flex-col justify-start min-h-full  my-10 w-full"
       >
         <UpdateProfileCount userId={id} />
         <div className=" flex flex-col gap-10 py-7 px-7 w-full mb-8">
@@ -118,7 +118,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
             <div className="">
               {isMissing(res.userInfo) && (
                 <p className="py-2 bg-red-500 px-4 rounded-md text-md font-semibold">
-                  Your Profile is complete 🥲 click on Edit profile and complete it.
+                  Profile is uncomplete 🥲.
                 </p>
               )}
             </div>
@@ -134,7 +134,9 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
                   className="absolute inset-0"
                 />
               </div>
-              <p className="flex-1 text-start font-semibold text-md">{res.userInfo.description}</p>
+              <p className="flex-1 md:text-start font-semibold text-sm text-center md:text-md">
+                {res.userInfo.description}
+              </p>
             </div>
             <FollowUnFollow
               userId={''}
