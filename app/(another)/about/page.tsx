@@ -1,12 +1,12 @@
-"use client";
-import Image from "next/image";
-import bg from "@/app/images/greg-rakozy-oMpAz-DN-9I-unsplash.jpg";
-import { StarsBackground } from "@/components/ui/star-background";
-import { SparklesCore } from "@/components/ui/sparkles";
-import { RiGithubFill, RiLinkedinFill, RiTwitterXFill } from "@remixicon/react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { HoverBorderGradient } from "@/components/ui/hover-background";
+'use client'
+import Image from 'next/image'
+import bg from '@/app/images/greg-rakozy-oMpAz-DN-9I-unsplash.jpg'
+import { StarsBackground } from '@/components/ui/star-background'
+import { SparklesCore } from '@/components/ui/sparkles'
+import { RiGithubFill, RiLinkedinFill, RiTwitterXFill } from '@remixicon/react'
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { HoverBorderGradient } from '@/components/ui/hover-background'
 
 const page = () => {
   return (
@@ -25,14 +25,14 @@ const page = () => {
       </div>
       <div
         className=" absolute top-[50%] left-[50%] flex flex-col w-full gap-2 items-center justify-center"
-        style={{ transform: "translate(-50%,-50%)", zIndex: "1" }}
+        style={{ transform: 'translate(-50%,-50%)', zIndex: '1' }}
       >
         <Image
           src={bg}
           alt="image"
           height={400}
           className="rounded-full"
-          style={{ opacity: "0.5" }}
+          style={{ opacity: '0.5' }}
         />
         <div className="flex flex-col items-center justify-center gap-2">
           <motion.h1
@@ -41,9 +41,9 @@ const page = () => {
             transition={{
               duration: 0.5,
               delay: 0.2,
-              ease: "easeInOut",
+              ease: 'easeInOut'
             }}
-            className="font-bold text-4xl uppercase text-gray-200"
+            className="font-semibold text-2xl uppercase text-gray-200"
           >
             <Link href="/">Refnet</Link>
           </motion.h1>
@@ -53,15 +53,14 @@ const page = () => {
             transition={{
               duration: 0.6,
               delay: 0.2 * 2,
-              ease: "easeInOut",
+              ease: 'easeInOut'
             }}
-            className="w-8/12 text-center text-lg font-semibold tracking-tigth text-gray-400 leading-none"
+            className="w-8/12 text-center text-md font-semibold tracking-tigth text-gray-400 leading-none"
           >
-            Refnet is all about help other developers to showcase their proof of
-            work effortlessly and stand out in the eye of recruiters. As a
-            central platform, it significantly reduces the effort recruiters
-            spend searching for top talent, allowing them to dedicate more time
-            to reviewing candidates.
+            Refnet is all about help other developers to showcase their proof of work effortlessly
+            and stand out in the eye of recruiters. As a central platform, it significantly reduces
+            the effort recruiters spend searching for top talent, allowing them to dedicate more
+            time to reviewing candidates.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -69,21 +68,16 @@ const page = () => {
             transition={{
               duration: 0.5,
               delay: 0.2 * 4,
-              ease: "easeInOut",
+              ease: 'easeInOut'
             }}
             className="flex flex-col gap-1"
           >
-            <p className="text-sm  font-bold text-gray-600">
-              Developed by Arpit Blagan with ❤️.
-            </p>
+            <p className="text-sm  font-bold text-gray-600">Developed by Arpit Blagan with ❤️.</p>
             <div className="flex items-center justify-between">
               <Link href="https://github.com/ArpitBlagan" target="_blank">
                 <RiGithubFill className="text-gray-600 hover:text-white duration-300 ease-in-out" />
               </Link>
-              <Link
-                href="https://www.linkedin.com/in/arpit-blagan-79081b193/"
-                target="_blank"
-              >
+              <Link href="https://www.linkedin.com/in/arpit-blagan-79081b193/" target="_blank">
                 <RiLinkedinFill className="text-gray-600 hover:text-white duration-300 ease-in-out" />
               </Link>
               <Link href="https://x.com/arpit_blagan" target="_blank">
@@ -97,7 +91,7 @@ const page = () => {
             transition={{
               duration: 0.6,
               delay: 0.2 * 6,
-              ease: "easeInOut",
+              ease: 'easeInOut'
             }}
             className="flex items-center justify-center mt-3"
           >
@@ -117,7 +111,7 @@ const page = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

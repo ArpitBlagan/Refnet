@@ -76,10 +76,8 @@ const page = () => {
             </svg>
           </Link>
           <p className="text-lg">Welcome to Refnet</p>
-          <p className="text-md text-slate-300 text-center">
+          <p className="hidden md:block text-sm text-slate-300 text-center">
             Get started with Refnet and unlock great opportunites waiting for you.
-            <br />
-            Please provide your active email address so in future you don't miss any notifications.
           </p>
         </div>
         <form
@@ -156,7 +154,7 @@ const page = () => {
         </p>
       </div>
       <div>
-        <p className="text-md text-slate-600">
+        <p className="text-sm text-slate-600 text-center">
           By using Refnet, you agree to our Privacy Policy and Terms of Service.
         </p>
       </div>

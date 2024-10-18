@@ -15,10 +15,10 @@ const Second = () => {
       className="h-[30vh] relative flex flex-col gap-3"
     >
       <div className="text-gray-300 flex flex-col items-center">
-        <h1 className="md:text-xl text-center leading-[1] text-medium">
+        <h1 className="text-sm md:text-lg text-center leading-[1] text-medium">
           Showcase Your Skills, Unlock Referrals
         </h1>
-        <p className="text-center text-slate-600">
+        <p className="text-center text-sm md:text-md text-slate-600">
           Stand out from the crowd and catch the eye of recruiters 👀
         </p>
       </div>
