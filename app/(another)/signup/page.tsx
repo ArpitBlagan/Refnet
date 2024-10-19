@@ -146,7 +146,7 @@ const page = () => {
           }}
           className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
         >
-          With Github <RiGithubFill />
+          Get started with <RiGithubFill />
         </Button>
         <p>
           Already have an Account?{'  '}

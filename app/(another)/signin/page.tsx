@@ -131,7 +131,7 @@ function page() {
           }}
           className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
         >
-          Sign with Github <RiGithubFill />
+          Sign in with Github <RiGithubFill />
         </Button>
         <p>
           Don't have an Account?{'  '}
@@ -141,7 +141,7 @@ function page() {
         </p>
       </div>
       <div>
-        <p className="text-md text-slate-600">
+        <p className="text-sm text-slate-600 text-center0">
           By using Refnet, you agree to our Privacy Policy and Terms of Service.
         </p>
       </div>

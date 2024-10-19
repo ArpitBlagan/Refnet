@@ -51,7 +51,7 @@ const Home = () => {
                 delay: 3 * 0.2,
                 ease: 'easeInOut'
               }}
-              className="text-[5vw] tracking-tight font-medium"
+              className="text-[5vw] tracking-tight font-medium text-white"
             >
               to show-case your Work
             </motion.h1>

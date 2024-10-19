@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="flex flex-col gap-1  py-2 w-full  px-4 border-t border-zinc-800">
       <div className="flex flex-col gap-1">
         <div className="flex md:flex-row flex-col items-center gap-1">
-          <div className="flex md:flex-row flex-col items-center">
+          <div className="flex  items-center">
             <svg
               viewBox="0 0 200 200"
               xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ const Footer = () => {
             </div> */}
           {/* </div> */}
         </div>
-        <p className="text-slate-600 text-center text-lg px-2 tracking-tight  text-sm">
+        <p className="text-white/70 text-center md:text-lg px-2 tracking-tight  text-[10px]">
           We build Refnet to help developers to showcase their proof of work effortlessly and stand
           out in the eye of recruiters.
         </p>
