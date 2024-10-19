@@ -150,7 +150,7 @@ const page = () => {
         </Button>
         <p>
           Already have an Account?{'  '}
-          <a href="/signin" className="text-slate-600 underline">
+          <a href="/signin" className="text-blue-400 underline">
             Sign in
           </a>
         </p>

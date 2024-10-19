@@ -6,7 +6,10 @@ import { getServerSession } from 'next-auth'
 
 const page = async ({ params }: { params: any }) => {
   const session = await getServerSession(authOptions)
-
+  let userId = null
+  if (session && session.user) {
+    userId = session.user.id
+  }
   const id = params.id
   const res = await getPostById(id)
   if (res.error) {
@@ -81,15 +84,15 @@ const page = async ({ params }: { params: any }) => {
   } else {
     return (
       <div
-        className="flex-1 ml-[50px] md:ml-[250px] w-full overflow-y-scroll 
+        className="flex-1 p-2  w-full overflow-y-scroll 
     flex flex-col justify-start min-h-full  my-7"
       >
         <div className="mb-3">
           <h1 className="text-2xl font-semibold">Post</h1>
         </div>
 
-        <PostCard postData={res.postData} showToOther={false} userId={session.user.id} />
-        <CommentSection postId={id} userId={session.user.id} />
+        <PostCard postData={res.postData} showToOther={false} userId={userId} />
+        <CommentSection postId={id} userId={userId} />
         <div className="flex items-center justify-center mb-10">
           <p className="text-gray-600">No comments left</p>
         </div>

@@ -88,6 +88,7 @@ export default function Landing() {
             </>
           }
         >
+          <BorderBeam duration={50} />
           <Image
             src="https://d3e230op9b6du5.cloudfront.net/bg1 (1).jpg"
             alt="hero"
@@ -172,8 +173,9 @@ export default function Landing() {
             We are <br />
             Opensource
           </h1>
-          <p className="text-center text-slate-600 md:text-lg">
-            Think you can improve Refnet? Create a pull request and let others enjoy the benefits!
+          <p className="text-center text-slate-300 md:text-lg tracking-tight">
+            Think you can improve <span className="text-blue-400">Refnet</span>? Create a pull
+            request and let others enjoy the benefits!
           </p>
           <HoverBorderGradient containerClassName="rounded-full" className="">
             <Link

@@ -1,4 +1,5 @@
 import { useMotionValue, useSpring, useTransform, motion } from 'framer-motion'
+import { BorderBeam } from './ui/border-beam'
 
 const Card = ({ ele, index }: any) => {
   const x = useMotionValue(0)

@@ -105,8 +105,8 @@ const PostCard = ({
             />
           </div>
           <div>
-            <p className="font-bold">{postData.user.name}</p>
-            <p className="text-gray-600">{postData.user.email}</p>
+            <p className="">{postData.user.name}</p>
+            <p className="text-blue-400 text-sm">{postData.user.email}</p>
           </div>
           <FollowUnFollow
             userId={userId}
@@ -170,10 +170,10 @@ const PostCard = ({
         </div>
       )}
       <div className="flex items-center justify-end">
-        <p className="text-gray-600">{readableFormat(postData.postedAt)}</p>
+        <p className="text-gray-600 text-sm">{readableFormat(postData.postedAt)}</p>
       </div>
       <div
-        className="text-gray-300 md:text-lg text-center px-3"
+        className="text-gray-300 md:text-md text-[15px] text-center px-3"
         dangerouslySetInnerHTML={{ __html: highlightLinks(postData.caption) }}
       />
 

@@ -16,6 +16,7 @@ import Image from 'next/image'
 import { toast } from 'sonner'
 import { getTimeDiffOrDate, trimText } from '@/common'
 import { Triangle } from 'react-loader-spinner'
+import Link from 'next/link'
 const ReplyToComment = ({
   ele,
   userId,
@@ -80,17 +81,19 @@ const ReplyToComment = ({
         <DialogContent className="h-[90vh] bg-black overflow-hidden overflow-y-scroll ">
           <DialogHeader>
             <DialogTitle className="mb-5">
-              <div className="flex flex-col gap-3 pb-5 border-b border-zinc-800">
-                <p className="text-gray-400">
+              <div className="flex flex-col gap-3 pb-5 border-b border-zinc-800 mt-5">
+                <p className="text-[15px] md:text-sm text-gray-400">
                   Reply to Comment:{' '}
                   <span className="text-gray-200">{ele.comment.substr(0, 50)}</span>
                 </p>
-                <p className="text-gray-600 font-md text-sm text-end">By {ele.user.name}</p>
+                <p className="  text-end text-[15px] text-blue-400  md:text-sm">
+                  Author {ele.user.name}
+                </p>
               </div>
             </DialogTitle>
             <DialogDescription>
-              <div className="flex flex-col gap-3 ">
-                {userId && (
+              <div className="flex flex-col w-full gap-3 ">
+                {userId ? (
                   <form className="flex items-center gap-2">
                     <Input
                       placeholder="reply to the comment..."
@@ -112,6 +115,15 @@ const ReplyToComment = ({
                       {postLoading ? 'Commenting..' : 'Reply'}
                     </Button>
                   </form>
+                ) : (
+                  <div className="h-[15vh] flex flex-col gap-2 items-center justify-center ">
+                    <p className="text-center w-full">
+                      Your not logged in so you are not allowed to reply to this comment 🥲
+                    </p>
+                    <Link href="/signin" className="text-blue-400 underline">
+                      sign in
+                    </Link>
+                  </div>
                 )}
                 {loading ? (
                   <div className="h-full flex items-center justify-center">
@@ -119,7 +131,7 @@ const ReplyToComment = ({
                   </div>
                 ) : (
                   <div className="h-full  flex flex-col gap-2">
-                    <p>Comments</p>
+                    <p>Reply comments</p>
                     {comments.map((ele, index) => {
                       return (
                         <div className="flex border-b border-zinc-800 p-2 gap-2" key={index}>
@@ -134,19 +146,23 @@ const ReplyToComment = ({
                           </div>
                           <div className="flex-1 flex flex-col gap-1">
                             <div className="flex items-center gap-2">
-                              <p className="text-md font-bold">{ele.user.name}</p>
-                              <p className="text-gray-400 text-sm font-semibold">
+                              <p className="text-[10px] md:text-sm text-white  font-bold">
+                                {ele.user.name}
+                              </p>
+                              <p className="text-gray-400 text-[10px] md:text-sm ">
                                 {getTimeDiffOrDate(ele.createdAt)}
                               </p>
                             </div>
-                            <div className="flex flex-col gap-2 bg-gray-700 rounded-3xl  w-full">
-                              <p className="text-lg p-2 pl-3 text-white w-full">{ele.comment}</p>
+                            <div className="flex flex-col gap-2   w-full">
+                              <p className="md:text-md text-start text-[13px] p-2 pl-3 text-white w-full">
+                                {ele.comment}
+                              </p>
                             </div>
                           </div>
                         </div>
                       )
                     })}
-                    <p className="text-center my-3">
+                    <p className="text-center my-3 text-blue-400">
                       {comments.length == 0 ? 'No reply on this comment.' : "That's it."}
                     </p>
                   </div>

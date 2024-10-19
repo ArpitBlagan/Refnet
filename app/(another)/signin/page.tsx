@@ -135,13 +135,13 @@ function page() {
         </Button>
         <p>
           Don't have an Account?{'  '}
-          <a href="/signup" className="text-slate-600 underline">
+          <a href="/signup" className="text-blue-400 underline">
             Sign up
           </a>
         </p>
       </div>
       <div>
-        <p className="text-sm text-slate-600 text-center0">
+        <p className="text-sm text-slate-600 text-center">
           By using Refnet, you agree to our Privacy Policy and Terms of Service.
         </p>
       </div>

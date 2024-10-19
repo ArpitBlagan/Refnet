@@ -130,7 +130,7 @@ const CommentSection = ({ postId, userId }: any) => {
           </form>
         )}
         <div className="">
-          <h1 className="text-2xl font-semibold pb-3 border-b border-zinc-800 my-3">
+          <h1 className="md:text-xl font-medium pl-3 pb-3 border-b border-zinc-800 my-3">
             {comments.length} Total comments
           </h1>
           {initialLoading ? (
@@ -141,8 +141,8 @@ const CommentSection = ({ postId, userId }: any) => {
             <div className="flex flex-col gap-2">
               {comments.map((ele, index) => {
                 return (
-                  <div className="flex" key={index}>
-                    <div className="flex-1 px-5 flex flex-col gap-2">
+                  <div className="flex border-b border-zinc-800 bp-2" key={index}>
+                    <div className="flex-1 px-5 flex flex-col gap-1">
                       <div className=" flex items-center gap-2   py-2">
                         <Image
                           src={ele.user.profileImage}
@@ -151,13 +151,13 @@ const CommentSection = ({ postId, userId }: any) => {
                           height={50}
                           className="rounded-full"
                         />
-                        <p className="text-md font-bold">{ele.user.name}</p>
-                        <p className="text-gray-400 text-sm font-semibold">
+                        <p className="text-[13px] md:text-md font-medium">{ele.user.name}</p>
+                        <p className="text-gray-400 text-[10px] md:text-sm font-semibold">
                           {getTimeDiffOrDate(ele.createdAt)}
                         </p>
                       </div>
-                      <div className="flex flex-col gap-2 ">
-                        <p className="text-lg p-2 pl-3 bg-gray-700 rounded-3xl">{ele.comment}</p>
+                      <div className="flex">
+                        <p className="text-[15px] md:text-md p-2 pl-3 w-full">{ele.comment}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1">
@@ -167,7 +167,7 @@ const CommentSection = ({ postId, userId }: any) => {
                             postId={postId}
                             user={session?.user}
                           />{' '}
-                          <p className="text-gray-600 font-semibold">{ele.children.length}</p>
+                          <p className="text-gray-600 font-medium">{ele.children.length}</p>
                         </div>
                       </div>
                     </div>

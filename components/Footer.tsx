@@ -53,19 +53,19 @@ const Footer = () => {
             <Link
               href="https://github.com/ArpitBlagan/Refnet"
               target="_blank"
-              className="text-sm underline text-slate-600"
+              className="text-sm underline text-blue-400"
             >
               Github
             </Link>
-            <Link href="/signup" className="text-sm underline text-slate-600">
+            <Link href="/signup" className="text-sm underline text-blue-400">
               Signin/Signup
             </Link>
           </div>
           <div className="flex gap-2 items-center">
-            <Link href="/posts" className="text-sm underline text-slate-600">
+            <Link href="/posts" className="text-sm underline text-blue-400">
               Posts
             </Link>
-            <Link href="/about" className="text-sm underline text-slate-600">
+            <Link href="/about" className="text-sm underline text-blue-400">
               About
             </Link>
           </div>
