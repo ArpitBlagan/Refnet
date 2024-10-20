@@ -26,7 +26,7 @@ export type MediaFile = {
   preview: string
   type: 'image' | 'video'
 }
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [text, setText] = useState('')
@@ -208,4 +208,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
