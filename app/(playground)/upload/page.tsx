@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import { uploadFiles } from '@/app/actions/upload'
 import { trimText } from '@/common'
 import { Button } from '@/components/ui/button'

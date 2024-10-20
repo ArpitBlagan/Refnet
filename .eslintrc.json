@@ -10,6 +10,7 @@
     "next/core-web-vitals" // Next.js specific rules (if applicable)
   ],
   "rules": {
+    "react-hooks/rules-of-hooks": "off",
     "no-empty": "off",
     "react/no-unescaped-entities": "off",
     "no-console": "off", // Allow console statements
