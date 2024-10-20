@@ -56,7 +56,11 @@ const FollowersDialog = ({ id }: { id: string }) => {
                     >
                       <div className="flex items-center gap-3">
                         <Image
-                          src={ele.follower.profileImage}
+                          src={
+                            ele.follower.profileImage
+                              ? ele.follower.profileImage
+                              : 'https://avatar.vercel.sh/jane'
+                          }
                           alt=""
                           width={60}
                           height={60}

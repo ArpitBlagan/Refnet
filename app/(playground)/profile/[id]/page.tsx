@@ -17,7 +17,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-const page = async ({ params }: { params: any }) => {
+const Page = async ({ params }: { params: any }) => {
   const id = params.id
   if (!id) {
     return (
@@ -127,7 +127,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
             <div className="flex md:flex-row flex-col items-center gap-3 ">
               <div className="w-32 h-32 rounded-full overflow-hidden relative">
                 <Image
-                  src={res.userInfo.profileImage || ''} // Replace with your image path
+                  src={res.userInfo.profileImage || 'https://avatar.vercel.sh/jane'} // Replace with your image path
                   alt="Circular Image"
                   layout="fill" // Fills the container
                   objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container
@@ -192,7 +192,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 py-7 px-7">
           <h1 className="font-semibold text-2xl pb-3 border-b border-zinc-800">Projects</h1>
           <Posts userId={id} showToOther={true} myPosts={true} />
         </div>
@@ -201,4 +201,4 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
   }
 }
 
-export default page
+export default Page

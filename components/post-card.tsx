@@ -97,7 +97,11 @@ const PostCard = ({
         <div className="flex flex-wrap items-center gap-3 border-b border-zinc-800 py-2">
           <div className="w-12 h-12 rounded-full overflow-hidden relative">
             <Image
-              src={postData.user.profileImage} // Replace with your image path
+              src={
+                postData.user.profileImage
+                  ? postData.user.profileImage
+                  : 'https://avatar.vercel.sh/jane'
+              } // Replace with your image path
               alt="Circular Image"
               layout="fill" // Fills the container
               objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container

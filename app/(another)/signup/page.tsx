@@ -21,7 +21,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 import { BorderBeam } from '@/components/ui/border-beam'
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -164,4 +164,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

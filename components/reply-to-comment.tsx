@@ -137,7 +137,11 @@ const ReplyToComment = ({
                         <div className="flex border-b border-zinc-800 p-2 gap-2" key={index}>
                           <div className=" flex items-center gap-2   py-2">
                             <Image
-                              src={ele.user.profileImage || ''}
+                              src={
+                                ele.user.profileImage
+                                  ? ele.user.profileImage
+                                  : 'https://avatar.vercel.sh/jane'
+                              }
                               alt="image"
                               width={50}
                               height={50}

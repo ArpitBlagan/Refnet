@@ -52,7 +52,7 @@ const Posts = ({
     <div className="my-10">
       {header && (
         <div className="cursor-pointer flex item-center justify-between my-4">
-          {['All', 'Work', 'Referal'].map((ele, index) => {
+          {['All', 'Work', 'Referrals'].map((ele, index) => {
             return (
               <p
                 key={index}

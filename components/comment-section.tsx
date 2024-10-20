@@ -145,7 +145,11 @@ const CommentSection = ({ postId, userId }: any) => {
                     <div className="flex-1 px-5 flex flex-col gap-1">
                       <div className=" flex items-center gap-2   py-2">
                         <Image
-                          src={ele.user.profileImage}
+                          src={
+                            ele.user.profileImage
+                              ? ele.user.profileImage
+                              : 'https://avatar.vercel.sh/jane'
+                          }
                           alt="image"
                           width={50}
                           height={50}

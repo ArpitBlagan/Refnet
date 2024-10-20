@@ -17,7 +17,7 @@ import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 
-async function page() {
+async function Page() {
   const session = await getServerSession(authOptions)
   console.log(session)
   const res = await getProfileInfo(session.user.id)
@@ -119,7 +119,7 @@ async function page() {
             <div className="flex md:flex-row flex-col items-center gap-3 ">
               <div className="w-32 h-32 rounded-full overflow-hidden relative">
                 <Image
-                  src={res.profileImage || ''} // Replace with your image path
+                  src={res.profileImage || 'https://avatar.vercel.sh/jane'} // Replace with your image path
                   alt="Circular Image"
                   layout="fill" // Fills the container
                   objectFit="cover" // Ensures the image maintains its aspect ratio and covers the container
@@ -182,4 +182,4 @@ async function page() {
   }
 }
 
-export default page
+export default Page

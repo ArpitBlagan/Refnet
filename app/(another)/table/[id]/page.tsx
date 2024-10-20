@@ -2,7 +2,7 @@ import { getReferalPostInfo } from '@/app/actions/post'
 import TableInfo from '@/components/table-info'
 import { useEffect } from 'react'
 
-const page = async ({ params }: { params: any }) => {
+const Page = async ({ params }: { params: any }) => {
   const id = params.id
   const res = await getReferalPostInfo(id)
   console.log(res)
@@ -84,4 +84,4 @@ const page = async ({ params }: { params: any }) => {
   }
 }
 
-export default page
+export default Page

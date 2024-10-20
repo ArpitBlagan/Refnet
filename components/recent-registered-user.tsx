@@ -25,7 +25,7 @@ const RecentRegisteredUser = async () => {
             >
               <div className="flex items-center flex-wrap gap-3">
                 <Image
-                  src={ele.profileImage || ''}
+                  src={ele.profileImage || 'https://avatar.vercel.sh/jane'}
                   alt="image"
                   width={80}
                   height={80}
