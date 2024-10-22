@@ -14,7 +14,7 @@ import { useSocket } from '@/app/socket-context'
 import { getTimeDiffOrDate, isSame } from '@/common'
 import { Triangle } from 'react-loader-spinner'
 import Link from 'next/link'
-const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: string }) => {
+const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: string | null }) => {
   const socket = useSocket()
   useEffect(() => {
     if (socket) {
