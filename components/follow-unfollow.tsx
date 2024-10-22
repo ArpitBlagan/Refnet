@@ -20,11 +20,18 @@ const FollowUnFollow = ({
   const { data: session } = useSession()
   useEffect(() => {
     console.log(followers, following)
-    let ok = followers.find((ele) => ele.followerId == userId || ele.followerId == session?.user.id)
-    if (ok) {
-      setStatus('Unfollow')
-    } else {
-      setStatus('Follow')
+    if (session && session.user) {
+      let ok = followers.find(
+        (ele) =>
+          ele.followerId == userId ||
+          //@ts-ignore
+          ele.followerId == session.user?.id
+      )
+      if (ok) {
+        setStatus('Unfollow')
+      } else {
+        setStatus('Follow')
+      }
     }
   }, [userId, following, userPostId, following])
   const [loading, setLoading] = useState(false)

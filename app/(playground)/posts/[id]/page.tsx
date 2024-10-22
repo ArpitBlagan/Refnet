@@ -1,5 +1,5 @@
 import { getPostById } from '@/app/actions/post'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth'
 import CommentSection from '@/components/comment-section'
 import PostCard from '@/components/post-card'
 import { getServerSession } from 'next-auth'

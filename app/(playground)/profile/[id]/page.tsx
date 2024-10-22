@@ -3,7 +3,6 @@ import { isMissing, readableFormat } from '@/common'
 import FollowUnFollow from '@/components/follow-unfollow'
 import FollowersDialog from '@/components/followers-dialog'
 import FollowingDialog from '@/components/following-dialog'
-import FollowOrUnfollow from '@/components/FollowOrUnfollow'
 import Posts from '@/components/Posts'
 import { Button } from '@/components/ui/button'
 import UpdateProfileCount from '@/components/update-profile-count'
@@ -31,7 +30,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
   }
   const res = await getUserInfoById(id)
   console.log(res)
-  if (!res && res?.error) {
+  if (res.error) {
     return (
       <div className="main_wrapper">
         <div className="main">
@@ -100,7 +99,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
         </div>
       </div>
     )
-  } else {
+  } else if (res.userInfo) {
     return (
       <div
         className="flex-1 w-full overflow-y-scroll 

@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth'
 import Notification from '@/components/Notification'
 import Posts from '@/components/Posts'
 import { getServerSession } from 'next-auth'

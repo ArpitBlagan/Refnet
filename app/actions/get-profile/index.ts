@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth'
 import prisma from '@/db'
 import { getServerSession } from 'next-auth'
 export let getProfileInfo: (id: string) => any
@@ -39,7 +39,7 @@ export const getUserInfoById = async (id: string) => {
       where: { id },
       include: { posts: true, followers: true, following: true }
     })
-    return { userInfo }
+    return { messsage: 'fetched successfully', userInfo }
   } catch (err) {
     return { error: 'something went wrong.' }
   }

@@ -1,5 +1,5 @@
 import { getProfileInfo } from '@/app/actions/get-profile'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth'
 import { isMissing, readableFormat } from '@/common'
 import EditProfile from '@/components/edit-profile'
 import FollowersDialog from '@/components/followers-dialog'
