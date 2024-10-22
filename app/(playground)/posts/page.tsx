@@ -8,7 +8,7 @@ import React from 'react'
 const page = async () => {
   const session = await getServerSession(authOptions)
   let userId = ''
-  if (session.user) {
+  if (session && session.user) {
     userId = session.user.id
   }
   return (

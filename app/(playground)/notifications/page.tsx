@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 const page = async () => {
   const session = await getServerSession(authOptions)
   let userId = null
-  if (session.user) {
+  if (session && session.user) {
     userId = session.user.id
   }
   return (

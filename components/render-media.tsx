@@ -25,12 +25,10 @@ const RenderMedia = ({ media }: any) => {
                   Your browser does not support the video tag.
                 </video>
               ) : (
-                <Image
+                <img
                   src={ele}
                   alt="media image"
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
+                  className="object-cover w-full h-full rounded-lg"
                 />
               )}
             </div>
