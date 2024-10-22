@@ -4,7 +4,6 @@ import FollowUnFollow from '@/components/follow-unfollow'
 import FollowersDialog from '@/components/followers-dialog'
 import FollowingDialog from '@/components/following-dialog'
 import Posts from '@/components/Posts'
-import { Button } from '@/components/ui/button'
 import UpdateProfileCount from '@/components/update-profile-count'
 import {
   RiCalendarTodoFill,

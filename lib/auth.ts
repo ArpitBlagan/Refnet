@@ -41,7 +41,7 @@ export const authOptions = {
       clientSecret: process.env.AUTH_GITHUB_SECRET as string
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_AUTH_SECRET || 'asdfasf@#@',
   callbacks: {
     async redirect({ url, baseUrl }: any) {
       return baseUrl
