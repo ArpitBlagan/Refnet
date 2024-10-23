@@ -12,8 +12,8 @@ const page = async () => {
     userId = session.user.id
   }
   return (
-    <div className="mx-5 my-5 md:mr-[330px]">
-      <div>
+    <div className=" mx-5 my-5 md:mr-[330px] ">
+      <div className="">
         <div className=" border-b border-zinc-800 pb-4">
           <h1 className="font-semibold text-3xl">Feed</h1>
         </div>

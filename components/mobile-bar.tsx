@@ -59,25 +59,24 @@ const items = [
     path: '/profile'
   }
 ]
-function Sidebar() {
+function Mobilebar() {
   const pathname = usePathname()
   return (
     <div
-      className="hidden lg:flex md:w-[235px] border-r border-zinc-800 w-[50px] 
-    flex-col gap-7 items-center h-full px-10 py-10"
+      className="flex lg:hidden lg:w-[235px] w-full rounded-xl
+    gap-1 items-center justify-around px-2 py-2 bottom-0 sticky bg-gray-700 "
     >
       {items.map((ele, index) => {
         return (
           <Link
             href={ele.path}
             key={index}
-            className={`flex items-center font-semibold justify-center gap-3 py-2 px-3 rounded-xl 
+            className={`flex items-center font-semibold justify-center py-2 px-2 rounded-xl 
               hover:bg-gray-700 duration-300 ease-in-out ${
                 ele.path == pathname ? ' bg-gray-800 text-blue-400' : ''
               }`}
           >
             {ele.path == pathname ? ele.selectedIcon : ele.icon}
-            <span className="hidden md:inline">{ele.text}</span>
           </Link>
         )
       })}
@@ -85,4 +84,4 @@ function Sidebar() {
   )
 }
 
-export default Sidebar
+export default Mobilebar

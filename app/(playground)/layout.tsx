@@ -9,6 +9,7 @@ import Sidebar from '@/components/Sidebar'
 // import Rightbar from "@/components/Rightbar";
 import { Toaster } from 'sonner'
 import { SocketProvider } from '../socket-context'
+import Mobilebar from '@/components/mobile-bar'
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -38,9 +39,12 @@ export default async function RootLayout({
         <Provider session={session}>
           <SocketProvider>
             <Toaster richColors />
-            <div className="flex h-screen w-screen ">
-              <Sidebar />
-              <div className="flex-1 overflow-y-auto">{children}</div>
+            <div>
+              <div className="flex  ">
+                <Sidebar />
+                <div className="flex-1 overflow-y-auto ">{children}</div>
+              </div>
+              <Mobilebar />
             </div>
           </SocketProvider>
         </Provider>
