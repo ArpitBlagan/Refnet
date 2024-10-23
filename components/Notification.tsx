@@ -62,7 +62,7 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
   }
 
   useEffect(() => {
-    if (userId && userId.length) {
+    if (userId) {
       loadPosts(page)
     }
   }, [page])
@@ -146,7 +146,7 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
         (!userId ? (
           <div className={` flex flex-col gap-3 items-center justify-center`}>
             <p className="text-center">
-              Oops you need to sign in first to able to see related notifications 🥲
+              Oops you need to sign in first to able to see related notifications.
             </p>
             <Link href="/signin" className="text-blue-400 underline">
               sign in
