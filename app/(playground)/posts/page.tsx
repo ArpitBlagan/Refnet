@@ -7,7 +7,7 @@ import React from 'react'
 
 const page = async () => {
   const session = await getServerSession(authOptions)
-  let userId = ''
+  let userId = null
   if (session && session.user) {
     userId = session.user.id
   }
@@ -21,7 +21,7 @@ const page = async () => {
         <Posts header={true} userId={userId} />
       </div>
       <div className="absolute right-0 top-0 overflow-hidden hidden md:block flex items-center jusitfy-center pt-10">
-        <Notification postPerPage={5} userId="" />
+        <Notification postPerPage={5} userId={userId} />
       </div>
     </div>
   )
