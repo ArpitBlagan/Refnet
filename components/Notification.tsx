@@ -142,16 +142,21 @@ const Notification = ({ postPerPage, userId }: { postPerPage: number; userId: st
             )
           })}
       </div>
-      {notifications.length == 0 && (
-        <div className={` flex flex-col gap-3 items-center justify-center`}>
-          <p className="text-center">
-            Oops you need to sign in first to able to see related notifications 🥲
-          </p>
-          <Link href="/signin" className="text-blue-400 underline">
-            sign in
-          </Link>
-        </div>
-      )}
+      {notifications.length == 0 &&
+        (!userId ? (
+          <div className={` flex flex-col gap-3 items-center justify-center`}>
+            <p className="text-center">
+              Oops you need to sign in first to able to see related notifications 🥲
+            </p>
+            <Link href="/signin" className="text-blue-400 underline">
+              sign in
+            </Link>
+          </div>
+        ) : (
+          <div className={` flex flex-col gap-3 items-center justify-center`}>
+            <p>No notifications related you 👀.</p>
+          </div>
+        ))}
     </div>
   )
 }

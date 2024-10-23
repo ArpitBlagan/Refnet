@@ -5,8 +5,7 @@ import {
   RiDeleteBinLine,
   RiHeart3Fill,
   RiHeart3Line,
-  RiMore2Line,
-  RiShareForwardLine
+  RiMore2Line
 } from '@remixicon/react'
 import {
   DropdownMenu,
@@ -113,7 +112,6 @@ const PostCard = ({
             <p className="text-blue-400 text-sm">{postData.user.email}</p>
           </div>
           <FollowUnFollow
-            userId={userId}
             userPostId={postData.user.id}
             followers={postData.user.followers}
             following={postData.user.following}

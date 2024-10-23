@@ -137,7 +137,6 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
               </p>
             </div>
             <FollowUnFollow
-              userId={''}
               userPostId={id}
               following={res.userInfo.following}
               followers={res.userInfo?.followers}

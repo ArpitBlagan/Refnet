@@ -6,24 +6,26 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
 const FollowUnFollow = ({
-  userId,
   followers,
   userPostId,
   following
 }: {
-  userId: string
   followers: any[]
   userPostId: string
   following: any[]
 }) => {
   const [status, setStatus] = useState('')
   const { data: session } = useSession()
+  let userId = null
+  if (session && session.user) {
+    //@ts-ignore
+    userId = session.user.id
+  }
   useEffect(() => {
     console.log(followers, following)
     if (session && session.user) {
       let ok = followers.find(
         (ele) =>
-          ele.followerId == userId ||
           //@ts-ignore
           ele.followerId == session.user?.id
       )
@@ -33,21 +35,16 @@ const FollowUnFollow = ({
         setStatus('Follow')
       }
     }
-  }, [userId, following, userPostId, following])
+  }, [following, userPostId, following])
   const [loading, setLoading] = useState(false)
   const handleClick = async () => {
-    if (!userId && !session?.user) {
+    if (!session || !session?.user) {
       return toast.error('You need to Sign in first.')
     }
     setLoading(true)
     try {
-      let followerId
-      if (userId.length) {
-        followerId = userId
-      } else {
-        //@ts-ignore
-        followerId = session?.user.id
-      }
+      //@ts-ignore
+      let followerId = session.user.id
       if (status == 'Unfollow') {
         await axios.delete(`/api/follow?followerId=${followerId}&followingId=${userPostId}`)
       } else {
