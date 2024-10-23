@@ -25,6 +25,7 @@ const Analytics = ({ postId }: { postId: string }) => {
       try {
         const res = await axios.get(`/api/opinion?postId=${postId}`)
         setData(res.data)
+        console.log(res.data)
       } catch (err) {
       } finally {
         setLoading(false)

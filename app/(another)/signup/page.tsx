@@ -87,14 +87,14 @@ const Page = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800"
+            className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800 text-white"
             placeholder="Enter your name"
             {...register('name')}
           />
           {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
 
           <Input
-            className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800"
+            className="w-full lg:w-1/2 py-3 bg-black  h-[40px] border-zinc-800 text-white"
             placeholder="Enter your email address"
             {...register('email')}
           />
@@ -106,7 +106,7 @@ const Page = () => {
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
               {...register('password')}
-              className=" w-full py-3  h-[40px] border-zinc-800"
+              className=" w-full py-3  h-[40px] border-zinc-800 text-white"
             />
             <Button
               type="button"
@@ -125,7 +125,7 @@ const Page = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="py-5 hover:bg-gray-700 duration-300 ease-in-out mb-3 w-1/2"
+            className="py-5 text-white hover:bg-gray-700 duration-300 ease-in-out mb-3 w-1/2"
           >
             Get started 🪄
           </Button>
@@ -144,11 +144,11 @@ const Page = () => {
               console.log(err)
             }
           }}
-          className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
+          className="flex items-center text-white gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
         >
           Get started with <RiGithubFill />
         </Button>
-        <p>
+        <p className="text-white">
           Already have an Account?{'  '}
           <a href="/signin" className="text-blue-400 underline">
             Sign in

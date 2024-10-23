@@ -79,7 +79,7 @@ function Page() {
               />
             </svg>
           </Link>
-          <p className="text-lg">Welcome back to Refnet</p>
+          <p className="text-lg text-white">Welcome back to Refnet</p>
           {/* <p className="text-md tracking-tight text-gray-300">
           For testing purpose I have already put the credentials so you guys don't have to 👀.
           </p>  */}
@@ -90,7 +90,7 @@ function Page() {
         >
           <Input
             {...register('email')}
-            className="w-full lg:w-1/2 border-zinc-800 bg-black  h-[40px]"
+            className="w-full lg:w-1/2 border-zinc-800 bg-black  h-[40px] text-white"
             placeholder="Enter your email address"
           />
           {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
@@ -99,7 +99,7 @@ function Page() {
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
               {...register('password')}
-              className=" w-full py-3  h-[40px] border-zinc-800"
+              className=" w-full py-3  h-[40px] border-zinc-800 text-white"
             />
             <Button
               type="button"
@@ -118,7 +118,7 @@ function Page() {
           <Button
             type="submit"
             disabled={loading}
-            className="py-5 hover:bg-gray-700 duration-300 ease-in-out mb-3 w-1/2"
+            className="py-5 hover:bg-gray-700 text-white duration-300 ease-in-out mb-3 w-1/2"
           >
             Sign in
           </Button>
@@ -129,7 +129,7 @@ function Page() {
             e.preventDefault()
             await signIn('github', { callbackUrl: '/profile' })
           }}
-          className="flex items-center gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
+          className="flex items-center text-white gap-3 mt-3 hover:bg-gray-700 duration-300 ease-in-out"
         >
           Sign in with Github <RiGithubFill />
         </Button>
