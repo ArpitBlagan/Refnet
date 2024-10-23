@@ -10,8 +10,8 @@ const page = async () => {
   }
   return (
     <div
-      className="flex-1 mx-7 overflow-y-scroll 
-  flex flex-col justify-start min-h-full  mt-7 mb-10 "
+      className="flex-1 mx-7 
+  flex flex-col justify-start min-h-full  mt-7 mb-10 overflow-y-scroll"
     >
       <Notification postPerPage={40} userId={userId} />
     </div>

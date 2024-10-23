@@ -40,7 +40,7 @@ export default async function RootLayout({
           <SocketProvider>
             <Toaster richColors />
             <div>
-              <div className="flex  ">
+              <div className="flex h-screen">
                 <Sidebar />
                 <div className="flex-1 overflow-y-auto ">{children}</div>
               </div>

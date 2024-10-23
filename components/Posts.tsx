@@ -49,7 +49,7 @@ const Posts = ({
   }, [page, type])
 
   return (
-    <div className="my-10">
+    <div className="my-10 overflow-y-scroll">
       {header && (
         <div className="cursor-pointer flex item-center justify-between my-4">
           {['All', 'Work', 'Referrals'].map((ele, index) => {
