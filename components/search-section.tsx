@@ -76,7 +76,7 @@ const SearchSection = () => {
           </div>
         ) : (
           <div className="flex flex-col gap-5">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid md:grid-cols-2 gap-3">
               {results.map((ele, index) => {
                 return (
                   <Link
@@ -84,7 +84,7 @@ const SearchSection = () => {
                     key={index}
                     className="flex flex-col gap-1 border py-2 px-4 rounded-xl border-zinc-800"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <Image
                         src={ele.profileImage ? ele.profileImage : 'https://avatar.vercel.sh/jane'}
                         alt="image"
@@ -97,7 +97,7 @@ const SearchSection = () => {
                         Profile views: <span>{ele.profileView}</span>
                       </p>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center flex-wrap justify-between">
                       <p className="text-sm text-gray-700">{ele.email}</p>
                       <p className="text-sm text-gray-700">
                         {readableFormat(new Date(ele.joinedAt))}
