@@ -135,7 +135,7 @@ export default function Landing() {
         </div>
       </div> */}
       <div className="relative flex md:flex-row flex-col border items-center justify-between px-7 bg-[#f8f8fa] min-h-[500px] rounded-2xl xl:rounded-full mb-5">
-        <BorderBeam size={450} duration={32} delay={9} />
+        <BorderBeam className="hidden  md:block" size={450} duration={32} delay={9} />
         <div className="flex flex-col gap-10 md:items-center pt-10 h-full pl-4">
           <h1 className="text-3xl md:text-[3vw] font-semibold text-black/70 uppercase">
             Why you should
