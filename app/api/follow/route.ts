@@ -29,7 +29,7 @@ export const POST = async (req: NextRequest) => {
           actorId: followerId
         }
       })
-      await sendNotificationToOtherBackend(notification)
+      //await sendNotificationToOtherBackend(notification)
     }
     return NextResponse.json({ message: 'Operation performed' })
   } catch (err) {

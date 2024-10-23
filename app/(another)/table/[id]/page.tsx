@@ -1,11 +1,10 @@
 import { getReferalPostInfo } from '@/app/actions/post'
 import TableInfo from '@/components/table-info'
-import { useEffect } from 'react'
 
 const Page = async ({ params }: { params: any }) => {
   const id = params.id
   const res = await getReferalPostInfo(id)
-  console.log(res)
+  console.log('users who applied', res)
   if (res.error) {
     return (
       <div className="main_wrapper">

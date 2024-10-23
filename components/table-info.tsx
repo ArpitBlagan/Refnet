@@ -56,12 +56,12 @@ const TableInfo = ({ data }: { data: any }) => {
                     </p>
                   </TableCell>
                   <TableCell>
-                    <Link href={ele.user.resumeLink} target="_blank">
+                    <Link href={ele.user.resumeLink || ''} target="_blank">
                       link
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link href={ele.user.githubLink} target="_blank">
+                    <Link href={ele.user.githubLink || ''} target="_blank">
                       link
                     </Link>
                   </TableCell>
