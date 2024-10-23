@@ -6,6 +6,7 @@ import React from 'react'
 
 const RecentRegisteredUser = async () => {
   const data = await getRecentRegisteredUser()
+
   if (data.error) {
     return (
       <div className="h-[40vh] flex items-center justify-center">

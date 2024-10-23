@@ -36,6 +36,7 @@ export const POST = async (req: NextRequest) => {
       message: 'Successfully added you opinion'
     })
   } catch (err) {
+    console.log('err', err)
     return NextResponse.json(
       {
         error: 'Not able to add your opinion'

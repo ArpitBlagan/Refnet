@@ -14,7 +14,7 @@ const FollowUnFollow = ({
   userPostId: string
   following: any[]
 }) => {
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState('Follow')
   const { data: session } = useSession()
   let userId = null
   if (session && session.user) {
@@ -76,7 +76,7 @@ const FollowUnFollow = ({
           disabled={loading}
           className="border text-semibold p-1 px-3 border-blue-800 text-blue-400 hover:bg-blue-100 duration-300 ease-in-out"
         >
-          {loading == false && <p>{userId ? status : 'Follow'}</p>}
+          {loading == false && <p>{status}</p>}
         </Button>
       )}
     </div>

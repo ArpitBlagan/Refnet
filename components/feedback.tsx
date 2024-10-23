@@ -13,10 +13,11 @@ const Feedback = ({ postData, userId }: { postData: any; userId: string }) => {
     setSubmitLoading(true)
     try {
       await axios.post('/api/opinion', {
-        postId: postData,
+        postId: postData.id,
         userId,
         response: value
       })
+      setFeedbackGiven(true)
       setFeedbackGiven(true)
     } catch (err) {
       toast.error('something went wrong while storing you feedback 👀.')
@@ -29,9 +30,10 @@ const Feedback = ({ postData, userId }: { postData: any; userId: string }) => {
       setFeedbackGiven(true)
     } else {
       //check weather is already given or not.
-      // if(postData.opinion.include(userId)){
-      //   setFeedbackGiven(true);
-      // }
+      const present = postData.opinions.find((ele: any) => (ele.userId = userId))
+      if (present) {
+        setFeedbackGiven(true)
+      }
     }
   }, [postData, userId])
   return (
@@ -44,13 +46,13 @@ const Feedback = ({ postData, userId }: { postData: any; userId: string }) => {
                 Your impression about the project/work by considering everythink like its ui, idea,
                 implementation etc.
               </p>
-              <div className="flex items-center justify-around my-10">
+              <div className="flex items-center md:justify-around gap-3 flex-wrap my-10">
                 {['Normal', 'Impressive', 'Excellent'].map((ele, index) => {
                   return (
                     <Button
                       onClick={(e) => {
                         e.preventDefault()
-                        setFeedbackGiven(true)
+
                         submitFeedback(ele.toUpperCase())
                       }}
                       disabled={submitLoading}

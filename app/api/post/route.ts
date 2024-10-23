@@ -33,6 +33,7 @@ export const GET = async (req: NextRequest) => {
       include: {
         likes: true,
         applications: true,
+        opinions: true,
         user: {
           include: { followers: true, following: true }
         }

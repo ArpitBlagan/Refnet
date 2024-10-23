@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = async (req: NextRequest) => {
   const { followerId, followingId } = await req.json()
+  console.log(followerId, followingId)
   try {
     const [follower, userFrom] = await prisma.$transaction([
       prisma.follower.create({

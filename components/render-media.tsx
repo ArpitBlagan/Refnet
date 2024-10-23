@@ -10,17 +10,13 @@ import Image from 'next/image'
 
 const RenderMedia = ({ media }: any) => {
   return (
-    <Carousel className="flex h-[400px] items-center justify-center overflow-hidden border border-zinc-800 rounded-xl w-full relative p-2">
+    <Carousel className="flex  items-center justify-center overflow-hidden border border-zinc-800 rounded-xl w-full relative p-2">
       <CarouselContent>
         {media.map((ele: string, index: number) => (
           <CarouselItem key={index} className="flex items-center justify-center ">
-            <div className="relative w-full h-full ">
+            <div className="relative w-full h-[70%] ">
               {isVideo(ele) ? (
-                <video
-                  controls
-                  className="object-cover w-full h-full rounded-lg"
-                  style={{ display: 'block' }}
-                >
+                <video controls className="object-contain w-full h-full rounded-lg">
                   <source src={ele} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
@@ -28,7 +24,7 @@ const RenderMedia = ({ media }: any) => {
                 <img
                   src={ele}
                   alt="media image"
-                  className="object-cover w-full h-full rounded-lg"
+                  className="object-contain w-full h-full rounded-lg"
                 />
               )}
             </div>
