@@ -116,7 +116,7 @@ flex flex-col justify-start min-h-full  mt-7 mb-10 mx-7"
             <div className="">
               {isMissing(res.userInfo) && (
                 <p className="py-2 bg-red-500 px-4 rounded-md text-md font-semibold">
-                  Profile is uncomplete 🥲.
+                  Profile is not complete 🥲.
                 </p>
               )}
             </div>

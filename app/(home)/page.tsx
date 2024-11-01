@@ -106,7 +106,7 @@ export default function Landing() {
               What we offer
             </h1>
             <p className="text-2xl tracking-tighter sm:text-3xl md:text-3xl text-white/40">
-              Enter in the world of Refent, explore out of box features and show case you work
+              Enter in the world of Refnet, explore out of box features and show case you work
               effortlessly.
             </p>
           </div>

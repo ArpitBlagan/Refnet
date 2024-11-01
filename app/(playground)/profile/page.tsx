@@ -108,7 +108,7 @@ async function Page() {
             <div className="">
               {isMissing(res) && (
                 <p className="py-2 bg-red-500 px-4 rounded-md text-md font-semibold">
-                  Your Profile is complete 🥲 click on Edit profile and complete it.
+                  Your Profile is not complete 🥲 click on Edit profile and complete it.
                 </p>
               )}
             </div>
